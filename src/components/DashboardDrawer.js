@@ -1,0 +1,92 @@
+import * as React from 'react';
+import Divider from '@mui/material/Divider';
+import Modal from '@mui/material/Modal';
+
+import HomeIcon from '@mui/icons-material/Home';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import GroupsIcon from '@mui/icons-material/Groups';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import styled from "@emotion/styled";
+import {useNavigate} from "react-router-dom";
+import {useRecoilState} from "recoil";
+import addItemModalOpenState from "../state/atoms/addItemModalOpen";
+import CustomModal from "./CustomModal";
+import AddItemForm from "./AddItemForm";
+
+
+
+const DrawerEl = styled.div`
+  border-right: 1px solid var(--border-color-light);
+`
+
+
+function DashboardDrawer(props) {
+    const [addItemModalOpen, setAddItemModalOpen] = useRecoilState(addItemModalOpenState);
+    let navigate = useNavigate();
+
+    const handleOpenAddItemModal = () => {
+        setAddItemModalOpen(true)
+    }
+
+    const links = [
+        {title: 'Dashboard', icon: <HomeIcon/>, url: '/'},
+        {title: 'Add Item', icon: <PlaylistAddIcon/>, action: handleOpenAddItemModal},
+        {title: 'Your List', url: '/wishlist', icon: <FormatListBulletedIcon/>},
+        {title: 'Lists', url: '/lists', icon: <FormatListNumberedIcon/>},
+        {title: 'Money', icon: <AttachMoneyIcon/>, action: handleOpenAddItemModal},
+
+    ]
+
+    const accountLinks = [
+        {title: 'Account', url: '/account', icon: <AccountCircleIcon/>},
+        {title: 'Your Groups', url: '/account/groups', icon: <GroupsIcon/>},
+        {title: 'Subusers', url: '/account/subusers', icon: <SupervisorAccountIcon/>},
+    ]
+
+
+    function renderList(links) {
+        return <List>
+            {links.map((link) => (
+                <ListItem key={link.title} disablePadding>
+                    <ListItemButton onClick={() => {
+                        if (link.action) {
+                            link['action']()
+                        };
+                        if (link.url) {
+                            navigate(link.url)
+                        }
+                    }}>
+                        <ListItemIcon>
+                            {link.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={link.title}/>
+                    </ListItemButton>
+                </ListItem>
+            ))}
+        </List>
+    }
+
+    return (
+            <DrawerEl>
+                {renderList(links)}
+                <Divider/>
+                {renderList(accountLinks)}
+                <CustomModal open={addItemModalOpen} setOpen={setAddItemModalOpen} size="large">
+                    <AddItemForm afterSubmit={() => setAddItemModalOpen(false)}/>
+                </CustomModal>
+            </DrawerEl>
+    );
+}
+
+export default DashboardDrawer;
+
+

@@ -1,0 +1,58 @@
+type Comments @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  isWishlistComment: String!
+  posterId: String!
+  groupIds: [String!]
+  isVisibleToOwner: Boolean!
+  commentText: String!
+  parentId: String!
+}
+
+type Theme @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userId: String
+  themeName: String
+}
+
+type Money @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  owedFromId: String!
+  owedToId: String!
+  amount: Float!
+}
+
+type WishlistItem @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  price: String
+  images: [String]
+  note: String
+  groups: [String]
+  ownerId: String!
+  priority: String
+  link: String
+  gottenBy: [String]
+  wantsToGet: [String]
+}
+
+type Groups @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  groupName: String
+  memberId: [String]
+  createdBy: String!
+  additionalAdmins: [String]
+}
+
+type Subusers @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  username: String!
+  parentId: String!
+}
+
+type Users @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  username: String!
+  email: String
+  authUsername: String
+}
+ 

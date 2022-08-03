@@ -1,13 +1,56 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/*css variables*/
+
+html {
+  /*  Colors*/
+  --primary-color: #1E88E5;
+  --secondary-color: #7e57c2;
+  --dark-color: #24292e;
+  --background-color: #e3f2fd;
+  --green-color: #44FFD2;
+  --pink-color: #FF8484;
+  --border-color-light: rgba(0, 0, 0, 0.12);
+  --delete-red: #fd5858;
+/*    sizes */
+  --desktop-page-margin: 30px;
+  --header-height: 60px;
+  --footer-height: 60px;
+  --small-box-shadow: 1px 1px 1px black;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+}
+
+[data-amplify-authenticator] {
+  --amplify-colors-background-primary:red;
+  --amplify-colors-background-secondary: yellow;
+  --amplify-components-tabs-item-active-color: var(--secondary-color);
+  --amplify-components-tabs-item-focus-color: var(--secondary-color);
+  --amplify-components-tabs-item-hover-color: var(--secondary-color);
+  --amplify-components-button-primary-hover-background-color: var(--secondary-color);
+  --amplify-components-button-primary-background-color: var(--secondary-color);
+  --amplify-components-tabs-item-color: var(--dark-color);
+  --amplify-components-tabs-item-active-border-color: var(--secondary-color);
+  --amplify-components-button-link-hover-color: var(--primary-color);
+  --amplify-components-button-link-hover-background-color: var(--background-color);
+  --amplify-components-button-link-color: var(--primary-color);
+  /*--amplify-colors-brand-primary-10: red;*/
+  /*--amplify-colors-brand-primary-80: orange;*/
+  /*--amplify-colors-brand-primary-90: yellow;*/
+  /*--amplify-colors-brand-primary-100: pink;*/
+  /*--amplify-colors-font-interactive: blue;*/
+}
+
+[data-amplify-authenticator] div[data-amplify-container] {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--background-color)
+}
+
+[data-amplify-authenticator] [data-amplify-router] {
+  width: var(--amplify-components-authenticator-container-width-max);
+  margin: 100px auto;
 }
