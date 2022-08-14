@@ -29,6 +29,10 @@ export default function GroupInvited(props) {
     const [areYouSureOpen, setAreYouSureOpen] = useState(false);
     const updateGroups = useSetRecoilState(groupsByUserId(myUser.id))
 
+    useEffect(() => {
+        updateGroups(0)
+    }, [updateGroups]);
+
     async function handleDeleteFromGroup() {
         await toggleAmplifyArrayItem(Groups, group.id, 'invitedEmail', email);
         updateGroups()

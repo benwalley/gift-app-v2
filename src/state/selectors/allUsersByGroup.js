@@ -27,7 +27,7 @@ export const allUsersByGroup = selector({
         return users.filter(Boolean).flat()
     },
 
-    set: (wishlistId) => ({get, set}, newValue) => {
+    set: ({get, set}) => {
         set(allUsersByGroupVersion, get(allUsersByGroupVersion) + 1);
     },
 });

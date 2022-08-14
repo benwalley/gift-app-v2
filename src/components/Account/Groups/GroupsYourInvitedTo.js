@@ -5,6 +5,7 @@ import useRecoilHook from "../../../hooks/useRecoilHook";
 import {currentUser} from "../../../state/selectors/currentUser";
 import InvitedGroupItem from "./InvitedGroupItem";
 import {invitedByEmail} from "../../../state/selectors/invitedByEmail";
+import {useSetRecoilState} from "recoil";
 
 const ContainerEl = styled.div`
     display: grid;
@@ -21,6 +22,11 @@ const ContainerEl = styled.div`
 export default function YourGroupList(props) {
     const user = useRecoilHook(currentUser)
     const groups = useRecoilHook(invitedByEmail(user.email))
+    const updateGroups = useSetRecoilState(invitedByEmail(user.email))
+
+    useEffect(() => {
+        updateGroups(0)
+    }, [updateGroups]);
 
     return (
         <ContainerEl>

@@ -171,15 +171,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "owedFromName": {
-                    "name": "owedFromName",
+                "owedFromId": {
+                    "name": "owedFromId",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "owedToName": {
-                    "name": "owedToName",
+                "owedToId": {
+                    "name": "owedToId",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -190,20 +190,6 @@ export const schema = {
                     "isArray": false,
                     "type": "Float",
                     "isRequired": true,
-                    "attributes": []
-                },
-                "ownerId": {
-                    "name": "ownerId",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "note": {
-                    "name": "note",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -388,7 +374,7 @@ export const schema = {
                     "name": "groupName",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "memberId": {
@@ -408,14 +394,6 @@ export const schema = {
                 },
                 "additionalAdmins": {
                     "name": "additionalAdmins",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "invitedEmail": {
-                    "name": "invitedEmail",
                     "isArray": true,
                     "type": "String",
                     "isRequired": false,
@@ -495,6 +473,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "subuserModeOn": {
+                    "name": "subuserModeOn",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "parentId": {
                     "name": "parentId",
                     "isArray": false,
@@ -547,5 +532,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "91c3308bd6c1e63fd4c3a4c33a7cf268"
+    "version": "2be07eb8d5ff577ead112dee5341083e"
 };

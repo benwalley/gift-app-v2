@@ -1,10 +1,11 @@
-import React, {} from 'react';
+import React, {useEffect} from 'react';
 import styled from "@emotion/styled";
 import NewGroupForm from "./NewGroupForm";
 import YourGroupList from "./YourGroupList";
 import InviteUserToGroupsForm from "./InviteUserToGroupsForm";
 import GroupsYourInvitedTo from "./GroupsYourInvitedTo";
-import Divider from "@mui/material/Divider";
+import {useSetRecoilState} from "recoil";
+import {allUsersByGroup} from "../../../state/selectors/allUsersByGroup";
 
 const PageContainerEl = styled.div`
     padding: 20px;
@@ -21,7 +22,11 @@ const H1El = styled.h1`
 
 
 export default function GroupsPage(props) {
+    const updateGroups = useSetRecoilState(allUsersByGroup)
 
+    useEffect(() => {
+        updateGroups(0)
+    }, [updateGroups]);
 
     return (
         <PageContainerEl>

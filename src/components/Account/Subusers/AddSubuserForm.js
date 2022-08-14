@@ -4,7 +4,7 @@ import {Alert, Chip, IconButton, Snackbar, Stack, TextField, Tooltip} from "@mui
 import Button from "@mui/material/Button";
 import {Auth, DataStore} from "aws-amplify";
 import {Groups, Users} from "../../../models";
-import {currentUser} from "../../../state/selectors/currentUser";
+import {currentUser, updateCurrentUser} from "../../../state/selectors/currentUser";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {updateSubUsers} from "../../../state/selectors/subUsers";
@@ -35,6 +35,7 @@ export default function AddSubuserForm(props) {
     const updateSubUser = useSetRecoilState(updateSubUsers)
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [selectedGroups, setSelectedGroups] = useState([])
+    const updateCurrentuser = useSetRecoilState(updateCurrentUser)
 
     const handleCloseSnackbar = () => setSnackbarOpen(false)
 
@@ -55,31 +56,38 @@ export default function AddSubuserForm(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         if(!user) return;
-        const userData = {
-            "username": name,
-            "parentId": user.id
-        }
-        const subuser = await DataStore.save(
-            new Users(userData)
-        );
-        // set groups
-        for(const groupId of selectedGroups) {
-            const original = await DataStore.query(Groups, groupId);
-            const oldMembers = [...original.memberId];
-            oldMembers.push(subuser.id)
+        try {
+            const userData = {
+                "username": name,
+                "parentId": user.id
+            }
+            const subuser = await DataStore.save(
+                new Users(userData)
+            );
+            // set groups
+            for(const groupId of selectedGroups) {
+                const original = await DataStore.query(Groups, groupId);
+                const oldMembers = [...original.memberId];
+                oldMembers.push(subuser.id)
 
-            await DataStore.save(Groups.copyOf(original, updated => {
-                try {
-                    updated.memberId = oldMembers;
-                } catch (e) {
-                    console.log(e)
-                }
-            }))
+                await DataStore.save(Groups.copyOf(original, updated => {
+                    try {
+                        updated.memberId = oldMembers;
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }))
+            }
+            setName('')
+            setSnackbarOpen(true)
+            updateCurrentuser(0)
+            updateSubUser(1)
+        } catch(e) {
+            console.log(e)
         }
 
-        setName('')
-        setSnackbarOpen(true)
-        updateSubUser(1)
+
+
     }
 
     return (

@@ -1,13 +1,13 @@
 import {atom, selector} from "recoil";
 import {Auth, DataStore} from "aws-amplify";
 import {Users} from "../../models";
-import {currentUserWishlistVersion} from "./currentUserWishlist";
 
 async function createUser() {
     const userData = {
         "username": Auth.user.attributes.name,
         "authUsername": Auth.user.username,
-        "email": Auth.user.attributes.email
+        "email": Auth.user.attributes.email,
+        "subuserModeOn": false
     }
     const newUser = await DataStore.save(
         new Users(userData)

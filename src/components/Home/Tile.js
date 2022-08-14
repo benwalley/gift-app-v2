@@ -10,10 +10,11 @@ export default function Tile(props) {
         <div>
             <Card raised={true} sx={{
                 minWidth: 275,
-                minHeight: 200,
+                minHeight: 150,
                 bgcolor: `white`,
                 borderRadius: '20px',
-                padding: 'var(--tile-padding)'
+                padding: 'var(--tile-padding)',
+                height: '100%'
             }}>
                 {children}
             </Card>

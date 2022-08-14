@@ -4,18 +4,6 @@ import {useAuthenticator} from "@aws-amplify/ui-react";
 import Button from "@mui/material/Button";
 
 const components = {
-    Header() {
-        return (
-            <Header/>
-        );
-    },
-
-    Footer() {
-        return (
-            <Footer/>
-        );
-    },
-
     SignIn: {
         Footer() {
             const {toResetPassword} = useAuthenticator();

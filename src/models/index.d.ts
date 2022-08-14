@@ -54,11 +54,9 @@ export declare class Theme {
 
 export declare class Money {
   readonly id: string;
-  readonly owedFromName: string;
-  readonly owedToName: string;
+  readonly owedFromId: string;
+  readonly owedToId: string;
   readonly amount: number;
-  readonly ownerId: string;
-  readonly note?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Money, MoneyMetaData>);
@@ -85,11 +83,10 @@ export declare class WishlistItem {
 
 export declare class Groups {
   readonly id: string;
-  readonly groupName: string;
+  readonly groupName?: string | null;
   readonly memberId?: (string | null)[] | null;
   readonly createdBy: string;
   readonly additionalAdmins?: (string | null)[] | null;
-  readonly invitedEmail?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Groups, GroupsMetaData>);
@@ -101,6 +98,7 @@ export declare class Users {
   readonly username: string;
   readonly email?: string | null;
   readonly authUsername?: string | null;
+  readonly subuserModeOn?: boolean | null;
   readonly parentId?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

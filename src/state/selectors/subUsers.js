@@ -11,10 +11,15 @@ export const subUserVersion = atom({
 export const subUsers = selector({
     key: 'subUsers',
     get: async ({get}) => {
-        get(subUserVersion)
-        const user = get(currentUser)
-        const subUsers = await DataStore.query(Users, c => c.parentId("eq", user.id));
-        return (subUsers)
+        try {
+            get(subUserVersion)
+            const user = get(currentUser)
+            const subUsers = await DataStore.query(Users, c => c.parentId("eq", user.id));
+            return (subUsers)
+        } catch(e) {
+            console.log(e)
+        }
+
     },
 });
 

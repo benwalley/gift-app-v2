@@ -3,7 +3,8 @@ const formFields = {
         username: {
             labelHidden: true,
             placeholder: 'Enter your email',
-        },
+            order: 1
+        }
     },
     signUp: {
         name: {

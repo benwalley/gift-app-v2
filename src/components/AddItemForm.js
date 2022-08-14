@@ -105,14 +105,15 @@ export default function AddItemForm(props) {
             setLink(initialData.link || '')
             setNote(initialData.note || '')
             setImage(initialData?.images[0] || '')
+            setSelectedGroups(initialData?.groups)
         }
     }, [initialData]);
 
     return (
         <form onSubmit={initialData ? handleSubmitEdit : handleSubmit}>
             <h2>{isEdit() ? "Edit Wishlist Item" : "Add Item To Your Wishlist"}</h2>
-            <h4>Users</h4>
-            <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>
+            {!isEdit() && <h4>Users</h4>}
+            {!isEdit() && <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>}
             <h4>Groups</h4>
             <GroupPicker userId={addToId} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             <TextField value={name} onChange={(e) => setName(e.target.value)} sx={styles} id="name" label="Item Name"

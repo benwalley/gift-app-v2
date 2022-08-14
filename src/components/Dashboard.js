@@ -9,6 +9,8 @@ import addItemModalOpen from "../state/atoms/addItemModalOpen";
 import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
 import {onAuthUIStateChange} from "@aws-amplify/ui-components";
 import useRecoilHook from "../hooks/useRecoilHook";
+import {Auth} from "aws-amplify";
+import { Hub } from 'aws-amplify';
 
 
 const DashboardEl = styled.div`
@@ -26,9 +28,20 @@ export default function Dashboard() {
     const setAddModalOpen = useSetRecoilState(addItemModalOpen)
     const user = useRecoilHook(currentUser)
     const updateUser = useSetRecoilState(updateCurrentUser)
+    const navigate = useNavigate()
+
+    Hub.listen('auth', (data) => {
+        switch (data.payload.event) {
+            case 'signIn':
+                console.log(data)
+                navigate('/')
+                break;
+        }
+    });
 
     useEffect(() => {
         updateUser(0)
+        console.log(Auth)
     }, []);
 
     function handleAddButtonClick(e) {

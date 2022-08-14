@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "giftap488d7069",
+    "resourceNameTruncated": "giftap9744976a",
     "userPoolName": "giftappv20",
     "autoVerifiedAttributes": [
       "email"
@@ -20,8 +20,6 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [
       "Requires Lowercase",
-      "Requires Numbers",
-      "Requires Symbols",
       "Requires Uppercase"
     ],
     "requiredAttributes": [
@@ -32,9 +30,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "giftap488d7069_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "giftap9744976a_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "488d7069",
+    "sharedId": "9744976a",
     "resourceName": "giftappv20",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",

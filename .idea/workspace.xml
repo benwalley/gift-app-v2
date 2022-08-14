@@ -6,12 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/NewGroupForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/NewGroupForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/ProductPicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/ProductPicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/UserAccordion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/UserAccordion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/auth/giftappv20/cli-inputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/auth/giftappv20/cli-inputs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/backend-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/backend-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupInvited.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupInvited.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupsYourInvitedTo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupsYourInvitedTo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/AddSubuserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/AddSubuserForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CustomModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/selectors/wishlistByUserId.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/wishlistByUserId.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authenticator/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authenticator/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authenticator/formFields.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authenticator/formFields.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Tile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/allUsersByGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/allUsersByGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/currentUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/currentUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/subUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/subUsers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,22 +51,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/benwalley/Documents/personal/wishlist-app&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/benwalley/Library/Application Support/JetBrains/Toolbox/apps/PhpStorm/ch-0/222.3345.135/PhpStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/benwalley/Documents/personal/wishlist-app/src/components/Home",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/benwalley/Library/Application Support/JetBrains/Toolbox/apps/PhpStorm/ch-0/222.3345.135/PhpStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/Home" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/images" />
       <recent name="$PROJECT_DIR$/src/components/Account/Subusers" />
@@ -69,7 +88,7 @@
       <updated>1659755433541</updated>
       <workItem from="1659755434674" duration="80493000" />
       <workItem from="1660278813931" duration="5365000" />
-      <workItem from="1660363497450" duration="33220000" />
+      <workItem from="1660363497450" duration="41308000" />
     </task>
     <servers />
   </component>
@@ -92,7 +111,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/state/selectors/currentUser.js</url>
-          <line>6</line>
+          <line>5</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

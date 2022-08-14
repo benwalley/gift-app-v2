@@ -27,6 +27,7 @@ export default function WishlistById() {
     const [filters, setFilters] = useState({})
     const wishlistById = useRecoilHook(wishlistByUserId({wishlistId: wishlistId || false, filters: filters}));
 
+
     const renderWishlistItems = () => {
         const wishlist = wishlistById;
         if(!wishlist) return

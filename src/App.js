@@ -44,9 +44,6 @@ const MainBody = styled.div`
 
 export default function App() {
 
-
-
-
     return (
         <RecoilRoot>
             <ThemeProvider theme={theme}>
@@ -61,9 +58,10 @@ export default function App() {
                                     <Route path="wishlist/:wishlistId" element={<WishlistById/>}/>
                                     <Route path="account/subusers" element={<SubUsersPage/>}/>
                                     <Route path="account/groups" element={<GroupsPage/>}/>
+                                    <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>
                                     <Route path="lists" element={<ListList/>}/>
                                     <Route path="money" element={<Money/>}/>
-                                    <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>
+                                    <Route path=" " element={<AddAmazonWishlist/>}/>
                                     <Route path="*" element={<DashboardBody />} />
                                 </Route>
                             </Routes>
