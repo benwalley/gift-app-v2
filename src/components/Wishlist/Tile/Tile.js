@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from "@mui/material/Button";
 import useCurrency from "../../../hooks/useCurrency";
 import TopBadges from "./TopBadges";
-import {WishlistItem} from "../../../models";
+import {Users, WishlistItem} from "../../../models";
 import {DataStore} from "aws-amplify";
 import {currentUser} from "../../../state/selectors/currentUser";
 import { useSetRecoilState} from "recoil";
@@ -18,6 +18,7 @@ import AddItemForm from "../../AddItemForm";
 import CustomModal from "../../CustomModal";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {wishlistByUserId} from "../../../state/selectors/wishlistByUserId";
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -32,6 +33,47 @@ export default function Tile(props) {
     const user = useRecoilHook(currentUser);
     const updateWishlist = useSetRecoilState(wishlistByUserId(user.id))
     const [editModalOpen, setEditModalOpen] = useState(false)
+    const [parentId, setParentId] = useState()
+    const [canEdit, setCanEdit] = useState(false)
+    const [canSeeBadges, setCanSeeBadges] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!tile || !user) return
+        const getOwner = async () => {
+            const tileOwner = await DataStore.query(Users, tile.ownerId)
+            setParentId(tileOwner.parentId)
+        }
+        getOwner()
+
+    }, [tile, user]);
+
+    useEffect(() => {
+        if(user.id === tile.ownerId || user.id === parentId) {
+            setCanEdit(true)
+        } else {
+            setCanEdit(false)
+        }
+    }, [parentId, tile.ownerId, user.id]);
+
+    useEffect(() => {
+        if(user.id === tile.ownerId) {
+            // this is your list, so you can never see badges
+            setCanSeeBadges(false)
+            return;
+        }
+        if(parentId && parentId !== user.id) {
+            // The list is not a subuser, so we can show badges
+            setCanSeeBadges(true)
+            return;
+        }
+        if(parentId === user.id && !user.subuserModeOn) {
+            // list is subuser, but subuser mode is not on.
+            setCanSeeBadges(true)
+            return;
+        }
+        setCanSeeBadges(false)
+    }, [parentId, tile.ownerId, user]);
 
 
     async function handleToggleGetting(e) {
@@ -75,10 +117,14 @@ export default function Tile(props) {
         updateWishlist(0)
     }
 
+    const handleClick = () => {
+        navigate(`/wishlist/item/${tile.id}`)
+    }
+
     return (
-        <Card sx={{display: 'grid', gridTemplateRows: '1fr 56px', position: 'relative'}}>
-            <TopBadges getting={tile.gottenBy} wantsToGet={tile.wantsToGet}/>
-            <CardActionArea>
+        <Card sx={{display: 'grid', gridTemplateRows: '1fr 56px', position: 'relative', minWidth: '275px'}}>
+            {canSeeBadges && <TopBadges getting={tile.gottenBy} wantsToGet={tile.wantsToGet}/>}
+            <CardActionArea onClick={handleClick}>
                 {tile?.images?.length > 0 &&
                     <CardMedia
                         component="img"
@@ -99,27 +145,26 @@ export default function Tile(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Tooltip title="Mark as bought">
+                {canSeeBadges && <Tooltip title="Mark as bought">
                     <IconButton aria-label="Mark as bought" onClick={handleToggleGetting}>
                         <AttachMoneyIcon color="darkGreen"/>
                     </IconButton>
-                </Tooltip>
-                <Tooltip title="I want to go in on this with someone">
+                </Tooltip>}
+                {canSeeBadges && <Tooltip title="I want to go in on this with someone">
                     <IconButton aria-label="I want to go in on this with someone" onClick={handleToggleWantToGoIn}>
                         <GroupAddIcon color="secondary"/>
                     </IconButton>
-                </Tooltip>
-                <Tooltip title="Edit">
+                </Tooltip>}
+                {canEdit && <Tooltip title="Edit">
                     <IconButton aria-label="Edit" onClick={handleEdit}>
                         <EditIcon color="primary"/>
                     </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete">
+                </Tooltip>}
+                {canEdit && <Tooltip title="Delete">
                     <IconButton aria-label="Delete" onClick={handleDelete}>
                         <DeleteIcon color="deleteRed"/>
                     </IconButton>
-                </Tooltip>
-                <Button size="small" sx={{flexGrow: '1', justifyContent: 'end'}}>Expand</Button>
+                </Tooltip>}
             </CardActions>
             <CustomModal open={editModalOpen} setOpen={setEditModalOpen} size="large">
                 <AddItemForm initialData={tile} afterSubmit={() => setEditModalOpen(false)}/>

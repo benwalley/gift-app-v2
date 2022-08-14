@@ -171,15 +171,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "owedFromId": {
-                    "name": "owedFromId",
+                "owedFromName": {
+                    "name": "owedFromName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "owedToId": {
-                    "name": "owedToId",
+                "owedToName": {
+                    "name": "owedToName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -190,6 +190,20 @@ export const schema = {
                     "isArray": false,
                     "type": "Float",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "ownerId": {
+                    "name": "ownerId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "note": {
+                    "name": "note",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -532,5 +546,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "2be07eb8d5ff577ead112dee5341083e"
+    "version": "8588e3992284cb3617366e57d039e30e"
 };

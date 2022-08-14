@@ -12,6 +12,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import GroupPicker from "../../GroupPicker";
 import {toggleValueInArray} from "../../../helpers/toggleValueInArray";
 import toggleAmplifyArrayItem from "../../../helpers/toggleAmplifyArrayItem";
+import AreYouSureDialog from "../../AreYouSureDialog";
+import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
+import {useNavigate} from "react-router-dom";
 
 const ContainerEl = styled.div`
     display: grid;
@@ -36,6 +39,9 @@ export default function AddSubuserForm(props) {
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [selectedGroups, setSelectedGroups] = useState([])
     const updateCurrentuser = useSetRecoilState(updateCurrentUser)
+    const [areYouSureOpen, setAreYouSureOpen] = useState(false)
+    const groups = useRecoilHook(groupsByUserId(user.id))
+    const navigate = useNavigate()
 
     const handleCloseSnackbar = () => setSnackbarOpen(false)
 
@@ -56,6 +62,10 @@ export default function AddSubuserForm(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         if(!user) return;
+        if( !groups ||  groups.length === 0) {
+            setAreYouSureOpen(true)
+            return;
+        }
         try {
             const userData = {
                 "username": name,
@@ -109,6 +119,13 @@ export default function AddSubuserForm(props) {
                     Subuser Added
                 </Alert>
             </Snackbar>
+            <AreYouSureDialog
+                text={`You must create or join a group in order to create a subuser`}
+                open={areYouSureOpen}
+                setOpen={setAreYouSureOpen}
+                confirmHandler={() => navigate('/account/groups')}
+                confirmText={"Go To Groups Page"}
+            />
         </ContainerEl>
     );
 }

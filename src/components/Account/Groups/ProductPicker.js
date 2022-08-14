@@ -54,7 +54,7 @@ export default function ProductPicker(props) {
                 return <UserAccordion key={subuser.id} user={subuser} checked={selectedProducts[subuser.id] || []} setChecked={setChecked}/>
             })}
 
-            <Button variant={"contained"} type={"submit"}>Add Products</Button>
+            <Button variant={"contained"} type={"submit"}>Add Items</Button>
         </ContainerEl>
     );
 }

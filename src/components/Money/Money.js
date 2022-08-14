@@ -4,6 +4,9 @@ import Divider from "@mui/material/Divider";
 import AddMoneyItem from "./AddMoneyItem";
 import MoneyList from "./MoneyList";
 import Tile from "../Home/Tile";
+import {useSetRecoilState} from "recoil";
+import {updateCurrentUserMoney} from "../../state/selectors/currentUserMoney";
+import {useEffect} from "react";
 
 
 
@@ -15,14 +18,13 @@ const MoneyContainerEl = styled.div`
     background: var(--background-color);
 `
 
-const MoneyContentEl = styled.div`
-    
-`
-
-
-
 export default function Money(props) {
     const {} = props;
+    const updateMoney = useSetRecoilState(updateCurrentUserMoney)
+
+    useEffect(() => {
+        updateMoney(0)
+    }, [updateMoney]);
 
     return (
         <MoneyContainerEl>

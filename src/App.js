@@ -31,6 +31,7 @@ import {updateCurrentUser} from "./state/selectors/currentUser";
 import GroupsPage from "./components/Account/Groups/GroupsPage";
 import Money from "./components/Money/Money";
 import AddAmazonWishlist from "./components/AddAmazonWishlist/AddAmazonWishlist";
+import ItemPage from "./components/Wishlist/ItemPage/ItemPage";
 
 
 Amplify.configure(awsExports);
@@ -56,6 +57,7 @@ export default function App() {
                                     <Route index element={<DashboardBody />} />
                                     <Route path="account" element={<DashboardBody/>}/>
                                     <Route path="wishlist/:wishlistId" element={<WishlistById/>}/>
+                                    <Route path="wishlist/item/:itemId" element={<ItemPage/>}/>
                                     <Route path="account/subusers" element={<SubUsersPage/>}/>
                                     <Route path="account/groups" element={<GroupsPage/>}/>
                                     <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>

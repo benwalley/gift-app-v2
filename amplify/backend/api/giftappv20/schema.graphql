@@ -16,9 +16,11 @@ type Theme @model @auth(rules: [{allow: public}]) {
 
 type Money @model @auth(rules: [{allow: public}]) {
   id: ID!
-  owedFromId: String!
-  owedToId: String!
+  owedFromName: String!
+  owedToName: String!
   amount: Float!
+  ownerId: String
+  note: String
 }
 
 type WishlistItem @model @auth(rules: [{allow: public}]) {

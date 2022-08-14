@@ -11,10 +11,15 @@ export const currentUserMoneyVersion = atom({
 export const currentUserMoney = selector({
     key: 'currentUserMoney',
     get: async ({get}) => {
-        get(currentUserMoneyVersion)
-        const user = get(currentUser)
-        const money = await DataStore.query(Money, c => c.ownerId("eq", user.id));
-        return (money)
+        try {
+            get(currentUserMoneyVersion)
+            const user = get(currentUser)
+            const money = await DataStore.query(Money, c => c.ownerId("eq", user.id));
+            return (money)
+        } catch(e) {
+            console.log(e)
+        }
+
     },
 });
 

@@ -4,13 +4,13 @@ import DashboardDrawer from "./DashboardDrawer";
 import {Outlet, useNavigate} from "react-router-dom";
 import {Fab} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import {useRecoilRefresher_UNSTABLE, useSetRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import addItemModalOpen from "../state/atoms/addItemModalOpen";
 import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
-import {onAuthUIStateChange} from "@aws-amplify/ui-components";
 import useRecoilHook from "../hooks/useRecoilHook";
-import {Auth} from "aws-amplify";
 import { Hub } from 'aws-amplify';
+import AreYouSureDialog from "./AreYouSureDialog";
+import {groupsByUserId} from "../state/selectors/groupsByUserId";
 
 
 const DashboardEl = styled.div`
@@ -29,24 +29,20 @@ export default function Dashboard() {
     const user = useRecoilHook(currentUser)
     const updateUser = useSetRecoilState(updateCurrentUser)
     const navigate = useNavigate()
-
-    Hub.listen('auth', (data) => {
-        switch (data.payload.event) {
-            case 'signIn':
-                console.log(data)
-                navigate('/')
-                break;
-        }
-    });
+    const groups = useRecoilHook(groupsByUserId(user.id))
+    const [areYouSureOpen, setAreYouSureOpen] = useState(false)
 
     useEffect(() => {
         updateUser(0)
-        console.log(Auth)
-    }, []);
+    }, [updateUser]);
 
     function handleAddButtonClick(e) {
         e.preventDefault();
-        setAddModalOpen(true)
+        if( groups && groups.length > 0) {
+            setAddModalOpen(true)
+        } else {
+            setAreYouSureOpen(true)
+        }
     }
 
     return (
@@ -56,6 +52,13 @@ export default function Dashboard() {
             <Fab color="primary" aria-label="add" onClick={handleAddButtonClick} sx={fabStyle}>
                 <AddIcon />
             </Fab>
+            <AreYouSureDialog
+                text={`You must create or join a group in order to add items to your wishlist.`}
+                open={areYouSureOpen}
+                setOpen={setAreYouSureOpen}
+                confirmHandler={() => navigate('/account/groups')}
+                confirmText={"Go To Groups Page"}
+            />
         </DashboardEl>
 
     );

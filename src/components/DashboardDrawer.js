@@ -26,6 +26,9 @@ import useRecoilHook from "../hooks/useRecoilHook";
 import {currentUser} from "../state/selectors/currentUser";
 import moneyModalOpenState from "../state/atoms/moneyModalOpen";
 import Money from "./Money/Money";
+import {useState} from "react";
+import AreYouSureDialog from "./AreYouSureDialog";
+import {groupsByUserId} from "../state/selectors/groupsByUserId";
 
 
 
@@ -37,15 +40,19 @@ const DrawerEl = styled.div`
 function DashboardDrawer(props) {
     const [addItemModalOpen, setAddItemModalOpen] = useRecoilState(addItemModalOpenState);
     const [moneyModalOpen, setMoneyModalOpen] = useRecoilState(moneyModalOpenState);
+    const [areYouSureOpen, setAreYouSureOpen] = useState(false)
     let navigate = useNavigate();
     const user = useRecoilHook(currentUser)
+    const groups = useRecoilHook(groupsByUserId(user.id))
+
 
     const handleOpenAddItemModal = () => {
-        setAddItemModalOpen(true)
-    }
+        if( groups && groups.length > 0) {
+            setAddItemModalOpen(true)
+        } else {
+            setAreYouSureOpen(true)
+        }
 
-    const handleOpenMoneyModal = () => {
-        setMoneyModalOpen(true)
     }
 
     const links = [
@@ -98,6 +105,13 @@ function DashboardDrawer(props) {
                 <CustomModal padding={"0"} open={moneyModalOpen} setOpen={setMoneyModalOpen} size="large">
                     <Money afterSubmit={() => setAddItemModalOpen(false)}/>
                 </CustomModal>
+                <AreYouSureDialog
+                    text={`You must create or join a group in order to add items to your wishlist.`}
+                    open={areYouSureOpen}
+                    setOpen={setAreYouSureOpen}
+                    confirmHandler={() => navigate('/account/groups')}
+                    confirmText={"Go To Groups Page"}
+                />
             </DrawerEl>
     );
 }

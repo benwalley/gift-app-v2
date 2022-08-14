@@ -10,6 +10,7 @@ import SubuserToggle from "./SubuserToggle";
 import GiftGivingOverview from "./GiftGivingOverview";
 import SubuserOverview from "./SubuserOverview";
 import GroupsOverview from "./GroupsOverview";
+import CustomModal from "../CustomModal";
 
 const DashboardBodyEl = styled.div`
     background: var(--background-color);
@@ -23,7 +24,6 @@ const DashboardBodyEl = styled.div`
 
 export default function DashboardBody() {
     const user = useRecoilHook(currentUser)
-
 
     return (
         <DashboardBodyEl>

@@ -107,7 +107,7 @@ export default function EditSubuserForm(props) {
             <FormEl onSubmit={handleSubmit}>
                 <GroupPicker userId={parentUser.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
                 <TextField value={name} onChange={(e) => setName(e.target.value)} id="name" label="username" variant="outlined"/>
-                <Button type="submit" color="primary" variant="contained">Submit</Button>
+                <Button type="submit" color="primary" variant="contained">Save</Button>
             </FormEl>
             <Snackbar
                 open={snackbarOpen}

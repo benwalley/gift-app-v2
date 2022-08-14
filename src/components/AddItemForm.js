@@ -9,6 +9,7 @@ import useRecoilHook from "../hooks/useRecoilHook";
 import SubuserChips from "./SubuserChips";
 import {wishlistByUserId} from "../state/selectors/wishlistByUserId";
 import GroupPicker from "./GroupPicker";
+import {wishlistItemById} from "../state/selectors/wishlistItemById";
 
 const styles = {
     width: '100%',
@@ -29,6 +30,7 @@ export default function AddItemForm(props) {
     const [selectedGroups, setSelectedGroups] = useState([])
     const updateAddToWishlist = useSetRecoilState(wishlistByUserId(addToId))
     const user = useRecoilHook(currentUser)
+    const updateItem = useSetRecoilState(wishlistItemById(initialData?.id))
 
     const isEdit = () => {
         if(initialData) return true;
@@ -51,7 +53,7 @@ export default function AddItemForm(props) {
                 updated.name = name;
                 updated.price = price;
                 updated.priority = priority;
-                updated.link = link;
+                updated.link = fixLink(link);
                 updated.note = note;
                 updated.images = [image]
             } catch (e) {
@@ -61,7 +63,20 @@ export default function AddItemForm(props) {
 
         updateWishlist(0)
         updateAddToWishlist(0)
+        updateItem(0)
         afterSubmit()
+    }
+
+    function fixLink(link) {
+        // if the link is good, return it as is
+        if(link.slice(0, 8) === "https://" || link.slice(0, 7) === "http://") return link;
+        // if the link has https:// anywhere in it, make that the beginning
+        const index = link.indexOf("https://")
+        if(index > 0) {
+            const sliced = link.slice(index, -1);
+            return sliced;
+        }
+        return `https://${link}`
     }
 
     async function handleSubmit(e) {
@@ -70,10 +85,12 @@ export default function AddItemForm(props) {
             if (!name) return;
             if (!addToId) return;
 
+            const fixedLink = fixLink(link);
+
             const itemData = {
                 "images": [image],
                 "name": name,
-                "link": link,
+                "link": fixLink(link),
                 "note": note,
                 "gottenBy": [],
                 "wantsToGet": [],

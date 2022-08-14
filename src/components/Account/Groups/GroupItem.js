@@ -115,7 +115,7 @@ export default function GroupItem(props) {
                     return <GroupMember key={member?.id} user={member} group={group}/>
                 })}
                 <H4El>Invited</H4El>
-                {group.invitedEmail.map(email => {
+                {group && group.invitedEmail && group.invitedEmail.map(email => {
                     return <GroupInvited key={email} email={email} group={group}/>
                 })}
             </UsersEl>}

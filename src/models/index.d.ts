@@ -54,9 +54,11 @@ export declare class Theme {
 
 export declare class Money {
   readonly id: string;
-  readonly owedFromId: string;
-  readonly owedToId: string;
+  readonly owedFromName: string;
+  readonly owedToName: string;
   readonly amount: number;
+  readonly ownerId?: string | null;
+  readonly note?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Money, MoneyMetaData>);
