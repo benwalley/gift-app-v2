@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import styled from "@emotion/styled";
+import React  from 'react';
 import ListItem from "@mui/material/ListItem";
 import {Avatar, IconButton, ListItemAvatar, Tooltip} from "@mui/material";
 import stringToColor from "../../../helpers/stringToColor";

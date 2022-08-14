@@ -20,7 +20,6 @@ const H1El = styled.h1`
     grid-column: 1/-1
 `
 
-
 export default function GroupsPage(props) {
     const updateGroups = useSetRecoilState(allUsersByGroup)
 

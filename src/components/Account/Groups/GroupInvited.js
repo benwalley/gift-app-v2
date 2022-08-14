@@ -7,9 +7,8 @@ import useRecoilHook from "../../../hooks/useRecoilHook";
 import {currentUser} from "../../../state/selectors/currentUser";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AreYouSureDialog from "../../AreYouSureDialog";
-import {useNavigate} from "react-router-dom";
 import toggleAmplifyArrayItem from "../../../helpers/toggleAmplifyArrayItem";
-import {Groups, WishlistItem} from "../../../models";
+import {Groups} from "../../../models";
 import {useSetRecoilState} from "recoil";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 
@@ -35,7 +34,7 @@ export default function GroupInvited(props) {
 
     async function handleDeleteFromGroup() {
         await toggleAmplifyArrayItem(Groups, group.id, 'invitedEmail', email);
-        updateGroups()
+        updateGroups(0)
     }
 
     function CreatorActions() {

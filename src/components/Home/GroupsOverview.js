@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import styled from "@emotion/styled";
+import React, {useEffect} from 'react';
 import useRecoilHook from "../../hooks/useRecoilHook";
 import List from "@mui/material/List";
 import {Avatar, ListItem, ListItemAvatar} from "@mui/material";
@@ -10,16 +9,7 @@ import {currentUser} from "../../state/selectors/currentUser";
 import stringToColor from "../../helpers/stringToColor";
 import {getFirstLetters} from "../../helpers/nameFirstLetters";
 import ListItemText from "@mui/material/ListItemText";
-
-
-const DashboardBodyEl = styled.div`
-    background: var(--background-color);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
-   
-`
+import Divider from "@mui/material/Divider";
 
 export default function GroupsOverview() {
     const user = useRecoilHook(currentUser)
@@ -33,6 +23,7 @@ export default function GroupsOverview() {
     return (
         <div>
             <h3>Your groups</h3>
+            <Divider/>
             <List>
                 {groups && groups.map(group => {
                     return <ListItem key={group.id} divider>

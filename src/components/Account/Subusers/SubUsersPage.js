@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import SubUser from "./SubUser";
-import {subUsers} from "../../../state/selectors/subUsers";
+import {subUsers, updateSubUsers} from "../../../state/selectors/subUsers";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import AddSubuserForm from "./AddSubuserForm";
-import Divider from "@mui/material/Divider";
-import * as PropTypes from "prop-types";
 import List from "@mui/material/List";
+import {useSetRecoilState} from "recoil";
+import {useEffect} from "react";
 
 const ContainerEl = styled.div`
     padding: 20px;
@@ -23,14 +23,13 @@ const listStyles = {
     boxShadow: 'var(--tile-box-shadow)'
 }
 
-function CloseIcon(props) {
-    return null;
-}
-
-CloseIcon.propTypes = {fontSize: PropTypes.string};
 export default function SubUsersPage(props) {
     const subusers = useRecoilHook(subUsers)
+    const update = useSetRecoilState(updateSubUsers)
 
+    useEffect(() => {
+        update(0)
+    }, [update]);
 
     return (
         <ContainerEl>

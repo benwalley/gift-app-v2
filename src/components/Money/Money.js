@@ -1,15 +1,11 @@
 import * as React from 'react';
 import styled from "@emotion/styled";
-import Divider from "@mui/material/Divider";
 import AddMoneyItem from "./AddMoneyItem";
 import MoneyList from "./MoneyList";
 import Tile from "../Home/Tile";
 import {useSetRecoilState} from "recoil";
 import {updateCurrentUserMoney} from "../../state/selectors/currentUserMoney";
 import {useEffect} from "react";
-
-
-
 
 const MoneyContainerEl = styled.div`
     padding: 20px 20px 260px 20px;
@@ -18,8 +14,7 @@ const MoneyContainerEl = styled.div`
     background: var(--background-color);
 `
 
-export default function Money(props) {
-    const {} = props;
+export default function Money() {
     const updateMoney = useSetRecoilState(updateCurrentUserMoney)
 
     useEffect(() => {

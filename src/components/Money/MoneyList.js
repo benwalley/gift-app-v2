@@ -29,16 +29,13 @@ const H3El = styled.h3`
     grid-column: 1/-1;
 `
 
-export default function MoneyList(props) {
-    const {} = props;
+export default function MoneyList() {
     const moneyData = useRecoilHook(currentUserMoney)
     const [userOne, setUserOne] = useState('')
     const [userTwo, setUserTwo] = useState('')
     const [userOneNamesList, setUserOneNamesList] = useState([])
     const [userTwoNamesList, setUserTwoNamesList] = useState([])
     const [filteredList, setFilteredList] = useState([])
-
-
 
     useEffect(() => {
         const updateUserNames = () => {

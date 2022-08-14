@@ -1,14 +1,12 @@
 import * as React from 'react';
-import Button from "@mui/material/Button";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser, updateCurrentUser} from "../../state/selectors/currentUser";
 import styled from "@emotion/styled";
 import {IconButton, Tooltip} from "@mui/material";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EditIcon from '@mui/icons-material/Edit';
 import EditUserForm from "../Account/EditUserForm";
 import CustomModal from "../CustomModal";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
 import Divider from "@mui/material/Divider";
 
@@ -22,10 +20,13 @@ const RowEl = styled.div`
 `
 
 export default function UserInfo(props) {
-    const {} = props;
     const user = useRecoilHook(currentUser)
     const [editModalOpen, setEditModalOpen] = useState(false)
     const updateUser = useSetRecoilState(updateCurrentUser)
+
+    useEffect(() => {
+        updateUser(0)
+    }, [updateUser]);
 
     const afterSubmitEdit = async () => {
         setEditModalOpen(false);
@@ -34,6 +35,8 @@ export default function UserInfo(props) {
 
     return (
         <>
+            <h3>Your Info</h3>
+            <Divider/>
             <RowEl>
                 <b>Username:</b>
                 <span>{user?.username}</span>

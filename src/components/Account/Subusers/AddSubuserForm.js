@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import styled from "@emotion/styled";
-import {Alert, Chip, IconButton, Snackbar, Stack, TextField, Tooltip} from "@mui/material";
+import {Alert, IconButton, Snackbar, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import {Auth, DataStore} from "aws-amplify";
+import {DataStore} from "aws-amplify";
 import {Groups, Users} from "../../../models";
 import {currentUser, updateCurrentUser} from "../../../state/selectors/currentUser";
-import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {updateSubUsers} from "../../../state/selectors/subUsers";
 import CloseIcon from '@mui/icons-material/Close';
 import GroupPicker from "../../GroupPicker";
-import {toggleValueInArray} from "../../../helpers/toggleValueInArray";
-import toggleAmplifyArrayItem from "../../../helpers/toggleAmplifyArrayItem";
 import AreYouSureDialog from "../../AreYouSureDialog";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import {useNavigate} from "react-router-dom";
@@ -41,9 +39,16 @@ export default function AddSubuserForm(props) {
     const updateCurrentuser = useSetRecoilState(updateCurrentUser)
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
     const groups = useRecoilHook(groupsByUserId(user.id))
+    const updateGroups = useSetRecoilState(groupsByUserId(user.id))
+    const updateUser = useSetRecoilState(updateCurrentUser)
     const navigate = useNavigate()
 
     const handleCloseSnackbar = () => setSnackbarOpen(false)
+
+    useEffect(() => {
+        updateUser(0)
+        updateGroups(0)
+    }, [updateGroups, updateUser]);
 
     const closeAction = (
         <>
@@ -95,9 +100,6 @@ export default function AddSubuserForm(props) {
         } catch(e) {
             console.log(e)
         }
-
-
-
     }
 
     return (

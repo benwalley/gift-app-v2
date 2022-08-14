@@ -5,12 +5,12 @@ import Button from "@mui/material/Button";
 import {DataStore} from "aws-amplify";
 import {currentUser} from "../../../state/selectors/currentUser";
 import useRecoilHook from "../../../hooks/useRecoilHook";
-
 import SuccessSnackbar from "../../Snackbars/SuccessSnackbar";
-import {Groups, Users} from "../../../models";
+import {Groups} from "../../../models";
 import {useSetRecoilState} from "recoil";
-import {groupsByUserId, updateGroupsByUserId} from "../../../state/selectors/groupsByUserId";
+import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import GroupPicker from "../../GroupPicker";
+import ErrorSnackbar from "../../Snackbars/ErrorSnackbar";
 
 const ContainerEl = styled.div`
     display: grid;
@@ -31,7 +31,8 @@ const FormEl = styled.form`
 export default function InviteUserToGroupsForm(props) {
     const user = useRecoilHook(currentUser)
     const [email, setEmail] = useState('')
-    const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
+    const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
     const updateGroup = useSetRecoilState(groupsByUserId(user.id))
     const [selectedGroups, setSelectedGroups] = useState([])
 
@@ -39,7 +40,10 @@ export default function InviteUserToGroupsForm(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         if(!email) return;
-        if(selectedGroups.length === 0) return; // TODO: add error message
+        if(selectedGroups.length === 0) {
+            setErrorSnackbarOpen(true)
+            return;
+        }
         await Promise.all(selectedGroups.map(async group => {
             const original = await DataStore.query(Groups, group);
             const invitedEmailCopy = [...original.invitedEmail]
@@ -50,7 +54,7 @@ export default function InviteUserToGroupsForm(props) {
         }))
 
         setEmail('')
-        setSnackbarOpen(true)
+        setSuccessSnackbarOpen(true)
         updateGroup(0)
     }
 
@@ -62,7 +66,8 @@ export default function InviteUserToGroupsForm(props) {
                 <TextField value={email} onChange={(e) => setEmail(e.target.value)} id="email" label="Email Address" variant="outlined"/>
                 <Button type="submit" color="primary" variant="contained">Invite</Button>
             </FormEl>
-            <SuccessSnackbar message={"user Invited"} snackbarOpen={snackbarOpen} setSnackbarOpen={setSnackbarOpen}/>
+            <SuccessSnackbar message={"user Invited"} snackbarOpen={successSnackbarOpen} setSnackbarOpen={setSuccessSnackbarOpen}/>
+            <ErrorSnackbar message={"You must select a group"} snackbarOpen={errorSnackbarOpen} setSnackbarOpen={setErrorSnackbarOpen}/>
         </ContainerEl>
     );
 }

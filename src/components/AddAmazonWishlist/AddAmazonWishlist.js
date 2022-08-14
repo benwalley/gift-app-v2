@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import styled from "@emotion/styled";
-import {currentUser} from "../../state/selectors/currentUser";
+import {currentUser, updateCurrentUser} from "../../state/selectors/currentUser";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import AddWishlistForm from "./AddWishlistForm";
 import Tile from "../Home/Tile";
 import WishlistItemTile from "./WishlistItemTile";
 import Button from "@mui/material/Button";
-import {Auth, DataStore} from "aws-amplify";
-import {Users, WishlistItem} from "../../models";
+import {DataStore} from "aws-amplify";
+import {WishlistItem} from "../../models";
 import {useSetRecoilState} from "recoil";
 import {wishlistByUserId} from "../../state/selectors/wishlistByUserId";
 import GroupPicker from "../GroupPicker";
 import SubuserChips from "../SubuserChips";
 import SuccessSnackbar from "../Snackbars/SuccessSnackbar";
 import HowToUse from "./HowToUse";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 const ContainerEl = styled.div`
@@ -56,6 +56,11 @@ export default function AddAmazonWishlist(props) {
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const updateWishlist = useSetRecoilState(wishlistByUserId(addToId))
     const navigate = useNavigate()
+    const updateUser = useSetRecoilState(updateCurrentUser)
+
+    useEffect(() => {
+        updateUser(0)
+    }, [updateUser]);
 
     useEffect(() => {
         setAddToId(user.id)

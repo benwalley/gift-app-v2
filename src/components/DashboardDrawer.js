@@ -1,7 +1,5 @@
 import * as React from 'react';
 import Divider from '@mui/material/Divider';
-import Modal from '@mui/material/Modal';
-
 import HomeIcon from '@mui/icons-material/Home';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -30,14 +28,11 @@ import {useState} from "react";
 import AreYouSureDialog from "./AreYouSureDialog";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
 
-
-
 const DrawerEl = styled.div`
   border-right: 1px solid var(--border-color-light);
 `
 
-
-function DashboardDrawer(props) {
+function DashboardDrawer() {
     const [addItemModalOpen, setAddItemModalOpen] = useRecoilState(addItemModalOpenState);
     const [moneyModalOpen, setMoneyModalOpen] = useRecoilState(moneyModalOpenState);
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
@@ -47,12 +42,11 @@ function DashboardDrawer(props) {
 
 
     const handleOpenAddItemModal = () => {
-        if( groups && groups.length > 0) {
+        if (groups && groups.length > 0) {
             setAddItemModalOpen(true)
         } else {
             setAreYouSureOpen(true)
         }
-
     }
 
     const links = [
@@ -71,7 +65,6 @@ function DashboardDrawer(props) {
         {title: 'Subusers', url: '/account/subusers', icon: <SupervisorAccountIcon/>},
     ]
 
-
     function renderList(links) {
         return <List>
             {links.map((link) => (
@@ -79,7 +72,8 @@ function DashboardDrawer(props) {
                     <ListItemButton onClick={() => {
                         if (link.action) {
                             link['action']()
-                        };
+                        }
+                        ;
                         if (link.url) {
                             navigate(link.url)
                         }
@@ -95,24 +89,24 @@ function DashboardDrawer(props) {
     }
 
     return (
-            <DrawerEl>
-                {renderList(links)}
-                <Divider/>
-                {renderList(accountLinks)}
-                <CustomModal open={addItemModalOpen} setOpen={setAddItemModalOpen} size="large">
-                    <AddItemForm afterSubmit={() => setAddItemModalOpen(false)}/>
-                </CustomModal>
-                <CustomModal padding={"0"} open={moneyModalOpen} setOpen={setMoneyModalOpen} size="large">
-                    <Money afterSubmit={() => setAddItemModalOpen(false)}/>
-                </CustomModal>
-                <AreYouSureDialog
-                    text={`You must create or join a group in order to add items to your wishlist.`}
-                    open={areYouSureOpen}
-                    setOpen={setAreYouSureOpen}
-                    confirmHandler={() => navigate('/account/groups')}
-                    confirmText={"Go To Groups Page"}
-                />
-            </DrawerEl>
+        <DrawerEl>
+            {renderList(links)}
+            <Divider/>
+            {renderList(accountLinks)}
+            <CustomModal open={addItemModalOpen} setOpen={setAddItemModalOpen} size="large">
+                <AddItemForm afterSubmit={() => setAddItemModalOpen(false)}/>
+            </CustomModal>
+            <CustomModal padding={"0"} open={moneyModalOpen} setOpen={setMoneyModalOpen} size="large">
+                <Money afterSubmit={() => setAddItemModalOpen(false)}/>
+            </CustomModal>
+            <AreYouSureDialog
+                text={`You must create or join a group in order to add items to your wishlist.`}
+                open={areYouSureOpen}
+                setOpen={setAreYouSureOpen}
+                confirmHandler={() => navigate('/account/groups')}
+                confirmText={"Go To Groups Page"}
+            />
+        </DrawerEl>
     );
 }
 

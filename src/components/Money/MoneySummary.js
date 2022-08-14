@@ -19,8 +19,6 @@ export default function MoneySummary(props) {
     const [calculatedFrom, setCalculatedFrom] = useState()
     const [calculatedTo, setCalculatedTo] = useState()
 
-
-
     useEffect(() => {
         const filtered = moneyData.filter(item => {
             const p1Match = p1 && p1 !== '' ? item.owedFromName === p1 || item.owedToName === p1 : true;

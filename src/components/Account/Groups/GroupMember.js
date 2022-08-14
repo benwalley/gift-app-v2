@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import styled from "@emotion/styled";
 import ListItem from "@mui/material/ListItem";
 import {Avatar, IconButton} from "@mui/material";
 import stringToColor from "../../../helpers/stringToColor";
 import {getFirstLetters} from "../../../helpers/nameFirstLetters";
-import ListItemButton from "@mui/material/ListItemButton";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {currentUser} from "../../../state/selectors/currentUser";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,7 +11,7 @@ import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import toggleAmplifyArrayItem from "../../../helpers/toggleAmplifyArrayItem";
-import {Groups, WishlistItem} from "../../../models";
+import {Groups} from "../../../models";
 import {useSetRecoilState} from "recoil";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 

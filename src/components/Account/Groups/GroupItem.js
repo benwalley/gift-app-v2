@@ -49,7 +49,7 @@ export default function GroupItem(props) {
     async function handleDeleteGroup() {
         const todelete = await DataStore.query(Groups, group.id);
         DataStore.delete(todelete);
-        updateGroups()
+        updateGroups(0)
     }
 
     const isAdmin = () => {

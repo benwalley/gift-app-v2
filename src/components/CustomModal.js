@@ -2,8 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
-
-
 export default function CustomModal(props) {
     const {open, setOpen, size, children, padding = "20px"} = props
     const handleClose = () => setOpen(false);

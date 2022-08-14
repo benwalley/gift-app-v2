@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Avatar, Chip, IconButton, ListItem, ListItemAvatar, Stack} from "@mui/material";
 import stringToColor from "../../../helpers/stringToColor";
 import {getFirstLetters} from "../../../helpers/nameFirstLetters";
@@ -8,8 +8,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import Button from "@mui/material/Button";
 import styled from '@emotion/styled'
 import CustomModal from "../../CustomModal";
-import AddSubuserForm from "./AddSubuserForm";
-import EditUserForm from "../EditUserForm";
 import {DataStore} from "aws-amplify";
 import {Users} from "../../../models";
 import {updateSubUsers} from "../../../state/selectors/subUsers";
@@ -30,13 +28,17 @@ export default function SubUser(props) {
     const update = useSetRecoilState(updateSubUsers)
     const navigate = useNavigate();
     const groups = useRecoilHook(groupsByUserId(user?.id))
+    const updateGroups = useSetRecoilState(groupsByUserId(user.id))
+
+    useEffect(() => {
+        updateGroups(0)
+    }, [updateGroups]);
 
     async function handleDelete() {
         const todelete = await DataStore.query(Users, user.id);
         DataStore.delete(todelete);
-        update()
+        update(0)
     }
-
 
     return (
         <ListItem disablePadding={false} >

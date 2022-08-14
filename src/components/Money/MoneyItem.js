@@ -1,23 +1,14 @@
 import * as React from 'react';
 import styled from "@emotion/styled";
-import useRecoilHook from "../../hooks/useRecoilHook";
-import {currentUserMoney, updateCurrentUserMoney} from "../../state/selectors/currentUserMoney";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
+import {updateCurrentUserMoney} from "../../state/selectors/currentUserMoney";
 import {
     Collapse,
-    FormControl,
     IconButton,
-    InputLabel, MenuItem, Select,
-    Table,
-    TableBody,
     TableCell,
-    TableContainer,
-    TableHead,
     TableRow
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {DataStore} from "aws-amplify";
 import {Money} from "../../models";
 import {useSetRecoilState} from "recoil";
@@ -25,13 +16,6 @@ import useCurrency from "../../hooks/useCurrency";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Box from "@mui/material/Box";
-
-
-const MoneyListContainerEl = styled.div`
-
-`
-
-
 
 export default function MoneyItem(props) {
     const {money} = props;

@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "@emotion/styled";
 import {Chip, Stack, Tooltip} from "@mui/material";
 import GroupIcon from '@mui/icons-material/Group';
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import {currentUser} from "../../../state/selectors/currentUser";
-import {useRecoilValue} from "recoil";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 
 const BadgesEl = styled.div`

@@ -1,5 +1,3 @@
-import Header from "../Header";
-import Footer from "../Footer";
 import {useAuthenticator} from "@aws-amplify/ui-react";
 import Button from "@mui/material/Button";
 

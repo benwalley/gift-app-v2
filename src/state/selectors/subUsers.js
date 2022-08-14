@@ -17,7 +17,7 @@ export const subUsers = selector({
             const subUsers = await DataStore.query(Users, c => c.parentId("eq", user.id));
             return (subUsers)
         } catch(e) {
-            console.log(e)
+
         }
 
     },

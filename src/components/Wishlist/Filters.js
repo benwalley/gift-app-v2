@@ -23,7 +23,6 @@ const H4El = styled.h4`
   margin: 0;
 `
 
-//TODO: add toggle on subuser pages, where you can select whether to show who's getting things. (someday make it password protected)
 export default function Filters(props) {
     const {filters, setFilters} = props
     const [selectedGroups, setSelectedGroups] = useRecoilState(selectedGroupsState)
@@ -41,18 +40,11 @@ export default function Filters(props) {
                 <H4El>Groups</H4El>
                 <GroupPicker userId={user.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             </FiltersRowEl>
-            <FiltersRowEl>
-                <H4El>Other Filters</H4El>
-                <div>
-
-                </div>
-                {/*<ul>*/}
-                {/*    <li>Gotten/not gotten</li>*/}
-                {/*    <li>Someone wants to go in on</li>*/}
-                {/*    <li>price</li>*/}
-                {/*    <li>tag name</li>*/}
-                {/*</ul>*/}
-            </FiltersRowEl>
+            {/*TODO: add other filters*/}
+            {/*<FiltersRowEl>*/}
+            {/*    <H4El>Other Filters</H4El>*/}
+            {/*    <div></div>*/}
+            {/*</FiltersRowEl>*/}
         </FiltersEl>
     );
 }

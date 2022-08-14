@@ -1,7 +1,6 @@
 import {useRecoilValue} from "recoil";
 import {useEffect, useState} from 'react';
 import currencyCode from '../state/atoms/currencyCode'
-import useRecoilHook from "./useRecoilHook";
 
 export default function useCurrency(price) {
     const currency = useRecoilValue(currencyCode)

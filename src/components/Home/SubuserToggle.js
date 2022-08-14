@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser, updateCurrentUser} from "../../state/selectors/currentUser";
-import {Switch, TextField} from "@mui/material";
+import {Switch} from "@mui/material";
 import {Users} from "../../models";
 import {DataStore} from "aws-amplify";
 import {useSetRecoilState} from "recoil";
+import Divider from "@mui/material/Divider";
 
 export default function SubuserToggle() {
     const user = useRecoilHook(currentUser)
@@ -25,6 +26,7 @@ export default function SubuserToggle() {
     return (
         <>
             <h3>Subuser Mode</h3>
+            <Divider/>
             <p>Turn on Subuser Mode to prevent subusers from seeing what other people are getting them.</p>
             <Switch
                 checked={user.subuserModeOn || false}
@@ -32,7 +34,6 @@ export default function SubuserToggle() {
                 onChange={handleChange}
                 inputProps={{ 'aria-label': 'controlled' }}
             />
-            {/*TODO: require password to change subuser mode*/}
             <h4>{user.subuserModeOn ? "Subuser Mode on" : "Subuser Mode off"}</h4>
         </>
     );

@@ -1,7 +1,7 @@
 import {atom, selector} from "recoil";
 import {currentUser} from "./currentUser";
 import {DataStore} from "aws-amplify";
-import {Money, WishlistItem} from "../../models";
+import {Money} from "../../models";
 
 export const currentUserMoneyVersion = atom({
     key: 'currentUserMoneyVersion',

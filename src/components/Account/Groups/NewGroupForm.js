@@ -5,11 +5,10 @@ import Button from "@mui/material/Button";
 import {DataStore} from "aws-amplify";
 import {currentUser} from "../../../state/selectors/currentUser";
 import useRecoilHook from "../../../hooks/useRecoilHook";
-
 import SuccessSnackbar from "../../Snackbars/SuccessSnackbar";
 import {Groups} from "../../../models";
 import {useSetRecoilState} from "recoil";
-import {groupsByUserId, updateGroupsByUserId} from "../../../state/selectors/groupsByUserId";
+import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import CustomModal from "../../CustomModal";
 import ProductPicker from "./ProductPicker";
 import {wishlistByUserId} from "../../../state/selectors/wishlistByUserId";
@@ -80,4 +79,3 @@ export default function NewGroupForm(props) {
         </ContainerEl>
     );
 }
-

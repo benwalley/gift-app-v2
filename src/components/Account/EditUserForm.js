@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import styled from "@emotion/styled";
-import {Alert, Chip, IconButton, Snackbar, Stack, TextField, Tooltip} from "@mui/material";
+import {Alert, IconButton, Snackbar, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import {Auth, DataStore} from "aws-amplify";
-import {Users, WishlistItem} from "../../models";
-import {currentUser} from "../../state/selectors/currentUser";
-import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import useRecoilHook from "../../hooks/useRecoilHook";
+import {DataStore} from "aws-amplify";
+import {Users} from "../../models";
+import {useSetRecoilState} from "recoil";
 import {updateSubUsers} from "../../state/selectors/subUsers";
 import CloseIcon from '@mui/icons-material/Close';
 

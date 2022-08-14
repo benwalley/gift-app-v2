@@ -1,20 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "@emotion/styled";
 
-import {CardActionArea, CardContent, CardMedia} from "@mui/material";
+import {CardContent, CardMedia} from "@mui/material";
 
 import useCurrency from "../../hooks/useCurrency";
 
 
 export default function WishlistItemTile(props) {
     const {data, selectedItems, setSelectedItems} = props;
-
-    // id: itemId || '',
-    //     imageSrc: imageSrc || '',
-    //     imageAlt: imageAlt || '',
-    //     url: url || '',
-    //     name: name || '',
-    //     price: !price || price === "-Infinity" ? '' : price,
 
     const isSelected = () => {
         return selectedItems.some(item => {
@@ -72,7 +65,6 @@ export default function WishlistItemTile(props) {
     }
 
     const shortName = () => {
-        const end = ''
         const cutoff = 50;
         const length = data.name.length;
         const shorter = data.name.slice(0, 50);

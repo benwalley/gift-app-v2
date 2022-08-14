@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
-import styled from "@emotion/styled";
-import {Accordion, AccordionDetails, AccordionSummary, TextField} from "@mui/material";
-import Button from "@mui/material/Button";
+import {Accordion, AccordionDetails, AccordionSummary} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import viewSource from '../../images/viewSource.png'
 import Divider from "@mui/material/Divider";
-
-
 
 export default function HowToUse() {
     const [expanded, setExpanded] = useState(false);

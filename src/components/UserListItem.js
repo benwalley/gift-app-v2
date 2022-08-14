@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {currentUser} from "../state/selectors/currentUser";
-import {useRecoilValue} from "recoil";
 import {Avatar, ListItem} from "@mui/material";
 import stringToColor from "../helpers/stringToColor";
 import styled from '@emotion/styled'
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import ListItemButton from "@mui/material/ListItemButton";
 import {getFirstLetters} from "../helpers/nameFirstLetters";
 import useRecoilHook from "../hooks/useRecoilHook";
@@ -24,7 +23,7 @@ export default function UserListItem(props) {
     `
 
     return (
-        <ListItem disablePadding>
+        <ListItem disablePadding divider>
             <ListItemButton onClick={handleItemClick}>
                 <Avatar
                     sx={{bgcolor: stringToColor(user.username)}}

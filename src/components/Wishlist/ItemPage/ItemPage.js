@@ -10,6 +10,7 @@ import useCurrency from "../../../hooks/useCurrency";
 import AddItemForm from "../../AddItemForm";
 import CustomModal from "../../CustomModal";
 import ActionsBar from "./ActionsBar";
+import {useSetRecoilState} from "recoil";
 
 const ItemPageContainerEl = styled.div`
   background: var(--background-color);
@@ -55,6 +56,11 @@ export default function ItemPage(props) {
     const itemData = useRecoilHook(wishlistItemById(itemId))
     const price = useCurrency(itemData.price)
     const [editModalOpen, setEditModalOpen] = useState(false)
+    const updateItem = useSetRecoilState(wishlistItemById(itemId))
+
+    useEffect(() => {
+        updateItem(0)
+    }, [updateItem]);
 
     function ImageElement() {
         if (!itemData || !itemData?.images || itemData.images.length === 0 || itemData.images[0] === '') return <ImagePlaceholderEl/>
@@ -70,9 +76,8 @@ export default function ItemPage(props) {
             const domain = new URL(itemData.link).host;
             return `Link to item on ${domain}`
         } catch(e) {
-            return "Link"
+            return false
         }
-
     }
 
     return (
@@ -92,7 +97,7 @@ export default function ItemPage(props) {
                     <DetailsEl>
                         {itemData?.note && <div><b>Note: </b><div>{itemData.note}</div></div>}
                         {itemData?.priority && <div><b>Priority: </b>{itemData.priority}/10</div>}
-                        {itemData?.link && <AEl href={itemData.link}>{renderLinkName()}</AEl>}
+                        {itemData?.link && renderLinkName() && <AEl href={itemData.link}>{renderLinkName()}</AEl>}
                         {itemData?.price && <div><b>Price: </b><span>~ {price}</span></div>}
                     </DetailsEl>
                 </ItemPageEl>

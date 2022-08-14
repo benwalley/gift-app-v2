@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert, IconButton, Snackbar} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function SuccessSnackbar(props) {
+export default function ErrorSnackbar(props) {
     const {message, snackbarOpen, setSnackbarOpen, time} = props
 
     const handleCloseSnackbar = () => setSnackbarOpen(false)
@@ -24,12 +24,12 @@ export default function SuccessSnackbar(props) {
     return (
         <Snackbar
             open={snackbarOpen}
-            autoHideDuration={time || 4000}
+            autoHideDuration={time || 6000}
             onClose={handleCloseSnackbar}
             message={message}
             action={closeAction}
         >
-            <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+            <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
                 {message}
             </Alert>
         </Snackbar>

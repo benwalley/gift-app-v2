@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {TextField, Button} from "@mui/material";
 import {DataStore} from 'aws-amplify'
 import {WishlistItem} from "../models";
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {updateCurrentUserWishlist} from "../state/selectors/currentUserWishlist";
 import {currentUser} from "../state/selectors/currentUser";
 import useRecoilHook from "../hooks/useRecoilHook";
@@ -84,8 +84,6 @@ export default function AddItemForm(props) {
         try {
             if (!name) return;
             if (!addToId) return;
-
-            const fixedLink = fixLink(link);
 
             const itemData = {
                 "images": [image],

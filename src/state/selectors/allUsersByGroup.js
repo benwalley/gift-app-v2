@@ -1,4 +1,4 @@
-import {atom, selector, selectorFamily} from "recoil";
+import {atom, selector} from "recoil";
 import {DataStore} from "aws-amplify";
 import {Groups, Users} from "../../models";
 import selectedGroupsState from "../atoms/selectedGroupsState";

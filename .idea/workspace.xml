@@ -6,23 +6,61 @@
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/EditUserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/EditUserForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/AccordionItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/AccordionItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupInvited.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupInvited.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/ProductPicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/ProductPicker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupMember.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupMember.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/GroupsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/GroupsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/InviteUserToGroupsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/InviteUserToGroupsForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/InvitedGroupItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/InvitedGroupItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/NewGroupForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/NewGroupForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/UserAccordion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/UserAccordion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Groups/YourGroupList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Groups/YourGroupList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/AddSubuserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/AddSubuserForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/EditSubuserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/EditSubuserForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/SubUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/SubUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/SubUsersPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/SubUsersPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddWishlistForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddWishlistForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/HowToUse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/HowToUse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/WishlistItemTile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/WishlistItemTile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authenticator/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authenticator/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CustomModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DashboardDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardDrawer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/GiftGivingOverview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/GiftGivingOverview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/GroupsOverview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/GroupsOverview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/SubuserOverview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SubuserOverview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/SubuserToggle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SubuserToggle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Tile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/UserInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ListList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Money/Money.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Money/Money.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Money/MoneyItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Money/MoneyItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Money/MoneyList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Money/MoneyList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Money/MoneySummary.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Money/MoneySummary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignOut.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignOut.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Snackbars/SuccessSnackbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Snackbars/SuccessSnackbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SubuserChips.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SubuserChips.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserListItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Filters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/TopBadges.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/TopBadges.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/getCurrentUser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/getWishlistByUserId.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useCurrency.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCurrency.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useCurrentUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCurrentUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/allUsers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/allUsersByGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/allUsersByGroup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/state/selectors/currentUserMoney.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/currentUserMoney.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/groupsByUserId.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/groupsByUserId.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/subUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/subUsers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +89,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/benwalley/Documents/personal/wishlist-app/src/components/Home",
+    "last_opened_file_path": "/Users/benwalley/Documents/personal/wishlist-app/src/components/Snackbars",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,6 +101,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/Snackbars" />
       <recent name="$PROJECT_DIR$/src/components/Home" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -83,7 +122,7 @@
       <updated>1659755433541</updated>
       <workItem from="1659755434674" duration="80493000" />
       <workItem from="1660278813931" duration="5365000" />
-      <workItem from="1660363497450" duration="51205000" />
+      <workItem from="1660363497450" duration="54012000" />
     </task>
     <servers />
   </component>

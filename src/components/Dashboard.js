@@ -8,10 +8,8 @@ import {useSetRecoilState} from "recoil";
 import addItemModalOpen from "../state/atoms/addItemModalOpen";
 import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
 import useRecoilHook from "../hooks/useRecoilHook";
-import { Hub } from 'aws-amplify';
 import AreYouSureDialog from "./AreYouSureDialog";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
-
 
 const DashboardEl = styled.div`
   display: grid;

@@ -1,18 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import useRecoilHook from "../../../hooks/useRecoilHook";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {Accordion, AccordionDetails, AccordionSummary, ListItem, Stack} from "@mui/material";
-import {wishlistByUserId} from "../../../state/selectors/wishlistByUserId";
+import {Accordion, AccordionDetails, AccordionSummary, Stack} from "@mui/material";
 import Divider from "@mui/material/Divider";
 import {DataStore} from "aws-amplify";
 import {WishlistItem} from "../../../models";
 import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
 import AccordionItem from "./AccordionItem";
 import Button from "@mui/material/Button";
-
-
-
 
 export default function UserAccordion(props) {
     const {user, checked, setChecked} = props

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styled from '@emotion/styled'
-import {updateCurrentUserWishlist} from "../../state/selectors/currentUserWishlist";
 import {wishlistByUserId} from "../../state/selectors/wishlistByUserId";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import Tile from "./Tile/Tile";
 import {useParams} from "react-router-dom";
 import {userById} from "../../state/selectors/userByWishlistId";
 import Filters from "./Filters";
+import {useSetRecoilState} from "recoil";
 
 
 const WishlistContainerEl = styled.div`
@@ -20,13 +20,16 @@ const WishlistTileContainerEl = styled.div`
   gap: 20px;
 `
 
-//TODO: add toggle on subuser pages, where you can select whether to show who's getting things. (someday make it password protected)
 export default function WishlistById() {
     let {wishlistId} = useParams();
     const user = useRecoilHook(userById(wishlistId))
     const [filters, setFilters] = useState({})
     const wishlistById = useRecoilHook(wishlistByUserId({wishlistId: wishlistId || false, filters: filters}));
+    const updateWishlist = useSetRecoilState(wishlistByUserId(user.id))
 
+    useEffect(() => {
+        updateWishlist(0)
+    }, [updateWishlist]);
 
     const renderWishlistItems = () => {
         const wishlist = wishlistById;

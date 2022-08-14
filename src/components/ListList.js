@@ -6,14 +6,26 @@ import styled from '@emotion/styled'
 import List from "@mui/material/List";
 import GroupPicker from "./GroupPicker";
 import {useEffect, useState} from "react";
-import {currentUser} from "../state/selectors/currentUser";
+import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
 import {allUsersByGroup} from "../state/selectors/allUsersByGroup";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import selectedGroupsState from "../state/atoms/selectedGroupsState";
+import Tile from "./Home/Tile";
 
 const ListContainerEl = styled.div`
   background: var(--background-color);
   padding: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-rows: auto auto auto 1fr;
+`
+
+const H1El = styled.h1`
+  margin: 20px 0 0;
+`
+
+const H4El = styled.h4`
+  margin: 0 0 20px;
 `
 
 export default function ListList(props) {
@@ -21,6 +33,13 @@ export default function ListList(props) {
     const user = useRecoilHook(currentUser)
     const [selectedGroups, setSelectedGroups] = useRecoilState(selectedGroupsState)
     const users = useRecoilHook(allUsersByGroup)
+    const updateUser = useSetRecoilState(updateCurrentUser)
+    const updateUsers = useSetRecoilState(allUsersByGroup)
+
+    useEffect(() => {
+        updateUser(0)
+        updateUsers(0)
+    }, [updateUser, updateUsers]);
 
     const renderUsers = () => {
         return users.map(user => {
@@ -30,14 +49,16 @@ export default function ListList(props) {
 
     return (
         <ListContainerEl>
-            <h1>Lists</h1>
+            <H1El>Lists</H1El>
             <div>
-                <h4>Groups</h4>
+                <H4El>Groups</H4El>
                 <GroupPicker userId={user.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             </div>
-            <List>
-                {renderUsers()}
-            </List>
+            <Tile>
+                <List>
+                    {renderUsers()}
+                </List>
+            </Tile>
         </ListContainerEl>
     );
 }

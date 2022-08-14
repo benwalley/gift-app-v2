@@ -1,16 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "@emotion/styled";
 import Tile from "./Tile";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser} from "../../state/selectors/currentUser";
-import Button from "@mui/material/Button";
 import UserInfo from "./UserInfo";
-import {Switch} from "@mui/material";
 import SubuserToggle from "./SubuserToggle";
 import GiftGivingOverview from "./GiftGivingOverview";
 import SubuserOverview from "./SubuserOverview";
 import GroupsOverview from "./GroupsOverview";
-import CustomModal from "../CustomModal";
 
 const DashboardBodyEl = styled.div`
     background: var(--background-color);
@@ -19,7 +16,10 @@ const DashboardBodyEl = styled.div`
     gap: 20px;
     padding: 20px;
     grid-template-rows: auto auto auto 1fr;
-   
+`
+
+const H1El = styled.h1`
+    grid-column: 1/-1;
 `
 
 export default function DashboardBody() {
@@ -27,6 +27,7 @@ export default function DashboardBody() {
 
     return (
         <DashboardBodyEl>
+            <H1El>Dashboard</H1El>
             <Tile type="primary">
                 <UserInfo/>
             </Tile>

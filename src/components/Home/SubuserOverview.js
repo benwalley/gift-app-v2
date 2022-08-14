@@ -10,16 +10,7 @@ import SubUser from "../Account/Subusers/SubUser";
 import stringToColor from "../../helpers/stringToColor";
 import {getFirstLetters} from "../../helpers/nameFirstLetters";
 import ListItemText from "@mui/material/ListItemText";
-
-
-const DashboardBodyEl = styled.div`
-    background: var(--background-color);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
-   
-`
+import Divider from "@mui/material/Divider";
 
 export default function SubuserOverview() {
     const subusers = useRecoilHook(subUsers)
@@ -32,6 +23,7 @@ export default function SubuserOverview() {
     return (
         <div>
             <h3>Your Subusers</h3>
+            <Divider/>
             <List>
                 {subusers && subusers.map(user => {
                     return <ListItem key={user.id} divider disablePadding sx={{padding: '2px'}}>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "@emotion/styled";
 import List from "@mui/material/List";
 import GroupItem from "./GroupItem";
@@ -21,7 +21,6 @@ const ContainerEl = styled.div`
 export default function YourGroupList(props) {
     const user = useRecoilHook(currentUser)
     const groups = useRecoilHook(groupsByUserId(user?.id))
-
 
     return (
         <ContainerEl>
