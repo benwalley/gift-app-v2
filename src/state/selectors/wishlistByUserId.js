@@ -19,7 +19,6 @@ export const wishlistByUserId = selectorFamily({
                 return wishlistItem.groups.some(item => filters.groups.includes(item))
             }
         })
-        return wishlist
     },
 
     set: (wishlistId) => ({get, set}, newValue) => {

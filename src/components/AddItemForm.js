@@ -25,14 +25,19 @@ export default function AddItemForm(props) {
     const [link, setLink] = useState('')
     const [note, setNote] = useState('')
     const [image, setImage] = useState('')
-    const [addToId, setaddToId] = useState('')
+    const [addToId, setAddToId] = useState('')
     const [selectedGroups, setSelectedGroups] = useState([])
     const updateAddToWishlist = useSetRecoilState(wishlistByUserId(addToId))
     const user = useRecoilHook(currentUser)
 
+    const isEdit = () => {
+        if(initialData) return true;
+        return false
+    }
+
     useEffect(() => {
         // set initial add to did to the current user.
-        setaddToId(user.id)
+        setAddToId(user.id)
     }, [user]);
 
     async function handleSubmitEdit(e) {
@@ -105,9 +110,9 @@ export default function AddItemForm(props) {
 
     return (
         <form onSubmit={initialData ? handleSubmitEdit : handleSubmit}>
-            <h2>Add Item To Your Wishlist</h2>
+            <h2>{isEdit() ? "Edit Wishlist Item" : "Add Item To Your Wishlist"}</h2>
             <h4>Users</h4>
-            <SubuserChips selectedId={addToId} setSelectedId={setaddToId}/>
+            <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>
             <h4>Groups</h4>
             <GroupPicker userId={addToId} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             <TextField value={name} onChange={(e) => setName(e.target.value)} sx={styles} id="name" label="Item Name"

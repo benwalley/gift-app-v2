@@ -12,6 +12,7 @@ import {useSetRecoilState} from "recoil";
 import {groupsByUserId, updateGroupsByUserId} from "../../../state/selectors/groupsByUserId";
 import CustomModal from "../../CustomModal";
 import ProductPicker from "./ProductPicker";
+import {wishlistByUserId} from "../../../state/selectors/wishlistByUserId";
 
 const ContainerEl = styled.div`
     display: grid;
@@ -35,14 +36,33 @@ export default function NewGroupForm(props) {
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const updateGroup = useSetRecoilState(groupsByUserId(user?.id))
     const [productModalOpen, setProductModalOpen] = useState(false);
+    const [groupId, setGroupId] = useState();
+    const updateLists = useSetRecoilState(wishlistByUserId(user.id))
 
     async function handleSubmit(e) {
         e.preventDefault()
         setProductModalOpen(true)
+        if(!user) return;
+        const groupData = {
+            "groupName": name,
+            "memberId": [user.id],
+            "createdBy": user.id,
+            "additionalAdmins": [],
+            "parentId": user.id,
+            "invitedEmail": []
+        }
+        const newGroup = await DataStore.save(
+            new Groups(groupData)
+        );
+        setGroupId(newGroup.id)
+        setName('')
+        setSnackbarOpen(true)
+        updateGroup(0)
     }
 
     async function handleModalSubmit(e, products) {
-
+        updateLists(0)
+        setProductModalOpen(false)
     }
 
     return (
@@ -54,7 +74,7 @@ export default function NewGroupForm(props) {
                 <Button type="submit" color="primary" variant="contained">Submit</Button>
             </FormEl>
             <CustomModal size={"large"} open={productModalOpen} setOpen={setProductModalOpen}>
-                <ProductPicker afterSubmit={handleModalSubmit}/>
+                <ProductPicker afterSubmit={handleModalSubmit} groupId={groupId}/>
             </CustomModal>
             <SuccessSnackbar message={"Group Created"} snackbarOpen={snackbarOpen} setSnackbarOpen={setSnackbarOpen}/>
         </ContainerEl>

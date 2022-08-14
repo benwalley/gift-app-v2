@@ -25,7 +25,8 @@ export default function CustomModal(props) {
         bgcolor: 'background.paper',
         boxShadow: 24,
         p: padding,
-        overflow: 'auto'
+        overflow: 'auto',
+        borderRadius: '20px'
     };
 
     return (
