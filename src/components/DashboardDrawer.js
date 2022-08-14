@@ -8,6 +8,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AddIcon from '@mui/icons-material/Add';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import GroupsIcon from '@mui/icons-material/Groups';
 import List from '@mui/material/List';
@@ -21,6 +22,10 @@ import {useRecoilState} from "recoil";
 import addItemModalOpenState from "../state/atoms/addItemModalOpen";
 import CustomModal from "./CustomModal";
 import AddItemForm from "./AddItemForm";
+import useRecoilHook from "../hooks/useRecoilHook";
+import {currentUser} from "../state/selectors/currentUser";
+import moneyModalOpenState from "../state/atoms/moneyModalOpen";
+import Money from "./Money/Money";
 
 
 
@@ -31,18 +36,25 @@ const DrawerEl = styled.div`
 
 function DashboardDrawer(props) {
     const [addItemModalOpen, setAddItemModalOpen] = useRecoilState(addItemModalOpenState);
+    const [moneyModalOpen, setMoneyModalOpen] = useRecoilState(moneyModalOpenState);
     let navigate = useNavigate();
+    const user = useRecoilHook(currentUser)
 
     const handleOpenAddItemModal = () => {
         setAddItemModalOpen(true)
     }
 
+    const handleOpenMoneyModal = () => {
+        setMoneyModalOpen(true)
+    }
+
     const links = [
         {title: 'Dashboard', icon: <HomeIcon/>, url: '/'},
-        {title: 'Add Item', icon: <PlaylistAddIcon/>, action: handleOpenAddItemModal},
-        {title: 'Your List', url: '/wishlist', icon: <FormatListBulletedIcon/>},
+        {title: 'Add Item', icon: <AddIcon/>, action: handleOpenAddItemModal},
+        {title: 'Your List', url: `/wishlist/${user?.id}`, icon: <FormatListBulletedIcon/>},
         {title: 'Lists', url: '/lists', icon: <FormatListNumberedIcon/>},
-        {title: 'Money', icon: <AttachMoneyIcon/>, action: handleOpenAddItemModal},
+        {title: 'Money', icon: <AttachMoneyIcon/>, url: '/money'},
+        {title: 'Add Amazon Wishlist', icon: <PlaylistAddIcon/>, url: '/add-amazon-wishlist'},
 
     ]
 
@@ -82,6 +94,9 @@ function DashboardDrawer(props) {
                 {renderList(accountLinks)}
                 <CustomModal open={addItemModalOpen} setOpen={setAddItemModalOpen} size="large">
                     <AddItemForm afterSubmit={() => setAddItemModalOpen(false)}/>
+                </CustomModal>
+                <CustomModal padding={"0"} open={moneyModalOpen} setOpen={setMoneyModalOpen} size="large">
+                    <Money afterSubmit={() => setAddItemModalOpen(false)}/>
                 </CustomModal>
             </DrawerEl>
     );

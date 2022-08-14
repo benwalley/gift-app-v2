@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/cli-inputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/giftappv20/cli-inputs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authenticator/AddWishlistItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CustomModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DashboardDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Tile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Wishlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/getCurrentUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/getCurrentUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useCurrency.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCurrency.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/currentUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/currentUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2CxsBOxSDMKcKoD720Jwzp1WQSj" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/benwalley/Documents/personal/wishlist-app&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/benwalley/Library/Application Support/JetBrains/Toolbox/apps/PhpStorm/ch-0/222.3345.135/PhpStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/images" />
+      <recent name="$PROJECT_DIR$/src/components/Account/Subusers" />
+      <recent name="$PROJECT_DIR$/src/components/Account" />
+      <recent name="$PROJECT_DIR$/src/components/Account/Groups" />
+      <recent name="$PROJECT_DIR$/src/components" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="" />
+      <created>1659755433541</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1659755433541</updated>
+      <workItem from="1659755434674" duration="80493000" />
+      <workItem from="1660278813931" duration="5365000" />
+      <workItem from="1660363497450" duration="29534000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/state/selectors/currentUser.js</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

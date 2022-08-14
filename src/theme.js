@@ -6,6 +6,10 @@ const theme = createTheme({
         danger: '#e53e3e',
     },
     palette: {
+        white: {
+            main: '#ffffff',
+            darker: '#cccccc'
+        },
         primary: {
             main: '#1E88E5',
             darker: '#187ad0',

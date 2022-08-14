@@ -24,10 +24,6 @@ type GroupsMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type SubusersMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
 type UsersMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
@@ -58,9 +54,11 @@ export declare class Theme {
 
 export declare class Money {
   readonly id: string;
-  readonly owedFromId: string;
-  readonly owedToId: string;
+  readonly owedFromName: string;
+  readonly owedToName: string;
   readonly amount: number;
+  readonly ownerId: string;
+  readonly note?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Money, MoneyMetaData>);
@@ -87,24 +85,15 @@ export declare class WishlistItem {
 
 export declare class Groups {
   readonly id: string;
-  readonly groupName?: string | null;
+  readonly groupName: string;
   readonly memberId?: (string | null)[] | null;
   readonly createdBy: string;
   readonly additionalAdmins?: (string | null)[] | null;
+  readonly invitedEmail?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Groups, GroupsMetaData>);
   static copyOf(source: Groups, mutator: (draft: MutableModel<Groups, GroupsMetaData>) => MutableModel<Groups, GroupsMetaData> | void): Groups;
-}
-
-export declare class Subusers {
-  readonly id: string;
-  readonly username: string;
-  readonly parentId: string;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Subusers, SubusersMetaData>);
-  static copyOf(source: Subusers, mutator: (draft: MutableModel<Subusers, SubusersMetaData>) => MutableModel<Subusers, SubusersMetaData> | void): Subusers;
 }
 
 export declare class Users {
@@ -112,6 +101,7 @@ export declare class Users {
   readonly username: string;
   readonly email?: string | null;
   readonly authUsername?: string | null;
+  readonly parentId?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Users, UsersMetaData>);

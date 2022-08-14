@@ -171,15 +171,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "owedFromId": {
-                    "name": "owedFromId",
+                "owedFromName": {
+                    "name": "owedFromName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "owedToId": {
-                    "name": "owedToId",
+                "owedToName": {
+                    "name": "owedToName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -190,6 +190,20 @@ export const schema = {
                     "isArray": false,
                     "type": "Float",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "ownerId": {
+                    "name": "ownerId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "note": {
+                    "name": "note",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -374,7 +388,7 @@ export const schema = {
                     "name": "groupName",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "memberId": {
@@ -400,6 +414,14 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "invitedEmail": {
+                    "name": "invitedEmail",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -419,72 +441,6 @@ export const schema = {
             },
             "syncable": true,
             "pluralName": "Groups",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Subusers": {
-            "name": "Subusers",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "username": {
-                    "name": "username",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "parentId": {
-                    "name": "parentId",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Subusers",
             "attributes": [
                 {
                     "type": "model",
@@ -539,6 +495,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "parentId": {
+                    "name": "parentId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -584,5 +547,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "75bd2c530fe85e7b57dda48abcc05a2e"
+    "version": "91c3308bd6c1e63fd4c3a4c33a7cf268"
 };

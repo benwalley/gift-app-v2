@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 
 
 export default function CustomModal(props) {
-    const {open, setOpen, size, children} = props
+    const {open, setOpen, size, children, padding = "20px"} = props
     const handleClose = () => setOpen(false);
 
     const getSize = () => {
@@ -23,9 +23,9 @@ export default function CustomModal(props) {
         maxWidth: '90%',
         maxHeight: '90vh',
         bgcolor: 'background.paper',
-        border: '2px solid #000',
         boxShadow: 24,
-        p: 4,
+        p: padding,
+        overflow: 'auto'
     };
 
     return (

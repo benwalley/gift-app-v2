@@ -9,7 +9,10 @@ html {
   --green-color: #44FFD2;
   --pink-color: #FF8484;
   --border-color-light: rgba(0, 0, 0, 0.12);
+  --tile-box-shadow: 1px 2px 8px -2px #7f7f7f;
   --delete-red: #fd5858;
+  --background-grey: #eff0f0;
+  --tile-padding: 15px;
 /*    sizes */
   --desktop-page-margin: 30px;
   --header-height: 60px;

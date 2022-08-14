@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import styled from "@emotion/styled";
 import Tile from "./Tile";
+import useRecoilHook from "../../hooks/useRecoilHook";
+import {currentUser} from "../../state/selectors/currentUser";
+import Button from "@mui/material/Button";
+import UserInfo from "./UserInfo";
 
 const DashboardBodyEl = styled.div`
     background: var(--background-color);
@@ -12,10 +16,11 @@ const DashboardBodyEl = styled.div`
 `
 
 export default function DashboardBody() {
+    const user = useRecoilHook(currentUser)
     return (
         <DashboardBodyEl>
             <Tile type="primary">
-                Money Overview
+                <UserInfo/>
             </Tile>
             <Tile type="primary">
                 Gift giving overview

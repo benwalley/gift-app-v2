@@ -4,7 +4,7 @@ import { schema } from './schema';
 
 
 
-const { Comments, Theme, Money, WishlistItem, Groups, Subusers, Users } = initSchema(schema);
+const { Comments, Theme, Money, WishlistItem, Groups, Users } = initSchema(schema);
 
 export {
   Comments,
@@ -12,6 +12,5 @@ export {
   Money,
   WishlistItem,
   Groups,
-  Subusers,
   Users
 };

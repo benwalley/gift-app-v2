@@ -16,12 +16,14 @@ type Theme @model @auth(rules: [{allow: public}]) {
 
 type Money @model @auth(rules: [{allow: public}]) {
   id: ID!
-  owedFromId: String!
-  owedToId: String!
+  owedFromName: String!
+  owedToName: String!
   amount: Float!
+  ownerId: String!
+  note: String
 }
 
-type WishlistItem @model @auth(rules: [{allow: public}]) {
+type WishlistItemTile @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   price: String
@@ -37,16 +39,11 @@ type WishlistItem @model @auth(rules: [{allow: public}]) {
 
 type Groups @model @auth(rules: [{allow: public}]) {
   id: ID!
-  groupName: String
+  groupName: String!
   memberId: [String]
   createdBy: String!
   additionalAdmins: [String]
-}
-
-type Subusers @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  username: String!
-  parentId: String!
+  invitedEmail: [String]
 }
 
 type Users @model @auth(rules: [{allow: public}]) {
@@ -54,5 +51,5 @@ type Users @model @auth(rules: [{allow: public}]) {
   username: String!
   email: String
   authUsername: String
+  parentId: String
 }
- 

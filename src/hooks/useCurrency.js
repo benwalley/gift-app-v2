@@ -1,12 +1,14 @@
 import {useRecoilValue} from "recoil";
 import {useEffect, useState} from 'react';
 import currencyCode from '../state/atoms/currencyCode'
+import useRecoilHook from "./useRecoilHook";
 
 export default function useCurrency(price) {
     const currency = useRecoilValue(currencyCode)
     const [formattedPrice, setFormattedPrice] = useState('')
 
     useEffect(() => {
+        if(!price) setFormattedPrice('')
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency,
@@ -14,7 +16,7 @@ export default function useCurrency(price) {
         });
 
        setFormattedPrice(formatter.format(price))
-    }, [currencyCode, price]);
+    }, [currency, price]);
 
     return formattedPrice
 }
