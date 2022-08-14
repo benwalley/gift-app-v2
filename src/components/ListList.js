@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {allUsers} from "../state/selectors/allUsers";
 import useRecoilHook from "../hooks/useRecoilHook";
 import UserListItem from "./UserListItem";
 import styled from '@emotion/styled'
 import List from "@mui/material/List";
 import GroupPicker from "./GroupPicker";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
 import {allUsersByGroup} from "../state/selectors/allUsersByGroup";
 import {useRecoilState, useSetRecoilState} from "recoil";
@@ -28,8 +27,7 @@ const H4El = styled.h4`
   margin: 0 0 20px;
 `
 
-export default function ListList(props) {
-    const {} = props;
+export default function ListList() {
     const user = useRecoilHook(currentUser)
     const [selectedGroups, setSelectedGroups] = useRecoilState(selectedGroupsState)
     const users = useRecoilHook(allUsersByGroup)
