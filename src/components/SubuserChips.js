@@ -10,13 +10,13 @@ export default function SubuserChips(props) {
     const userData = useRecoilHook(currentUser)
 
     async function handleClick(user) {
-        setSelectedId(user.id)
+        setSelectedId(user?.id)
     }
 
     return (
         <Stack direction="row" spacing={1}>
             {subusers && subusers.map(user => {
-                return <Chip key={user.id} variant={selectedId === user.id ? "filled" : "outlined"}  color={"secondary"} label={user.username} onClick={() => handleClick(user)} />
+                return <Chip key={user?.id} variant={selectedId === user?.id ? "filled" : "outlined"}  color={"secondary"} label={user?.username} onClick={() => handleClick(user)} />
             })}
             <Chip variant={selectedId === userData.id ? "filled" : "outlined"} color={"secondary"} label={`${userData.username} (You)`} onClick={() => handleClick(userData)} />
         </Stack>

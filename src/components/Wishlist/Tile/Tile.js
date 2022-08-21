@@ -31,7 +31,7 @@ const PriorityPriceEl = styled.div`
 export default function Tile(props) {
     const {tile} = props;
     const user = useRecoilHook(currentUser);
-    const updateWishlist = useSetRecoilState(wishlistByUserId(user.id))
+    const updateWishlist = useSetRecoilState(wishlistByUserId(user?.id))
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [parentId, setParentId] = useState()
     const [canEdit, setCanEdit] = useState(false)
@@ -49,25 +49,25 @@ export default function Tile(props) {
     }, [tile, user]);
 
     useEffect(() => {
-        if(user.id === tile.ownerId || user.id === parentId) {
+        if(user?.id === tile.ownerId || user?.id === parentId) {
             setCanEdit(true)
         } else {
             setCanEdit(false)
         }
-    }, [parentId, tile.ownerId, user.id]);
+    }, [parentId, tile.ownerId, user?.id]);
 
     useEffect(() => {
-        if(user.id === tile.ownerId) {
+        if(user?.id === tile.ownerId) {
             // this is your list, so you can never see badges
             setCanSeeBadges(false)
             return;
         }
-        if(parentId && parentId !== user.id) {
+        if(parentId && parentId !== user?.id) {
             // The list is not a subuser, so we can show badges
             setCanSeeBadges(true)
             return;
         }
-        if(parentId === user.id && !user.subuserModeOn) {
+        if(parentId === user?.id && !user?.subuserModeOn) {
             // list is subuser, but subuser mode is not on.
             setCanSeeBadges(true)
             return;
@@ -79,14 +79,14 @@ export default function Tile(props) {
     async function handleToggleGetting(e) {
         e.preventDefault()
         if (!user) return;
-        await toggleAmplifyArrayItem(WishlistItem, tile.id, 'gottenBy', user.id)
+        await toggleAmplifyArrayItem(WishlistItem, tile.id, 'gottenBy', user?.id)
         updateWishlist(1)
     }
 
     async function handleToggleWantToGoIn(e) {
         e.preventDefault()
         if (!user) return;
-        await toggleAmplifyArrayItem(WishlistItem, tile.id, 'wantsToGet', user.id)
+        await toggleAmplifyArrayItem(WishlistItem, tile.id, 'wantsToGet', user?.id)
         updateWishlist(1)
     }
 

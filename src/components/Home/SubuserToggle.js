@@ -16,7 +16,7 @@ export default function SubuserToggle() {
     }, [updateUser]);
 
     const handleChange = async () => {
-        const original = await DataStore.query(Users, user.id);
+        const original = await DataStore.query(Users, user?.id);
         await DataStore.save(Users.copyOf(original, updated => {
             updated.subuserModeOn = !original.subuserModeOn;
         }))
@@ -29,12 +29,12 @@ export default function SubuserToggle() {
             <Divider/>
             <p>Turn on Subuser Mode to prevent subusers from seeing what other people are getting them.</p>
             <Switch
-                checked={user.subuserModeOn || false}
+                checked={user?.subuserModeOn || false}
                 color={"secondary"}
                 onChange={handleChange}
                 inputProps={{ 'aria-label': 'controlled' }}
             />
-            <h4>{user.subuserModeOn ? "Subuser Mode on" : "Subuser Mode off"}</h4>
+            <h4>{user?.subuserModeOn ? "Subuser Mode on" : "Subuser Mode off"}</h4>
         </>
     );
 }

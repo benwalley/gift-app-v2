@@ -1,9 +1,9 @@
-import {Amplify, Hub} from 'aws-amplify';
+import {Amplify, Auth, DataStore, Hub} from 'aws-amplify';
 import {RecoilRoot} from 'recoil';
 import {Authenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Routes,
     Route,
@@ -24,6 +24,7 @@ import GroupsPage from "./components/Account/Groups/GroupsPage";
 import Money from "./components/Money/Money";
 import AddAmazonWishlist from "./components/AddAmazonWishlist/AddAmazonWishlist";
 import ItemPage from "./components/Wishlist/ItemPage/ItemPage";
+import {Users} from "./models";
 
 Amplify.configure(awsExports);
 
@@ -34,14 +35,6 @@ const MainBody = styled.div`
 `
 
 export default function App() {
-    Hub.listen('auth', (data) => {
-        switch (data.payload.event) {
-            case 'signIn':
-                window.location.href = "/"
-                break;
-        }
-    });
-
     return (
         <RecoilRoot>
             <ThemeProvider theme={theme}>

@@ -34,7 +34,7 @@ export default function DashboardBody() {
             <Tile type="primary">
                 <SubuserToggle/>
             </Tile>
-            {user && !user.subuserModeOn && <Tile type="primary">
+            {user && !user?.subuserModeOn && <Tile type="primary">
                 <GiftGivingOverview/>
             </Tile>}
             <Tile type="primary">

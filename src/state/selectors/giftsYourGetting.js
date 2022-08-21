@@ -13,7 +13,7 @@ export const giftsYourGetting = selector({
     get: async ({get}) => {
         get(giftsYourGettingVersion)
         const user = get(currentUser)
-        const gifts = await DataStore.query(WishlistItem, c => c.gottenBy("contains", user.id));
+        const gifts = await DataStore.query(WishlistItem, c => c.gottenBy("contains", user?.id));
         return (gifts)
     },
 });

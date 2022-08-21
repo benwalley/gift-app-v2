@@ -49,9 +49,9 @@ export default function ProductPicker(props) {
     return (
         <ContainerEl onSubmit={(e) => handleSubmit(e, selectedProducts)}>
             <h2>Select products to add to this group</h2>
-            <UserAccordion user={user} checked={selectedProducts[user.id] || []} setChecked={setChecked}/>
+            <UserAccordion user={user} checked={selectedProducts[user?.id] || []} setChecked={setChecked}/>
             {subusers && subusers.map(subuser => {
-                return <UserAccordion key={subuser.id} user={subuser} checked={selectedProducts[subuser.id] || []} setChecked={setChecked}/>
+                return <UserAccordion key={subuser?.id} user={subuser} checked={selectedProducts[subuser?.id] || []} setChecked={setChecked}/>
             })}
 
             <Button variant={"contained"} type={"submit"}>Add Items</Button>

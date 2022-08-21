@@ -89,6 +89,7 @@ export declare class Groups {
   readonly memberId?: (string | null)[] | null;
   readonly createdBy: string;
   readonly additionalAdmins?: (string | null)[] | null;
+  readonly invitedEmail?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Groups, GroupsMetaData>);

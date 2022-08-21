@@ -28,14 +28,14 @@ export default function SubUser(props) {
     const update = useSetRecoilState(updateSubUsers)
     const navigate = useNavigate();
     const groups = useRecoilHook(groupsByUserId(user?.id))
-    const updateGroups = useSetRecoilState(groupsByUserId(user.id))
+    const updateGroups = useSetRecoilState(groupsByUserId(user?.id))
 
     useEffect(() => {
         updateGroups(0)
     }, [updateGroups]);
 
     async function handleDelete() {
-        const todelete = await DataStore.query(Users, user.id);
+        const todelete = await DataStore.query(Users, user?.id);
         DataStore.delete(todelete);
         update(0)
     }
@@ -44,21 +44,21 @@ export default function SubUser(props) {
         <ListItem disablePadding={false} >
             <ListItemAvatar>
                 <Avatar
-                    sx={{bgcolor: stringToColor(user.username)}}
-                    alt={user.username}
+                    sx={{bgcolor: stringToColor(user?.username)}}
+                    alt={user?.username}
                 >
-                    {getFirstLetters(user.username)}
+                    {getFirstLetters(user?.username)}
                 </Avatar>
             </ListItemAvatar>
             <ListItemText
-                primary={<SubuserNameEl>{user.username}</SubuserNameEl>}
+                primary={<SubuserNameEl>{user?.username}</SubuserNameEl>}
                 secondary={<Stack direction="row" spacing={1}>
                     {groups.map(group =>
                         <Chip key={group.id} color={"secondary"} size={"small"} key={group.id} label={group.groupName} />
                     )}
                 </Stack>}
             />
-            <Button onClick={() => navigate(`/wishlist/${user.id}`)}>View List</Button>
+            <Button onClick={() => navigate(`/wishlist/${user?.id}`)}>View List</Button>
             <IconButton edge="end" aria-label="edit" size={"medium"} color={"primary"} onClick={() => setEditModalOpen(true)}>
                 <EditIcon/>
             </IconButton>
@@ -66,7 +66,7 @@ export default function SubUser(props) {
                 <DeleteIcon/>
             </IconButton>
             <CustomModal open={editModalOpen} setOpen={setEditModalOpen} size={"small"}>
-                <EditSubuserForm initialName={user.username} user={user} afterSubmit={() => setEditModalOpen(false)}/>
+                <EditSubuserForm initialName={user?.username} user={user} afterSubmit={() => setEditModalOpen(false)}/>
             </CustomModal>
         </ListItem>
     );

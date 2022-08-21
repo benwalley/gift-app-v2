@@ -15,7 +15,7 @@ export default function UserListItem(props) {
 
     const handleItemClick = (e) => {
         e.preventDefault();
-        navigate(`/wishlist/${user.id}`)
+        navigate(`/wishlist/${user?.id}`)
     }
 
     const UsernameEl = styled.div`
@@ -26,14 +26,14 @@ export default function UserListItem(props) {
         <ListItem disablePadding divider>
             <ListItemButton onClick={handleItemClick}>
                 <Avatar
-                    sx={{bgcolor: stringToColor(user.username)}}
-                    alt={user.username}
+                    sx={{bgcolor: stringToColor(user?.username)}}
+                    alt={user?.username}
                 >
-                    {getFirstLetters(user.username)}
+                    {getFirstLetters(user?.username)}
                 </Avatar>
                 <UsernameEl>
-                    {user.username}
-                    {user.id === myUser.id && <span> (You)</span>}
+                    {user?.username}
+                    {user?.id === myUser.id && <span> (You)</span>}
                 </UsernameEl>
             </ListItemButton>
         </ListItem>

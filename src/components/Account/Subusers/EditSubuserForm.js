@@ -33,7 +33,7 @@ export default function EditSubuserForm(props) {
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const parentUser = useRecoilHook(currentUser)
     const [selectedGroups, setSelectedGroups] = useState([])
-    const updateGroups = useSetRecoilState(groupsByUserId(user.id))
+    const updateGroups = useSetRecoilState(groupsByUserId(user?.id))
 
     useEffect(() => {
         setName(initialName)
@@ -58,7 +58,7 @@ export default function EditSubuserForm(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         if(!user) return;
-        const original = await DataStore.query(Users, user.id);
+        const original = await DataStore.query(Users, user?.id);
         await DataStore.save(Users.copyOf(original, updated => {
             updated.username = name;
         }))
@@ -68,9 +68,9 @@ export default function EditSubuserForm(props) {
         for (const group of parentGroups) {
             if(selectedGroups.includes(group.id)) {
                 // add to the group
-                if(!group.memberId.includes(user.id)) {
+                if(!group.memberId.includes(user?.id)) {
                     const oldMembers = [...group.memberId];
-                    oldMembers.push(user.id)
+                    oldMembers.push(user?.id)
                     await DataStore.save(Groups.copyOf(group, updated => {
                         try {
                             updated.memberId = oldMembers;
@@ -81,9 +81,9 @@ export default function EditSubuserForm(props) {
                 }
             } else {
                 // remove from the group
-                if(group.memberId.includes(user.id)) {
+                if(group.memberId.includes(user?.id)) {
                     const oldMembers = [...group.memberId];
-                    oldMembers.splice(oldMembers.indexOf(user.id), 1);
+                    oldMembers.splice(oldMembers.indexOf(user?.id), 1);
                     await DataStore.save(Groups.copyOf(group, updated => {
                         try {
                             updated.memberId = oldMembers;

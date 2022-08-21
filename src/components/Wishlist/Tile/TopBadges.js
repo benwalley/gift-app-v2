@@ -24,13 +24,13 @@ export default function TopBadges(props) {
 
     const showWantsToGet = () => {
         if(!user || !wantsToGet || wantsToGet.length === 0) return false;
-        if (wantsToGet.includes(user.id)) return true;
+        if (wantsToGet.includes(user?.id)) return true;
         return false;
     }
 
     const showGetting = () => {
         if(!user || !getting || getting.length === 0) return false;
-        if (getting.includes(user.id)) return true;
+        if (getting.includes(user?.id)) return true;
         return false;
     }
 

@@ -38,7 +38,7 @@ function DashboardDrawer() {
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
     let navigate = useNavigate();
     const user = useRecoilHook(currentUser)
-    const groups = useRecoilHook(groupsByUserId(user.id))
+    const groups = useRecoilHook(groupsByUserId(user?.id))
 
 
     const handleOpenAddItemModal = () => {
@@ -55,7 +55,7 @@ function DashboardDrawer() {
         {title: 'Your List', url: `/wishlist/${user?.id}`, icon: <FormatListBulletedIcon/>},
         {title: 'Lists', url: '/lists', icon: <FormatListNumberedIcon/>},
         {title: 'Money', icon: <AttachMoneyIcon/>, url: '/money'},
-        {title: 'Add Amazon Wishlist', icon: <PlaylistAddIcon/>, url: '/add-amazon-wishlist'},
+        {title: 'Import Amazon List', icon: <PlaylistAddIcon/>, url: '/add-amazon-wishlist'},
 
     ]
 

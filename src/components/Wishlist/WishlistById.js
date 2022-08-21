@@ -25,7 +25,7 @@ export default function WishlistById() {
     const user = useRecoilHook(userById(wishlistId))
     const [filters, setFilters] = useState({})
     const wishlistById = useRecoilHook(wishlistByUserId({wishlistId: wishlistId || false, filters: filters}));
-    const updateWishlist = useSetRecoilState(wishlistByUserId(user.id))
+    const updateWishlist = useSetRecoilState(wishlistByUserId(user?.id || false))
 
     useEffect(() => {
         updateWishlist(0)
@@ -42,7 +42,7 @@ export default function WishlistById() {
     return (
         <WishlistContainerEl>
             <Filters filters={filters} setFilters={setFilters}/>
-            <h1>{user?.username && user.username}</h1>
+            <h1>{user?.username && user?.username}</h1>
             <WishlistTileContainerEl>
                 {renderWishlistItems()}
             </WishlistTileContainerEl>

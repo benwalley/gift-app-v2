@@ -50,7 +50,7 @@ export default function EditUserForm(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         if(!user) return;
-        const original = await DataStore.query(Users, user.id);
+        const original = await DataStore.query(Users, user?.id);
         await DataStore.save(Users.copyOf(original, updated => {
             updated.username = name;
         }))

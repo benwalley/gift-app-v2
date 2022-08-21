@@ -19,7 +19,7 @@ export default function AddWishlistForm(props) {
     const {source, setSource, afterSubmit} = props
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
     const user = useRecoilHook(currentUser)
-    const groups = useRecoilHook(groupsByUserId(user.id))
+    const groups = useRecoilHook(groupsByUserId(user?.id))
     const navigate = useNavigate()
 
     async function handleSubmit(e) {

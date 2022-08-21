@@ -21,8 +21,8 @@ const ContainerEl = styled.div`
 
 export default function YourGroupList(props) {
     const user = useRecoilHook(currentUser)
-    const groups = useRecoilHook(invitedByEmail(user.email))
-    const updateGroups = useSetRecoilState(invitedByEmail(user.email))
+    const groups = useRecoilHook(invitedByEmail(user?.email))
+    const updateGroups = useSetRecoilState(invitedByEmail(user?.email))
 
     useEffect(() => {
         updateGroups(0)

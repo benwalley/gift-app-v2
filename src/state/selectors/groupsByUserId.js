@@ -2,7 +2,7 @@ import {atom, selectorFamily} from "recoil";
 import {DataStore} from "aws-amplify";
 import {Groups} from "../../models";
 
-const groupsByUserIdVersion = atom({
+export const groupsByUserIdVersion = atom({
     key: 'groupsByUserIdVersion',
     default: 0,
 });

@@ -39,13 +39,13 @@ export default function AddItemForm(props) {
 
     useEffect(() => {
         // set initial add to did to the current user.
-        setAddToId(user.id)
+        setAddToId(user?.id)
     }, [user]);
 
     async function handleSubmitEdit(e) {
         e.preventDefault()
         if (!name) return;
-        if (!user || user.length === 0) return;
+        if (!user || user?.length === 0) return;
 
         const original = await DataStore.query(WishlistItem, initialData.id);
         await DataStore.save(WishlistItem.copyOf(original, updated => {
@@ -143,10 +143,10 @@ export default function AddItemForm(props) {
                        multiline
                        variant="outlined"/>
 
-            <TextField value={image} onChange={(e) => setImage(e.target.value)} sx={styles} id="image" label="Image"
+            <TextField value={image} onChange={(e) => setImage(e.target.value)} sx={styles} id="image" label="Image Url"
                        variant="outlined"/>
             <Button type="submit" sx={{marginTop: '30px', marginLeft: 'auto', display: 'block'}} variant="contained"
-                    size="large">Submit</Button>
+                    size="large">Add Item</Button>
         </form>
     );
 }

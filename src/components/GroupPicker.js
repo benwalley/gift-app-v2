@@ -4,17 +4,22 @@ import useRecoilHook from "../hooks/useRecoilHook";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
 import {Chip, Stack} from "@mui/material";
 import {toggleValueInArray} from "../helpers/toggleValueInArray";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 
 export default function GroupPicker(props) {
-    const {userId, selectedGroups, setSelectedGroups} = props;
-
-    const groups = useRecoilHook(groupsByUserId(userId))
+    const {userId, selectedGroups, setSelectedGroups, groupsOverride} = props;
+    const allGroups = useRecoilHook(groupsByUserId(userId))
+    const [groups, setGroups] = useState([])
 
     useEffect(() => {
-
-    }, [userId, groups, selectedGroups, setSelectedGroups]);
+        console.log('running')
+        if(groupsOverride) {
+            setGroups(groupsOverride);
+        } else {
+            setGroups(allGroups)
+        }
+    }, [allGroups, groups, groupsOverride]);
 
     useEffect(() => {
         if(!groups || groups.length === 0) return;

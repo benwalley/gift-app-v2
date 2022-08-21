@@ -10,10 +10,15 @@ const invitedByEmailVersion = atom({
 export const invitedByEmail = selectorFamily({
     key: 'invitedByEmail',
     get: (email) => async ({get}) => {
-        if(email) return;
-        get(invitedByEmailVersion)
-        const groups = await DataStore.query(Groups, c => c.invitedEmail("contains", email));
-        return groups
+        try {
+            if(!email) return;
+            get(invitedByEmailVersion)
+            const groups = await DataStore.query(Groups, c => c.invitedEmail("contains", email));
+            return groups
+        } catch(e) {
+            console.log(e)
+        }
+
     },
 
     set: (wishlistId) => ({get, set}, newValue) => {

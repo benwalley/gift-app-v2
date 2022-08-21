@@ -10,6 +10,8 @@ import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
 import useRecoilHook from "../hooks/useRecoilHook";
 import AreYouSureDialog from "./AreYouSureDialog";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
+import {Auth, DataStore} from "aws-amplify";
+import {Users} from "../models";
 
 const DashboardEl = styled.div`
   display: grid;
@@ -25,14 +27,33 @@ const fabStyle = {
 export default function Dashboard() {
     const setAddModalOpen = useSetRecoilState(addItemModalOpen)
     const user = useRecoilHook(currentUser)
-    const updateUser = useSetRecoilState(updateCurrentUser)
     const navigate = useNavigate()
-    const groups = useRecoilHook(groupsByUserId(user.id))
+    const groups = useRecoilHook(groupsByUserId(user?.id))
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
 
     useEffect(() => {
-        updateUser(0)
-    }, [updateUser]);
+        const createUserIfNeeded = async () => {
+            try {
+                const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
+                if (currentUser.length === 0) {
+                    const userData = {
+                        "username": Auth.user.attributes.name,
+                        "authUsername": Auth.user.username,
+                        "email": Auth.user.attributes.email,
+                        "subuserModeOn": false
+                    }
+                    const newUser = await DataStore.save(
+                        new Users(userData)
+                    );
+                }
+            } catch(e) {
+                console.log(e)
+            }
+
+        }
+
+        createUserIfNeeded()
+    }, []);
 
     function handleAddButtonClick(e) {
         e.preventDefault();

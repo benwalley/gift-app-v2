@@ -42,10 +42,10 @@ const Header = () => {
            {isLoggedIn() ? <Link to="/">
                <Logo src="/logo.svg" alt="WishlistById logo"/>
            </Link> :  <Logo src="/logo.svg" alt="WishlistById logo"/> }
-           {isLoggedIn() ? <StyledLink to={`/wishlist/${user.id}`}>
-               <H2El>{user.username}</H2El>
+           {isLoggedIn() ? <StyledLink to={`/wishlist/${user?.id}`}>
+               <H2El>{user?.username}</H2El>
            </StyledLink> :  <div></div> }
-           {isLoggedIn() ? <div>{user.subuserModeOn ? "Subuser Mode" : ''}</div> :  <div></div> }
+           {isLoggedIn() ? <div>{user?.subuserModeOn ? "Subuser Mode" : ''}</div> :  <div></div> }
            <SignOut/>
        </HeaderEl>
     );

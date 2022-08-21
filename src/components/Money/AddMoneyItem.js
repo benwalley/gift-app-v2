@@ -44,7 +44,7 @@ export default function AddMoneyItem(props) {
             "owedFromName": from,
             "owedToName": to,
             "amount": parseFloat(amount),
-            "ownerId": user.id,
+            "ownerId": user?.id,
             "note": note,
         }
         const money = await DataStore.save(

@@ -13,8 +13,8 @@ import Divider from "@mui/material/Divider";
 
 export default function GroupsOverview() {
     const user = useRecoilHook(currentUser)
-    const groups = useRecoilHook(groupsByUserId(user.id))
-    const updateGroups = useSetRecoilState(groupsByUserId(user.id))
+    const groups = useRecoilHook(groupsByUserId(user?.id))
+    const updateGroups = useSetRecoilState(groupsByUserId(user?.id))
 
     useEffect(() => {
         updateGroups(0)
@@ -24,12 +24,21 @@ export default function GroupsOverview() {
         <div>
             <h3>Your groups</h3>
             <Divider/>
+            {groups && groups.length === 0 && <>
+                <p>
+                    You aren't in any groups.
+                    Visit the groups page to create a group or join a group if you've been invited to one.
+                </p>
+                <p>
+                    You must have be a part of a group in order to create items or subusers.
+                </p>
+            </>}
             <List>
                 {groups && groups.map(group => {
                     return <ListItem key={group.id} divider>
                         <ListItemAvatar>
                             <Avatar
-                                sx={{bgcolor: stringToColor(user.username), width: '24px', height: '24px', fontSize: '12px'}}
+                                sx={{bgcolor: stringToColor(user?.username), width: '24px', height: '24px', fontSize: '12px'}}
                                 alt={group.groupName}
                             >
                                 {getFirstLetters(group.groupName)}

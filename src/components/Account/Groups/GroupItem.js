@@ -53,11 +53,11 @@ export default function GroupItem(props) {
     }
 
     const isAdmin = () => {
-        return group.additionalAdmins.includes(myUser.id)
+        return group.additionalAdmins.includes(myUser?.id)
     }
 
     const isCreator = () => {
-        return group.createdBy === myUser.id
+        return group.createdBy === myUser?.id
     }
 
     const handleToggleUsers = () => {
@@ -120,7 +120,7 @@ export default function GroupItem(props) {
                 })}
             </UsersEl>}
             <AreYouSureDialog
-                text={`Are you sure you want to delete the group ${group.groupName}?`}
+                text={isCreator() ? `Are you sure you want to delete the group ${group.groupName}?` : `Are you sure you want to leave the group ${group.groupName}?`}
                 open={areYouSureOpen}
                 setOpen={setAreYouSureOpen}
                 confirmHandler={handleDeleteGroup}

@@ -38,7 +38,7 @@ export default function Filters(props) {
         <FiltersEl>
             <FiltersRowEl>
                 <H4El>Groups</H4El>
-                <GroupPicker userId={user.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
+                <GroupPicker userId={user?.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             </FiltersRowEl>
             {/*TODO: add other filters*/}
             {/*<FiltersRowEl>*/}

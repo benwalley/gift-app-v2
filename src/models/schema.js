@@ -414,6 +414,14 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "invitedEmail": {
+                    "name": "invitedEmail",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -546,5 +554,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "8588e3992284cb3617366e57d039e30e"
+    "version": "45847de9cf8a0bd83a5d32328677e0aa"
 };

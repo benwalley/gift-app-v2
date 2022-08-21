@@ -13,7 +13,7 @@ export const currentUserWishlist = selector({
     get: async ({get}) => {
         get(currentUserWishlistVersion)
         const user = get(currentUser)
-        const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", user.id));
+        const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", user?.id));
         return (wishlist)
     },
 });

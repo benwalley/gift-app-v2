@@ -38,6 +38,7 @@ export default function MoneyList() {
     const [filteredList, setFilteredList] = useState([])
 
     useEffect(() => {
+        if(!moneyData) return;
         const updateUserNames = () => {
             const names =  moneyData.map(item => {
                 return [item.owedFromName, item.owedToName];

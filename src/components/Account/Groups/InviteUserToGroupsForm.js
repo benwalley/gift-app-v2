@@ -11,6 +11,7 @@ import {useSetRecoilState} from "recoil";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import GroupPicker from "../../GroupPicker";
 import ErrorSnackbar from "../../Snackbars/ErrorSnackbar";
+import {userAdminGroupsById} from "../../../state/selectors/userAdminGroupsById";
 
 const ContainerEl = styled.div`
     display: grid;
@@ -33,8 +34,9 @@ export default function InviteUserToGroupsForm(props) {
     const [email, setEmail] = useState('')
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
     const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
-    const updateGroup = useSetRecoilState(groupsByUserId(user.id))
+    const updateGroup = useSetRecoilState(groupsByUserId(user?.id))
     const [selectedGroups, setSelectedGroups] = useState([])
+    const adminGroups = useRecoilHook(userAdminGroupsById(user?.id))
 
 
     async function handleSubmit(e) {
@@ -61,7 +63,7 @@ export default function InviteUserToGroupsForm(props) {
     return (
         <ContainerEl>
             <h2>Invite user to groups</h2>
-            <GroupPicker userId={user.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
+            <GroupPicker userId={user?.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups} groupsOverride={adminGroups}/>
             <FormEl onSubmit={handleSubmit}>
                 <TextField value={email} onChange={(e) => setEmail(e.target.value)} id="email" label="Email Address" variant="outlined"/>
                 <Button type="submit" color="primary" variant="contained">Invite</Button>

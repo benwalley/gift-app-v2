@@ -54,7 +54,7 @@ export default function UserInfo(props) {
                 <span>{user?.email}</span>
             </RowEl>
             <CustomModal open={editModalOpen} setOpen={setEditModalOpen} size={"small"}>
-                <EditUserForm initialName={user.username} user={user} afterSubmit={afterSubmitEdit}/>
+                <EditUserForm initialName={user?.username} user={user} afterSubmit={afterSubmitEdit}/>
             </CustomModal>
         </>
 

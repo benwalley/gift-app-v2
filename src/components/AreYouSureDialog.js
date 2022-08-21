@@ -36,7 +36,9 @@ export default function AreYouSureDialog(props) {
 
     const handleClose = (value) => {
         setOpen(false);
-        confirmHandler(value)
+        if(value) {
+            confirmHandler(value)
+        }
     };
 
     return (

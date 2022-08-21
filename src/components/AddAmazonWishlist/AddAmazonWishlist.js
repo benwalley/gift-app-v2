@@ -63,8 +63,8 @@ export default function AddAmazonWishlist(props) {
     }, [updateUser]);
 
     useEffect(() => {
-        setAddToId(user.id)
-    }, [user.id]);
+        setAddToId(user?.id)
+    }, [user?.id]);
 
     function stringToHtml (string) {
         var parser = new DOMParser();
@@ -147,6 +147,7 @@ export default function AddAmazonWishlist(props) {
 
     return (
         <ContainerEl>
+            <h1>Import Amazon Wishlist</h1>
             <HowToUse/>
 
             <Tile>

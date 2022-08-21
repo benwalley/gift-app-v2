@@ -25,18 +25,19 @@ export default function SubuserOverview() {
             <h3>Your Subusers</h3>
             <Divider/>
             <List>
+                {subusers && subusers.length === 0 && <p>You don't have any subusers</p>}
                 {subusers && subusers.map(user => {
-                    return <ListItem key={user.id} divider disablePadding sx={{padding: '2px'}}>
+                    return <ListItem key={user?.id} divider disablePadding sx={{padding: '2px'}}>
                         <ListItemAvatar>
                             <Avatar
-                                sx={{bgcolor: stringToColor(user.username), width: '24px', height: '24px', fontSize: '12px'}}
-                                alt={user.username}
+                                sx={{bgcolor: stringToColor(user?.username), width: '24px', height: '24px', fontSize: '12px'}}
+                                alt={user?.username}
                             >
-                                {getFirstLetters(user.username)}
+                                {getFirstLetters(user?.username)}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
-                            primary={user.username}
+                            primary={user?.username}
                         />
                     </ListItem>
                 })}

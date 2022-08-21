@@ -38,8 +38,8 @@ export default function AddSubuserForm(props) {
     const [selectedGroups, setSelectedGroups] = useState([])
     const updateCurrentuser = useSetRecoilState(updateCurrentUser)
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
-    const groups = useRecoilHook(groupsByUserId(user.id))
-    const updateGroups = useSetRecoilState(groupsByUserId(user.id))
+    const groups = useRecoilHook(groupsByUserId(user?.id))
+    const updateGroups = useSetRecoilState(groupsByUserId(user?.id))
     const updateUser = useSetRecoilState(updateCurrentUser)
     const navigate = useNavigate()
 
@@ -74,7 +74,7 @@ export default function AddSubuserForm(props) {
         try {
             const userData = {
                 "username": name,
-                "parentId": user.id
+                "parentId": user?.id
             }
             const subuser = await DataStore.save(
                 new Users(userData)
@@ -83,7 +83,7 @@ export default function AddSubuserForm(props) {
             for(const groupId of selectedGroups) {
                 const original = await DataStore.query(Groups, groupId);
                 const oldMembers = [...original.memberId];
-                oldMembers.push(subuser.id)
+                oldMembers.push(subuser?.id)
 
                 await DataStore.save(Groups.copyOf(original, updated => {
                     try {
@@ -105,7 +105,7 @@ export default function AddSubuserForm(props) {
     return (
         <ContainerEl>
             <h2>Add Subuser</h2>
-            <GroupPicker userId={user.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
+            <GroupPicker userId={user?.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             <FormEl onSubmit={handleSubmit}>
                 <TextField value={name} onChange={(e) => setName(e.target.value)} id="name" label="username" variant="outlined"/>
                 <Button type="submit" color="primary" variant="contained">Submit</Button>

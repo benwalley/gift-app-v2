@@ -26,7 +26,7 @@ export default function GroupInvited(props) {
     const {email, group} = props;
     const myUser = useRecoilHook(currentUser)
     const [areYouSureOpen, setAreYouSureOpen] = useState(false);
-    const updateGroups = useSetRecoilState(groupsByUserId(myUser.id))
+    const updateGroups = useSetRecoilState(groupsByUserId(myUser?.id))
 
     useEffect(() => {
         updateGroups(0)
@@ -38,7 +38,7 @@ export default function GroupInvited(props) {
     }
 
     function CreatorActions() {
-        if (group.createdBy !== myUser.id) return;
+        if (group.createdBy !== myUser?.id) return;
         return <>
             <IconButton
                 edge="end"

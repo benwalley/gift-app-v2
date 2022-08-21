@@ -36,7 +36,7 @@ export default function SubUsersPage(props) {
             <AddSubuserForm/>
             <List dense disablePadding={true} sx={listStyles}>
                 {subusers && subusers.map(user => {
-                    return <SubUser key={user.id} user={user}/>
+                    return <SubUser key={user?.id} user={user}/>
                 })}
             </List>
         </ContainerEl>

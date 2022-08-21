@@ -50,7 +50,7 @@ export default function ListList() {
             <H1El>Lists</H1El>
             <div>
                 <H4El>Groups</H4El>
-                <GroupPicker userId={user.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
+                <GroupPicker userId={user?.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             </div>
             <Tile>
                 <List>

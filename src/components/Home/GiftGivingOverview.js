@@ -18,6 +18,7 @@ export default function GiftGivingOverview() {
         <List>
             <h3>Gifts You're Giving</h3>
             <Divider/>
+            {gifts && gifts.length === 0 && <p>You haven't marked any gifts as gotten</p>}
             {gifts && gifts.map(gift => {
                 return <ListItem key={gift.id} divider>
                     {gift.name.slice(0, 20)}

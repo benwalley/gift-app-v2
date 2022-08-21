@@ -10,8 +10,13 @@ import {useEffect} from "react";
 const MoneyContainerEl = styled.div`
     padding: 20px 20px 260px 20px;
     display: grid;
+    grid-template-rows: auto auto auto auto 1fr;
     gap: 20px;
     background: var(--background-color);
+`
+
+const H1El = styled.h1`
+    margin: 5px 0;
 `
 
 export default function Money() {
@@ -23,7 +28,8 @@ export default function Money() {
 
     return (
         <MoneyContainerEl>
-            <h1>Money Tracker</h1>
+            <H1El>Money Tracker</H1El>
+            <i>Money Tracker items are only visible to you, and are only for record keeping purposes. You can not make or request any payments from here.</i>
             <Tile>
                 <MoneyList/>
             </Tile>

@@ -36,7 +36,7 @@ export default function NewGroupForm(props) {
     const updateGroup = useSetRecoilState(groupsByUserId(user?.id))
     const [productModalOpen, setProductModalOpen] = useState(false);
     const [groupId, setGroupId] = useState();
-    const updateLists = useSetRecoilState(wishlistByUserId(user.id))
+    const updateLists = useSetRecoilState(wishlistByUserId(user?.id))
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -44,10 +44,10 @@ export default function NewGroupForm(props) {
         if(!user) return;
         const groupData = {
             "groupName": name,
-            "memberId": [user.id],
-            "createdBy": user.id,
+            "memberId": [user?.id],
+            "createdBy": user?.id,
             "additionalAdmins": [],
-            "parentId": user.id,
+            "parentId": user?.id,
             "invitedEmail": []
         }
         const newGroup = await DataStore.save(
