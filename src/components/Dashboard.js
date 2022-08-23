@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import styled from '@emotion/styled'
 import DashboardDrawer from "./DashboardDrawer";
 import {Outlet, useNavigate} from "react-router-dom";
-import {Fab} from "@mui/material";
+import {Drawer, Fab} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import {useSetRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import addItemModalOpen from "../state/atoms/addItemModalOpen";
 import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
 import useRecoilHook from "../hooks/useRecoilHook";
@@ -12,10 +12,13 @@ import AreYouSureDialog from "./AreYouSureDialog";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
 import {Auth, DataStore} from "aws-amplify";
 import {Users} from "../models";
+import Button from "@mui/material/Button";
+import leftNavOpen from "../state/atoms/leftNavOpen";
 
 const DashboardEl = styled.div`
-  display: grid;
-  grid-template-columns: 250px 1fr;
+    @media only screen and (min-width: 1000px) {
+        padding-left:250px;
+    }
 `
 
 const fabStyle = {
@@ -30,6 +33,11 @@ export default function Dashboard() {
     const navigate = useNavigate()
     const groups = useRecoilHook(groupsByUserId(user?.id))
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
+    const [mobileOpen, setMobileOpen] = useRecoilState(leftNavOpen)
+
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen)
+    }
 
     useEffect(() => {
         const createUserIfNeeded = async () => {
@@ -66,7 +74,28 @@ export default function Dashboard() {
 
     return (
         <DashboardEl>
-            <DashboardDrawer/>
+            <Drawer
+                variant={"temporary"}
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                }}
+                sx={{
+                    display: { xs: 'block', md: 'none' },
+                }}
+            >
+                <DashboardDrawer/>
+            </Drawer>
+            <Drawer
+                variant={"permanent"}
+                sx={{
+                    [`& .MuiDrawer-paper`]: { top: '60px'},
+                    display: { xs: 'none', md: 'block' },
+                }}
+            >
+                <DashboardDrawer/>
+            </Drawer>
             <Outlet/>
             <Fab color="primary" aria-label="add" onClick={handleAddButtonClick} sx={fabStyle}>
                 <AddIcon />

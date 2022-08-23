@@ -11,7 +11,7 @@ export default function Tile(props) {
                 minHeight: 150,
                 bgcolor: `white`,
                 borderRadius: '20px',
-                padding: 'var(--tile-padding)',
+                padding: {xs: 'var(--mobile-tile-padding)', sm: 'var(--desktop-tile-padding)'},
                 height: '100%'
             }}>
                 {children}

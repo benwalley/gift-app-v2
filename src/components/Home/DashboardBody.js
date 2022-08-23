@@ -12,10 +12,13 @@ import GroupsOverview from "./GroupsOverview";
 const DashboardBodyEl = styled.div`
     background: var(--background-color);
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 20px;
-    padding: 20px;
+    padding: var(--mobile-page-margin);
     grid-template-rows: auto auto auto 1fr;
+    @media only screen and (min-width: 1000px) {
+        grid-template-columns: 1fr 1fr;
+        padding: var(--desktop-page-margin);
+    }
 `
 
 const H1El = styled.h1`

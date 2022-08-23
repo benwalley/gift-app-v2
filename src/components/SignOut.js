@@ -16,7 +16,15 @@ export default function SignOut() {
 
     const renderButton = () => {
         if(isLoggedIn()) {
-            return <Button color="secondary" variant="contained" onClick={signOut}>Sign Out</Button>
+            return <Button
+                color="secondary"
+                variant="contained"
+                onClick={signOut}
+                size={"small"}
+                sx={{
+                    padding: {md: '6px 16px'}
+                }}
+            >Sign Out</Button>
         }
     }
 

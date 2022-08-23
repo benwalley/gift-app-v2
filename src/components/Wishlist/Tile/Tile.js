@@ -6,7 +6,6 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Button from "@mui/material/Button";
 import useCurrency from "../../../hooks/useCurrency";
 import TopBadges from "./TopBadges";
 import {Users, WishlistItem} from "../../../models";
@@ -133,7 +132,7 @@ export default function Tile(props) {
                         alt={tile.name}
                         sx={{
                             width: 'auto',
-                            margin: "0 auto"
+                            margin: "10px auto 0",
                         }}
                     />}
                 <CardContent sx={{display: 'grid', gridTemplateRows: '1fr 24px'}}>

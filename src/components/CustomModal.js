@@ -1,9 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import CloseIcon from '@mui/icons-material/Close';
+import {IconButton} from "@mui/material";
+
 
 export default function CustomModal(props) {
     const {open, setOpen, size, children, padding = "20px"} = props
+
     const handleClose = () => setOpen(false);
 
     const getSize = () => {
@@ -36,6 +40,20 @@ export default function CustomModal(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
+                    <IconButton
+                        size="medium"
+                        aria-label="close"
+                        color="inherit"
+                        bgcolor="primary"
+                        onClick={handleClose}
+                        sx={{
+                            position: 'absolute',
+                            top: 0,
+                            right: 0
+                        }}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
                     {children}
                 </Box>
             </Modal>

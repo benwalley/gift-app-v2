@@ -19,6 +19,11 @@ const RowEl = styled.div`
     margin: 10px 0;
 `
 
+const EmailEl = styled.span`
+    overflow: auto;
+    white-space: nowrap;
+`
+
 export default function UserInfo(props) {
     const user = useRecoilHook(currentUser)
     const [editModalOpen, setEditModalOpen] = useState(false)
@@ -51,7 +56,7 @@ export default function UserInfo(props) {
 
             <RowEl>
                 <b>Email:</b>
-                <span>{user?.email}</span>
+                <EmailEl>{user?.email}</EmailEl>
             </RowEl>
             <CustomModal open={editModalOpen} setOpen={setEditModalOpen} size={"small"}>
                 <EditUserForm initialName={user?.username} user={user} afterSubmit={afterSubmitEdit}/>

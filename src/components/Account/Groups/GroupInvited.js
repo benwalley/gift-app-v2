@@ -11,16 +11,24 @@ import toggleAmplifyArrayItem from "../../../helpers/toggleAmplifyArrayItem";
 import {Groups} from "../../../models";
 import {useSetRecoilState} from "recoil";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
+import styled from "@emotion/styled";
+
 
 const listItemStyle = {
     display: "grid",
-    gridTemplateColumns: '40px 1fr auto auto auto',
+    gridTemplateColumns: {xs: '1fr auto auto auto', sm: '40px 1fr auto auto auto'},
     background: 'white',
     borderRadius: '50px',
     marginBottom: '5px',
     paddingTop: '2px',
     paddingBottom: '2px',
 }
+
+const EmailEl = styled.div`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`
 
 export default function GroupInvited(props) {
     const {email, group} = props;
@@ -59,15 +67,16 @@ export default function GroupInvited(props) {
                     bgcolor: stringToColor(email),
                     width: 24,
                     height: 24,
-                    fontSize: 12
+                    fontSize: 12,
+                    display: { xs: 'none', sm: 'block' }
                 }}
                 alt={email}
             >
                 {getFirstLetters(email)}
             </Avatar>
-            <div>
+            <EmailEl>
                 {email}
-            </div>
+            </EmailEl>
             <CreatorActions/>
             <AreYouSureDialog
                 text={`Are you sure you want to un-invite this user?`}

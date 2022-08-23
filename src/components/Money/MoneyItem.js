@@ -17,6 +17,28 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Box from "@mui/material/Box";
 
+const MobileRow = styled.div`
+    display: grid;
+    padding: 10px;
+    padding-right: 50px;
+    position: relative;
+    @media only screen and (min-width: 600px) {
+        display: none;
+    }
+`
+
+const DeleteEl = styled.div`
+    position: absolute;
+    top: 5px;
+    right: 15px;
+`
+
+const ExpandEl = styled.div`
+    position: absolute;
+    bottom: 5px;
+    right: 7px;
+`
+
 export default function MoneyItem(props) {
     const {money} = props;
     const update = useSetRecoilState(updateCurrentUserMoney)
@@ -46,7 +68,9 @@ export default function MoneyItem(props) {
 
     return (
         <>
-            <TableRow hover role="checkbox" tabIndex={-1} key={money.id}>
+            <TableRow key={money.id} sx={{
+                display: {xs: 'none', sm: 'table-row'},
+            }}>
                 <TableCell sx={{fontSize: '1em'}}>
                     {money.note && <IconButton
                         aria-label="expand row"
@@ -71,6 +95,31 @@ export default function MoneyItem(props) {
                     </IconButton>
                 </TableCell>
             </TableRow>
+            <MobileRow>
+                <div><b>From: </b>{money.owedFromName}</div>
+                <div><b>To: </b>{money.owedToName}</div>
+                <div><b>Amount: </b>{price}</div>
+                <DeleteEl>
+                    <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        size={"medium"}
+                        color={"deleteRed"}
+                        onClick={handleDelete}
+                    >
+                        <DeleteIcon/>
+                    </IconButton>
+                </DeleteEl>
+                <ExpandEl>
+                    {money.note && <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setCommentExpanded(!commentExpanded)}
+                    >
+                        {commentExpanded ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
+                    </IconButton>}
+                </ExpandEl>
+            </MobileRow>
             <Comment/>
         </>
     )

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Chip, IconButton, ListItem, ListItemAvatar, Stack} from "@mui/material";
+import {Avatar, Chip, IconButton, ListItem, ListItemAvatar, Stack, Tooltip} from "@mui/material";
 import stringToColor from "../../../helpers/stringToColor";
 import {getFirstLetters} from "../../../helpers/nameFirstLetters";
 import ListItemText from "@mui/material/ListItemText";
@@ -16,10 +16,14 @@ import {useNavigate} from "react-router-dom";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import EditSubuserForm from "./EditSubuserForm";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 const SubuserNameEl = styled.div`
     font-size: 20px;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `
 
 export default function SubUser(props) {
@@ -41,8 +45,10 @@ export default function SubUser(props) {
     }
 
     return (
-        <ListItem disablePadding={false} >
-            <ListItemAvatar>
+        <ListItem >
+            <ListItemAvatar sx={{
+                display: { xs: 'none', sm: 'block' },
+            }}>
                 <Avatar
                     sx={{bgcolor: stringToColor(user?.username)}}
                     alt={user?.username}
@@ -51,6 +57,7 @@ export default function SubUser(props) {
                 </Avatar>
             </ListItemAvatar>
             <ListItemText
+                sx={{}}
                 primary={<SubuserNameEl>{user?.username}</SubuserNameEl>}
                 secondary={<Stack direction="row" spacing={1}>
                     {groups.map(group =>
@@ -58,13 +65,21 @@ export default function SubUser(props) {
                     )}
                 </Stack>}
             />
-            <Button onClick={() => navigate(`/wishlist/${user?.id}`)}>View List</Button>
-            <IconButton edge="end" aria-label="edit" size={"medium"} color={"primary"} onClick={() => setEditModalOpen(true)}>
-                <EditIcon/>
-            </IconButton>
-            <IconButton edge="end" aria-label="delete" size={"medium"} color={"deleteRed"} onClick={handleDelete}>
-                <DeleteIcon/>
-            </IconButton>
+            <Tooltip title={"View List"}>
+                <IconButton aria-label="View List" size={"medium"} color={"primary"} onClick={() => navigate(`/wishlist/${user?.id}`)}>
+                    <FormatListBulletedIcon/>
+                </IconButton>
+            </Tooltip>
+            <Tooltip title={"Edit Subuser"}>
+                <IconButton edge="end" aria-label="edit" size={"medium"} color={"primary"} onClick={() => setEditModalOpen(true)}>
+                    <EditIcon/>
+                </IconButton>
+            </Tooltip>
+            <Tooltip title={"Delete Subuser"}>
+                <IconButton edge="end" aria-label="delete" size={"medium"} color={"deleteRed"} onClick={handleDelete}>
+                    <DeleteIcon/>
+                </IconButton>
+            </Tooltip>
             <CustomModal open={editModalOpen} setOpen={setEditModalOpen} size={"small"}>
                 <EditSubuserForm initialName={user?.username} user={user} afterSubmit={() => setEditModalOpen(false)}/>
             </CustomModal>

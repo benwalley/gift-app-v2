@@ -11,13 +11,39 @@ import {useSetRecoilState} from "recoil";
 
 const WishlistContainerEl = styled.div`
   background: var(--background-color);
-  padding: 20px;
+  padding: var(--mobile-page-margin);
+  max-width: var(--max-content-width);
+  
+  @media only screen and (min-width: 600px) {
+    padding: var(--desktop-page-margin);
+  }
 `
 
 const WishlistTileContainerEl = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: var(--mobile-page-margin);
+  
+  @media only screen and (min-width: 600px) {
+    gap: var(--desktop-page-margin);
+  }
+  
+  @media only screen and (min-width: 630px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @media only screen and (min-width: 910px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  @media only screen and (min-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @media only screen and (min-width: 1160px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
 `
 
 export default function WishlistById() {

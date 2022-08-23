@@ -8,12 +8,15 @@ import {useSetRecoilState} from "recoil";
 import {useEffect} from "react";
 
 const ContainerEl = styled.div`
-    padding: 20px;
+    padding: var(--mobile-page-margin);
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
     grid-template-rows: auto auto 1fr;
     background: var(--background-color);
+    @media only screen and (min-width: 1000px) {
+        padding: var(--desktop-page-margin);
+    }
 `
 
 const listStyles = {

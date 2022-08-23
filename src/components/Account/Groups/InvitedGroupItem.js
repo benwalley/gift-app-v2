@@ -15,7 +15,7 @@ import {invitedByEmail} from "../../../state/selectors/invitedByEmail";
 
 const listItemStyle = {
     display: "grid",
-    gridTemplateColumns: '50px 1fr 30px auto auto auto',
+    gridTemplateColumns: {xs: '1fr 30px auto auto auto', sm: '50px 1fr 30px auto auto auto'},
     borderTop: '1px solid var(--border-color-light)'
 }
 
@@ -42,7 +42,9 @@ export default function InvitedGroupItem(props) {
 
     return (
         <ListItem sx={listItemStyle}>
-            <ListItemAvatar>
+            <ListItemAvatar sx={{
+                display: { xs: 'none', sm: 'block' }
+            }}>
                 <Avatar
                     sx={{bgcolor: stringToColor(group.groupName)}}
                     alt={group.groupName}
@@ -51,6 +53,11 @@ export default function InvitedGroupItem(props) {
                 </Avatar>
             </ListItemAvatar>
             <ListItemText
+                sx={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+                }}
                 primary={group.groupName}
             />
             <Tooltip title={"Join this group"}>

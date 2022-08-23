@@ -22,7 +22,10 @@ import {currentUser} from "../../../state/selectors/currentUser";
 const UsersEl = styled.div`
     grid-column: 1/-1;
     background: var(--amplify-colors-background-disabled);
-    padding: 0 15px 15px;
+    padding: 0 5px 5px;
+    @media only screen and (min-width: 1000px) {
+        padding: padding: 0 15px 15px;;
+    }
     margin: 10px 0;
     border-radius: 10px;
 `
@@ -32,10 +35,19 @@ const H4El = styled.h4`
     margin-bottom: 10px;
 `
 
+const ActionsEl = styled.div`
+    @media only screen and (max-width: 599px) {
+        grid-column: 1/-1;
+    }
+    display: flex;
+    align-items: center;
+`
+
 const listItemStyle = {
     display: "grid",
-    gridTemplateColumns: '50px 1fr 30px auto auto auto',
-    borderTop: '1px solid var(--border-color-light)'
+    gridTemplateColumns: {xs: '50px 1fr', sm: '50px 1fr auto'},
+    borderTop: '1px solid var(--border-color-light)',
+    padding: {xs: '10px 0', sm: '10px 15px'}
 }
 
 export default function GroupItem(props) {
@@ -95,20 +107,23 @@ export default function GroupItem(props) {
             <ListItemText
                 primary={group.groupName}
             />
-            <div>
-                {isCreator() && <Tooltip title="You are the creator of this group">
-                    <LocalPoliceIcon color={"secondary"}/>
-                </Tooltip>}
-            </div>
-            <div>
-                {isAdmin() && <Tooltip title="You are an admin of this group">
-                    <GppGoodIcon color={"darkGreen"}/>
-                </Tooltip>}
-            </div>
-            <Button onClick={handleToggleUsers}>{usersExpanded ? "Hide Users" : "Show Users"}</Button>
-            <IconButton edge="end" aria-label="delete" size={"medium"} color={"deleteRed"} onClick={() => setAreYouSureOpen(true)}>
-                <DeleteIcon/>
-            </IconButton>
+            <ActionsEl>
+                <div>
+                    {isCreator() && <Tooltip title="You are the creator of this group">
+                        <LocalPoliceIcon color={"secondary"}/>
+                    </Tooltip>}
+                </div>
+                <div>
+                    {isAdmin() && <Tooltip title="You are an admin of this group">
+                        <GppGoodIcon color={"darkGreen"}/>
+                    </Tooltip>}
+                </div>
+                <Button onClick={handleToggleUsers}>{usersExpanded ? "Hide Users" : "Show Users"}</Button>
+                <IconButton edge="end" aria-label="delete" size={"medium"} color={"deleteRed"} onClick={() => setAreYouSureOpen(true)}>
+                    <DeleteIcon/>
+                </IconButton>
+            </ActionsEl>
+
             {usersExpanded && <UsersEl>
                 <H4El>Members</H4El>
                 {membersData.map(member => {

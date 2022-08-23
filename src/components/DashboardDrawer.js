@@ -16,7 +16,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import styled from "@emotion/styled";
 import {useNavigate} from "react-router-dom";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import addItemModalOpenState from "../state/atoms/addItemModalOpen";
 import CustomModal from "./CustomModal";
 import AddItemForm from "./AddItemForm";
@@ -27,15 +27,23 @@ import Money from "./Money/Money";
 import {useState} from "react";
 import AreYouSureDialog from "./AreYouSureDialog";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
+import CloseIcon from '@mui/icons-material/Close';
+import leftNavOpen from "../state/atoms/leftNavOpen";
+import {IconButton} from "@mui/material";
+
 
 const DrawerEl = styled.div`
   border-right: 1px solid var(--border-color-light);
+  background: white;
+  top: 60px;
+  width: 250px;
 `
 
 function DashboardDrawer() {
     const [addItemModalOpen, setAddItemModalOpen] = useRecoilState(addItemModalOpenState);
     const [moneyModalOpen, setMoneyModalOpen] = useRecoilState(moneyModalOpenState);
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
+    const setMobileMenuOpen = useSetRecoilState(leftNavOpen)
     let navigate = useNavigate();
     const user = useRecoilHook(currentUser)
     const groups = useRecoilHook(groupsByUserId(user?.id))
@@ -75,6 +83,7 @@ function DashboardDrawer() {
                         }
                         ;
                         if (link.url) {
+                            setMobileMenuOpen(false)
                             navigate(link.url)
                         }
                     }}>
@@ -90,6 +99,22 @@ function DashboardDrawer() {
 
     return (
         <DrawerEl>
+            <IconButton
+                size="medium"
+                aria-label="close"
+                color="inherit"
+                bgcolor="primary"
+                onClick={() => setMobileMenuOpen(false)}
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                    zIndex: 1,
+                    display: { xs: 'flex', md: 'none' },
+                }}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
             {renderList(links)}
             <Divider/>
             {renderList(accountLinks)}

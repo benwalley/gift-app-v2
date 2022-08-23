@@ -12,13 +12,20 @@ import {currentUser} from "../../../state/selectors/currentUser";
 import {userAdminGroupsById} from "../../../state/selectors/userAdminGroupsById";
 
 const PageContainerEl = styled.div`
-    padding: 20px;
+    padding: var(--mobile-page-margin);
     padding-bottom: 100px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto 1fr;
     gap: 20px;
     background: var(--background-color);
+    
+    @media only screen and (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    @media only screen and (min-width: 1000px) {
+        padding: var(--desktop-page-margin);
+    }
 `
 
 const H1El = styled.h1`

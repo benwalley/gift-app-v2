@@ -19,9 +19,14 @@ import MoneySummary from "./MoneySummary";
 
 const FiltersEl = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 10px;
     padding: 10px 0;
+    
+    @media only screen and (min-width: 600px) {
+        grid-template-columns: 1fr 1fr auto;
+        gap: 20px;
+    }
 `
 
 const H3El = styled.h3`
@@ -75,7 +80,7 @@ export default function MoneyList() {
         <>
             <FiltersEl>
                 <H3El>Filter</H3El>
-                <FormControl fullWidth>
+                <FormControl fullWidth size={"small"}>
                     <InputLabel id="from-label">User 1</InputLabel>
                     <Select
                         labelId="from-label"
@@ -84,12 +89,12 @@ export default function MoneyList() {
                         onChange={(e) => setUserOne(e.target.value)}
                     >
                         <MenuItem value={''}>None</MenuItem>
-                        {userOneNamesList.map(name => {
-                            return <MenuItem value={name}>{name}</MenuItem>
+                        {userOneNamesList.map((name, index) => {
+                            return <MenuItem key={index} value={name}>{name}</MenuItem>
                         })}
                     </Select>
                 </FormControl>
-                <FormControl fullWidth>
+                <FormControl fullWidth size={"small"}>
                     <InputLabel id="to-label">User2</InputLabel>
                     <Select
                         labelId="to-label"
@@ -98,17 +103,23 @@ export default function MoneyList() {
                         onChange={(e) => setUserTwo(e.target.value)}
                     >
                         <MenuItem value={''}>None</MenuItem>
-                        {userTwoNamesList.map(name => {
-                            return <MenuItem value={name}>{name}</MenuItem>
+                        {userTwoNamesList.map((name, index) => {
+                            return <MenuItem key={index} value={name}>{name}</MenuItem>
                         })}
                     </Select>
                 </FormControl>
                 <Button variant={"outlined"} onClick={handleClearFilters}>Clear Filters</Button>
             </FiltersEl>
 
-            <TableContainer sx={{maxHeight: 'calc(80vh - 350px)', border: '1px solid var(--border-color-light)', fontSize: '16px', borderRadius: '10px'}}>
+            <TableContainer sx={{
+                maxHeight: 'calc(80vh - 350px)',
+                border: {xs: 'none', sm: '1px solid var(--border-color-light)'},
+                boxShadow: {xs: 'var(--small-box-shadow)', sm: 'none'},
+                fontSize: '16px',
+                borderRadius: '10px'
+            }}>
                 <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
+                    <TableHead sx={{display: { xs: 'none', sm: 'table-header-group' }}}>
                         <TableRow>
                             <TableCell style={{background: '#e8e8e8', width: '70px', fontSize: '1em'}}>Note</TableCell>
                             <TableCell align={"left"} style={{background: '#e8e8e8', fontSize: '1em'}}>From</TableCell>
@@ -117,9 +128,9 @@ export default function MoneyList() {
                             <TableCell style={{background: '#e8e8e8', width: '70px'}}/>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody sx={{background: {xs: '#f5f5f5', sm: 'none'}}}>
                         {filteredList.map((money) => {
-                           return <MoneyItem money={money}/>
+                           return <MoneyItem key={money.id} money={money}/>
                         })}
                     </TableBody>
                 </Table>

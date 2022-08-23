@@ -8,11 +8,14 @@ import {updateCurrentUserMoney} from "../../state/selectors/currentUserMoney";
 import {useEffect} from "react";
 
 const MoneyContainerEl = styled.div`
-    padding: 20px 20px 260px 20px;
+    padding: var(--mobile-page-margin);
     display: grid;
     grid-template-rows: auto auto auto auto 1fr;
     gap: 20px;
     background: var(--background-color);
+    @media only screen and (min-width: 600px) {
+        padding: 20px 20px 100px 20px;
+    }
 `
 
 const H1El = styled.h1`

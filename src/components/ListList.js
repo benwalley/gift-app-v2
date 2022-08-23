@@ -13,10 +13,14 @@ import Tile from "./Home/Tile";
 
 const ListContainerEl = styled.div`
   background: var(--background-color);
-  padding: 20px;
+  padding: var(--mobile-page-margin);
   display: grid;
   gap: 20px;
   grid-template-rows: auto auto auto 1fr;
+  
+  @media only screen and (min-width: 600px) {
+        padding: var(--desktop-page-margin);
+    }
 `
 
 const H1El = styled.h1`

@@ -12,16 +12,23 @@ html {
   --tile-box-shadow: 1px 2px 8px -2px #7f7f7f;
   --delete-red: #fd5858;
   --background-grey: #eff0f0;
-  --tile-padding: 15px;
+  --desktop-tile-padding: 15px;
+  --mobile-tile-padding: 10px;
+  --tile-padding: 10px;
 /*    sizes */
-  --desktop-page-margin: 30px;
+  --desktop-page-margin: 20px;
+  --mobile-page-margin: 10px;
   --header-height: 60px;
   --footer-height: 60px;
-  --small-box-shadow: 1px 1px 1px black;
+  --small-box-shadow: 1px 1px 4px -1px #858585;
+
+  --max-content-width: 1200px;
+  --mobile-breakpoint: 1000px;
 }
 
 body {
   margin: 0;
+  background: var(--background-color);
 }
 
 a {
@@ -41,11 +48,6 @@ a {
   --amplify-components-button-link-hover-color: var(--primary-color);
   --amplify-components-button-link-hover-background-color: var(--background-color);
   --amplify-components-button-link-color: var(--primary-color);
-  /*--amplify-colors-brand-primary-10: red;*/
-  /*--amplify-colors-brand-primary-80: orange;*/
-  /*--amplify-colors-brand-primary-90: yellow;*/
-  /*--amplify-colors-brand-primary-100: pink;*/
-  /*--amplify-colors-font-interactive: blue;*/
 }
 
 [data-amplify-authenticator] div[data-amplify-container] {
@@ -59,5 +61,10 @@ a {
 
 [data-amplify-authenticator] [data-amplify-router] {
   width: var(--amplify-components-authenticator-container-width-max);
+  max-width: 95%;
   margin: 100px auto;
+}
+
+div[data-amplify-authenticator] {
+  display: block;
 }

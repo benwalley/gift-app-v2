@@ -13,9 +13,12 @@ const ContainerEl = styled.div`
     border-bottom: rgba(0, 0, 0, 0.12);
     grid-column: 1/-1;
     background: white;
-    padding: var(--tile-padding);
+    padding: var(--mobile-tile-padding);
     border-radius: 10px;
     box-shadow: var(--tile-box-shadow);
+    @media only screen and (min-width: 1000px) {
+        padding: var(--desktop-tile-padding);
+    }
 `
 
 export default function YourGroupList(props) {
