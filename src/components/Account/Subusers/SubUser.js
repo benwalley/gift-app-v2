@@ -47,7 +47,7 @@ export default function SubUser(props) {
     return (
         <ListItem >
             <ListItemAvatar sx={{
-                display: { xs: 'none', sm: 'block' },
+                display: { xs: 'none', sm: 'flex' },
             }}>
                 <Avatar
                     sx={{bgcolor: stringToColor(user?.username)}}

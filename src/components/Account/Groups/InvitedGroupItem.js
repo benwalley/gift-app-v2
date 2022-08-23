@@ -43,7 +43,7 @@ export default function InvitedGroupItem(props) {
     return (
         <ListItem sx={listItemStyle}>
             <ListItemAvatar sx={{
-                display: { xs: 'none', sm: 'block' }
+                display: { xs: 'none', sm: 'flex' }
             }}>
                 <Avatar
                     sx={{bgcolor: stringToColor(group.groupName)}}

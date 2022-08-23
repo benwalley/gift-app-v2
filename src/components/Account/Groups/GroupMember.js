@@ -94,7 +94,7 @@ export default function GroupMember(props) {
                     width: 24,
                     height: 24,
                     fontSize: 12,
-                    display: {xs: 'none', sm: 'block'}
+                    display: {xs: 'none', sm: 'flex'}
                 }}
                 alt={user?.username}
             >
