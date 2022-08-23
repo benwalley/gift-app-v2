@@ -7,7 +7,6 @@ import GroupsYourInvitedTo from "./GroupsYourInvitedTo";
 import {useSetRecoilState} from "recoil";
 import {allUsersByGroup} from "../../../state/selectors/allUsersByGroup";
 import useRecoilHook from "../../../hooks/useRecoilHook";
-import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import {currentUser} from "../../../state/selectors/currentUser";
 import {userAdminGroupsById} from "../../../state/selectors/userAdminGroupsById";
 
@@ -18,6 +17,7 @@ const PageContainerEl = styled.div`
     grid-template-rows: auto auto auto 1fr;
     gap: 20px;
     background: var(--background-color);
+    max-width: var(--max-content-width);
     
     @media only screen and (min-width: 768px) {
         grid-template-columns: 1fr 1fr;

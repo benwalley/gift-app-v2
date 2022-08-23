@@ -22,7 +22,8 @@ export default function SignOut() {
                 onClick={signOut}
                 size={"small"}
                 sx={{
-                    padding: {md: '6px 16px'}
+                    padding: {md: '6px 16px'},
+                    fontSize: {md: '14px'}
                 }}
             >Sign Out</Button>
         }

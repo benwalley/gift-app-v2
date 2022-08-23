@@ -23,6 +23,7 @@ const ContainerEl = styled.div`
     display: grid;
     gap: 20px;
     grid-template-rows: auto auto auto auto auto 1fr;
+    max-width: var(--max-content-width)
 `
 
 const WishlistTileContainerEl = styled.div`

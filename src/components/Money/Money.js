@@ -13,6 +13,8 @@ const MoneyContainerEl = styled.div`
     grid-template-rows: auto auto auto auto 1fr;
     gap: 20px;
     background: var(--background-color);
+    max-width: var(--max-content-width);
+    
     @media only screen and (min-width: 600px) {
         padding: 20px 20px 100px 20px;
     }

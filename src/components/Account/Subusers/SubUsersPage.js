@@ -14,6 +14,8 @@ const ContainerEl = styled.div`
     gap: 20px;
     grid-template-rows: auto auto 1fr;
     background: var(--background-color);
+    max-width: var(--max-content-width);
+    
     @media only screen and (min-width: 1000px) {
         padding: var(--desktop-page-margin);
     }

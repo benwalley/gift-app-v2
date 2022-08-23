@@ -15,6 +15,8 @@ const DashboardBodyEl = styled.div`
     gap: 20px;
     padding: var(--mobile-page-margin);
     grid-template-rows: auto auto auto 1fr;
+    max-width: var(--max-content-width);
+    
     @media only screen and (min-width: 1000px) {
         grid-template-columns: 1fr 1fr;
         padding: var(--desktop-page-margin);
