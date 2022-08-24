@@ -103,6 +103,7 @@ export declare class Users {
   readonly authUsername?: string | null;
   readonly subuserModeOn?: boolean | null;
   readonly parentId?: string | null;
+  readonly notes?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Users, UsersMetaData>);

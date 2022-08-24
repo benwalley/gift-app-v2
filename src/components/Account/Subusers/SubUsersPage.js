@@ -6,6 +6,7 @@ import AddSubuserForm from "./AddSubuserForm";
 import List from "@mui/material/List";
 import {useSetRecoilState} from "recoil";
 import {useEffect} from "react";
+import Tile from "../../Home/Tile";
 
 const ContainerEl = styled.div`
     padding: var(--mobile-page-margin);
@@ -39,6 +40,10 @@ export default function SubUsersPage(props) {
 
     return (
         <ContainerEl>
+            <Tile>
+                <p>Subusers allow you to create separate wishlists for other users who don't have an email address or don't want to create an account.</p>
+                <p>You will be able to add and edit items in the subusers list, and will be able to see what people are getting them.</p>
+            </Tile>
             <AddSubuserForm/>
             <List dense disablePadding={true} sx={listStyles}>
                 {subusers && subusers.map(user => {

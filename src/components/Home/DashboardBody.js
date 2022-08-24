@@ -8,6 +8,8 @@ import SubuserToggle from "./SubuserToggle";
 import GiftGivingOverview from "./GiftGivingOverview";
 import SubuserOverview from "./SubuserOverview";
 import GroupsOverview from "./GroupsOverview";
+import {TextField} from "@mui/material";
+import Notes from "./Notes";
 
 const DashboardBodyEl = styled.div`
     background: var(--background-color);
@@ -16,7 +18,7 @@ const DashboardBodyEl = styled.div`
     padding: var(--mobile-page-margin);
     grid-template-rows: auto auto auto 1fr;
     max-width: var(--max-content-width);
-  margin: 0 auto;
+    margin: 0 auto;
     
     @media only screen and (min-width: 1000px) {
         grid-template-columns: 1fr 1fr;
@@ -49,6 +51,9 @@ export default function DashboardBody() {
             </Tile>
             <Tile type="primary">
                 <GroupsOverview/>
+            </Tile>
+            <Tile>
+                <Notes/>
             </Tile>
         </DashboardBodyEl>
     );
