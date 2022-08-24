@@ -7,12 +7,15 @@ import {useParams} from "react-router-dom";
 import {userById} from "../../state/selectors/userByWishlistId";
 import Filters from "./Filters";
 import {useSetRecoilState} from "recoil";
+import ActionsBar from "./ActionsBar";
+import {Typography} from "@mui/material";
 
 
 const WishlistContainerEl = styled.div`
   background: var(--background-color);
   padding: var(--mobile-page-margin);
   max-width: var(--max-content-width);
+  margin: 0 auto;
   
   @media only screen and (min-width: 600px) {
     padding: var(--desktop-page-margin);
@@ -59,7 +62,7 @@ export default function WishlistById() {
 
     const renderWishlistItems = () => {
         const wishlist = wishlistById;
-        if(!wishlist) return
+        if(!wishlist) return;
         return wishlist.map(item => {
             return <Tile tile={item} key={item.id}></Tile>
         })
@@ -67,9 +70,11 @@ export default function WishlistById() {
 
     return (
         <WishlistContainerEl>
+            <ActionsBar/>
             <Filters filters={filters} setFilters={setFilters}/>
             <h1>{user?.username && user?.username}</h1>
             <WishlistTileContainerEl>
+                {wishlistById && wishlistById.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist for the selected group(s)</Typography>}
                 {renderWishlistItems()}
             </WishlistTileContainerEl>
         </WishlistContainerEl>

@@ -26,6 +26,9 @@ const HeaderEl = styled.div`
   grid-gap: 10px;
   align-items: center;
   color: white;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 `
 
 const Logo = styled.img`

@@ -14,6 +14,7 @@ const MoneyContainerEl = styled.div`
     gap: 20px;
     background: var(--background-color);
     max-width: var(--max-content-width);
+  margin: 0 auto;
     
     @media only screen and (min-width: 600px) {
         padding: 20px 20px 100px 20px;

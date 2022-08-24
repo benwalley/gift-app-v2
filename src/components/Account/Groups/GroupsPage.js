@@ -18,6 +18,7 @@ const PageContainerEl = styled.div`
     gap: 20px;
     background: var(--background-color);
     max-width: var(--max-content-width);
+  margin: 0 auto;
     
     @media only screen and (min-width: 768px) {
         grid-template-columns: 1fr 1fr;

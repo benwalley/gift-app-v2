@@ -18,6 +18,7 @@ const ListContainerEl = styled.div`
   gap: 20px;
   grid-template-rows: auto auto auto 1fr;
   max-width: var(--max-content-width);
+  margin: 0 auto;
   
   @media only screen and (min-width: 600px) {
         padding: var(--desktop-page-margin);

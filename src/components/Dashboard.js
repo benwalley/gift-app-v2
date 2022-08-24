@@ -12,10 +12,10 @@ import AreYouSureDialog from "./AreYouSureDialog";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
 import {Auth, DataStore} from "aws-amplify";
 import {Users} from "../models";
-import Button from "@mui/material/Button";
 import leftNavOpen from "../state/atoms/leftNavOpen";
 
 const DashboardEl = styled.div`
+    margin-top: var(--header-height);
     @media only screen and (min-width: 1000px) {
         padding-left:250px;
     }

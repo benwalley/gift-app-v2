@@ -16,6 +16,7 @@ const DashboardBodyEl = styled.div`
     padding: var(--mobile-page-margin);
     grid-template-rows: auto auto auto 1fr;
     max-width: var(--max-content-width);
+  margin: 0 auto;
     
     @media only screen and (min-width: 1000px) {
         grid-template-columns: 1fr 1fr;
@@ -27,6 +28,7 @@ const H1El = styled.h1`
     grid-column: 1/-1;
 `
 
+//TODO: Add personal notes section
 export default function DashboardBody() {
     const user = useRecoilHook(currentUser)
 

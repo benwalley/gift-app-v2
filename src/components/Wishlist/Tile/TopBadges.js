@@ -34,7 +34,21 @@ export default function TopBadges(props) {
         return false;
     }
 
-    const showSomeoneElseGetting = () => wantsToGet && wantsToGet.length > 0 && !showWantsToGet()
+    const otherUsersWant = () => {
+        return wantsToGet.some(id => {
+            return id !== user.id
+        })
+    }
+
+    const otherUsersGetting = () => {
+        return getting.some(id => {
+            return id !== user.id
+        })
+    }
+
+    const showSomeoneElseWantsToGet = () => otherUsersWant()
+
+    const showSomeoneElseGetting = () => otherUsersGetting()
 
     return (
         <BadgesEl>
@@ -42,21 +56,36 @@ export default function TopBadges(props) {
                 {showWantsToGet() && <Chip label="Want To Get" color="secondary" size="small" sx={chipStyles}/>}
                 {showGetting() && <Chip label="Getting" color="primary" size="small" sx={chipStyles}/>}
             </Stack>
-            {wantsToGet && wantsToGet.length > 0}
-            {showSomeoneElseGetting() && <Tooltip title="Someone else wants someone to go in on this.">
-                <GroupIcon size="medium" sx={{
-                    borderRadius: '1em',
-                    padding: '4px',
-                    width: '35px',
-                    height: '35px',
-                    color: 'white',
-                    background: 'var(--secondary-color)',
-                    opacity: .8,
-                    position: 'absolute',
-                    right: '5px',
-                    top: '5px'
-                }}/>
-            </Tooltip>}
+            <Stack direction="column" spacing={5}>
+                {showSomeoneElseWantsToGet() && <Tooltip title="Someone else wants someone to go in on this.">
+                    <GroupIcon size="medium" sx={{
+                        borderRadius: '1em',
+                        padding: '4px',
+                        width: '35px',
+                        height: '35px',
+                        color: 'white',
+                        background: 'var(--secondary-color)',
+                        opacity: .8,
+                        position: 'absolute',
+                        right: '5px',
+                        top: '5px'
+                    }}/>
+                </Tooltip>}
+                {showSomeoneElseGetting() && <Tooltip title="Someone else is getting this.">
+                    <GroupIcon size="medium" sx={{
+                        borderRadius: '1em',
+                        padding: '4px',
+                        width: '35px',
+                        height: '35px',
+                        color: 'white',
+                        background: 'var(--primary-color)',
+                        opacity: .8,
+                        position: 'absolute',
+                        right: '5px',
+                        top: '5px'
+                    }}/>
+                </Tooltip>}
+            </Stack>
         </BadgesEl>
     );
 }
