@@ -41,6 +41,10 @@ export default function Tile(props) {
         if(!tile || !user) return
         const getOwner = async () => {
             const tileOwner = await DataStore.query(Users, tile.ownerId)
+            if(!tileOwner.parentId) {
+                setParentId(false);
+                return;
+            }
             setParentId(tileOwner.parentId)
         }
         getOwner()
@@ -62,8 +66,12 @@ export default function Tile(props) {
             return;
         }
         if(parentId && parentId !== user?.id) {
-            // The list is not a subuser, so we can show badges
+            // The list is not your subuser, so we can show badges
             setCanSeeBadges(true)
+            return;
+        }
+        if(parentId === false) {
+            setCanSeeBadges(true);
             return;
         }
         if(parentId === user?.id && !user?.subuserModeOn) {

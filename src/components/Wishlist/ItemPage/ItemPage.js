@@ -96,6 +96,10 @@ export default function ItemPage(props) {
         if(!itemData || !user) return
         const getOwner = async () => {
             const itemOwner = await DataStore.query(Users, itemData.ownerId)
+            if(!itemOwner.parentId) {
+                setParentId(false);
+                return;
+            }
             setParentId(itemOwner.parentId)
         }
         getOwner()
@@ -144,8 +148,12 @@ export default function ItemPage(props) {
                 return;
             }
             if(parentId && parentId !== user?.id) {
-                // The list is not a subuser, so we can show badges
+                // The list is not your subuser, so we can show badges
                 setCanGet(true)
+                return;
+            }
+            if(parentId === false) {
+                setCanGet(true);
                 return;
             }
             if(parentId === user?.id && !user?.subuserModeOn) {

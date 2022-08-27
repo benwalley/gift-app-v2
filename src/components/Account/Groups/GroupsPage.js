@@ -9,6 +9,8 @@ import {allUsersByGroup} from "../../../state/selectors/allUsersByGroup";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {currentUser} from "../../../state/selectors/currentUser";
 import {userAdminGroupsById} from "../../../state/selectors/userAdminGroupsById";
+import Tile from "../../Home/Tile";
+import Box from "@mui/material/Box";
 
 const PageContainerEl = styled.div`
     padding: var(--mobile-page-margin);
@@ -45,6 +47,13 @@ export default function GroupsPage(props) {
     return (
         <PageContainerEl>
             <H1El>Groups</H1El>
+            <Box sx={{gridColumn: '1/-1'}}>
+                <Tile>
+                    <p>Each wishlist item is assigned to a group(s), and only people in that group can see them.</p>
+                    <p>A group can be a group of people, for instance a family, or it can be used to separate your items however you want, for instance
+                    a private group that is just for you to see.</p>
+                </Tile>
+            </Box>
             <YourGroupList/>
             <NewGroupForm/>
             {adminGroups && adminGroups.length > 0 && <InviteUserToGroupsForm/>}
