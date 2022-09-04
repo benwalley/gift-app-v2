@@ -103,7 +103,7 @@ export default function EditSubuserForm(props) {
 
     return (
         <ContainerEl>
-            <h2>Edit Subuser</h2>
+            <h2>Edit Sub-list</h2>
             <FormEl onSubmit={handleSubmit}>
                 <GroupPicker userId={parentUser.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
                 <TextField value={name} onChange={(e) => setName(e.target.value)} id="name" label="username" variant="outlined"/>

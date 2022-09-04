@@ -7,7 +7,6 @@ import {useNavigate} from "react-router-dom";
 import ListItemButton from "@mui/material/ListItemButton";
 import {getFirstLetters} from "../helpers/nameFirstLetters";
 import useRecoilHook from "../hooks/useRecoilHook";
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import SubuserIcon from "./SubuserIcon";
 
 export default function UserListItem(props) {

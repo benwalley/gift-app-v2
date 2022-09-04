@@ -73,12 +73,12 @@ export default function SubUser(props) {
                     <FormatListBulletedIcon/>
                 </IconButton>
             </Tooltip>
-            <Tooltip title={"Edit Subuser"}>
+            <Tooltip title={"Edit Sub-list"}>
                 <IconButton edge="end" aria-label="edit" size={"medium"} color={"primary"} onClick={() => setEditModalOpen(true)}>
                     <EditIcon/>
                 </IconButton>
             </Tooltip>
-            <Tooltip title={"Delete Subuser"}>
+            <Tooltip title={"Delete Sub-list"}>
                 <IconButton edge="end" aria-label="delete" size={"medium"} color={"deleteRed"} onClick={handleDelete}>
                     <DeleteIcon/>
                 </IconButton>
