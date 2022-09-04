@@ -26,6 +26,16 @@ const ContainerEl = styled.div`
     max-width: var(--max-content-width)
 `
 
+
+const DisclaimerEl = styled.h2`
+    display: block;
+    color: var(--delete-red);
+    
+    @media only screen and (min-width: 768px) {
+        display: none;
+    }
+`
+
 const WishlistTileContainerEl = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -149,8 +159,8 @@ export default function AddAmazonWishlist(props) {
     return (
         <ContainerEl>
             <h1>Import Amazon Wishlist</h1>
+            <DisclaimerEl>You'll have to use a desktop computer to import an amazon wishlist</DisclaimerEl>
             <HowToUse/>
-
             <Tile>
                 <AddWishlistForm source={source} setSource={setSource} afterSubmit={afterSubmit}/>
             </Tile>

@@ -70,11 +70,11 @@ export default function EditUserForm(props) {
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={handleCloseSnackbar}
-                message="Subuser Saved"
+                message="Sub-list Saved"
                 action={closeAction}
             >
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Subuser Saved
+                    Sub-list Saved
                 </Alert>
             </Snackbar>
         </ContainerEl>

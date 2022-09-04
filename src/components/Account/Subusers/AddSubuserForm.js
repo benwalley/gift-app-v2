@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from "@emotion/styled";
-import {Alert, IconButton, Snackbar, TextField} from "@mui/material";
+import {Alert, FormControlLabel, IconButton, Snackbar, Switch, TextField, Tooltip} from "@mui/material";
 import Button from "@mui/material/Button";
 import {DataStore} from "aws-amplify";
 import {Groups, Users} from "../../../models";
@@ -13,6 +13,7 @@ import GroupPicker from "../../GroupPicker";
 import AreYouSureDialog from "../../AreYouSureDialog";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import {useNavigate} from "react-router-dom";
+import HelpIcon from '@mui/icons-material/Help';
 
 const ContainerEl = styled.div`
     display: grid;
@@ -30,9 +31,15 @@ const FormEl = styled.form`
     gap: 10px;
 `
 
+const IsUserEl = styled.div`
+    display: flex;
+    align-items: center;
+`
+
 export default function AddSubuserForm(props) {
     const user = useRecoilHook(currentUser)
     const [name, setName] = useState('')
+    const [isUser, setIsUser] = useState(false)
     const updateSubUser = useSetRecoilState(updateSubUsers)
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const [selectedGroups, setSelectedGroups] = useState([])
@@ -74,7 +81,8 @@ export default function AddSubuserForm(props) {
         try {
             const userData = {
                 "username": name,
-                "parentId": user?.id
+                "parentId": user?.id,
+                'isUser': isUser,
             }
             const subuser = await DataStore.save(
                 new Users(userData)
@@ -104,25 +112,34 @@ export default function AddSubuserForm(props) {
 
     return (
         <ContainerEl>
-            <h2>Add Subuser</h2>
+            <h2>Add Sub-list</h2>
             <GroupPicker userId={user?.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             <FormEl onSubmit={handleSubmit}>
                 <TextField value={name} onChange={(e) => setName(e.target.value)} id="name" label="username" variant="outlined"/>
+                <IsUserEl>
+                    <FormControlLabel control={<Switch value={isUser} onChange={(e) => setIsUser(e.target.checked)} />} label="Is User" />
+                    <Tooltip title={
+                        <span>Turn on <em>Is User</em> if you're creating the list for another user.
+                        This will allow you to see who is getting them gifts, and allow you to say you're getting gifts for them.</span>
+                    }>
+                        <HelpIcon color={'primary'}/>
+                    </Tooltip>
+                </IsUserEl>
                 <Button type="submit" color="primary" variant="contained">Submit</Button>
             </FormEl>
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={4000}
                 onClose={handleCloseSnackbar}
-                message="Subuser Added"
+                message="Sub-list Added"
                 action={closeAction}
             >
                 <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-                    Subuser Added
+                    Sub-list Added
                 </Alert>
             </Snackbar>
             <AreYouSureDialog
-                text={`You must create or join a group in order to create a subuser`}
+                text={`You must create or join a group in order to create a sub-list`}
                 open={areYouSureOpen}
                 setOpen={setAreYouSureOpen}
                 confirmHandler={() => navigate('/account/groups')}

@@ -30,7 +30,6 @@ const H1El = styled.h1`
     grid-column: 1/-1;
 `
 
-//TODO: Add personal notes section
 export default function DashboardBody() {
     const user = useRecoilHook(currentUser)
 

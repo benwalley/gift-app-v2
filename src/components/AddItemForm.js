@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TextField, Button} from "@mui/material";
+import {TextField, Button, Rating, Typography} from "@mui/material";
 import {DataStore} from 'aws-amplify'
 import {WishlistItem} from "../models";
 import {useSetRecoilState} from "recoil";
@@ -10,11 +10,24 @@ import SubuserChips from "./SubuserChips";
 import {wishlistByUserId} from "../state/selectors/wishlistByUserId";
 import GroupPicker from "./GroupPicker";
 import {wishlistItemById} from "../state/selectors/wishlistItemById";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import styled from '@emotion/styled'
+
 
 const styles = {
     width: '100%',
     marginTop: '30px'
 }
+
+const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+        color: 'var(--heart-icon-filled)',
+    },
+    '& .MuiRating-iconHover': {
+        color: 'var(--heart-icon-hover)',
+    },
+});
 
 //TODO: have the ability to add 'tags' to items to filter with. (like wedding, or baby)
 export default function AddItemForm(props) {
@@ -135,8 +148,19 @@ export default function AddItemForm(props) {
                        variant="outlined"/>
             <TextField value={price} onChange={(e) => setPrice(e.target.value)} sx={styles} id="price"
                        label="Approximate Price" variant="outlined"/>
-            <TextField value={priority} onChange={(e) => setPriority(e.target.value)} sx={styles} id="priority"
-                       label="Priority (1-10)" variant="outlined"/>
+            <Typography component="legend" sx={{marginTop: '30px'}}>Priority</Typography>
+            <StyledRating
+                name="priority"
+                defaultValue={2.5}
+                label={"Priority"}
+                getLabelText={(priority) => `${priority} Heart${priority !== 1 ? 's' : ''}`}
+                precision={0.5}
+                size={"large"}
+                icon={<FavoriteIcon fontSize="inherit" />}
+                emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+            />
             <TextField value={link} onChange={(e) => setLink(e.target.value)} sx={styles} id="link" label="Link"
                        variant="outlined"/>
             <TextField value={note} onChange={(e) => setNote(e.target.value)} sx={styles} id="note" label="Note"

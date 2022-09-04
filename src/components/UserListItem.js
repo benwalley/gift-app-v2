@@ -7,6 +7,8 @@ import {useNavigate} from "react-router-dom";
 import ListItemButton from "@mui/material/ListItemButton";
 import {getFirstLetters} from "../helpers/nameFirstLetters";
 import useRecoilHook from "../hooks/useRecoilHook";
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import SubuserIcon from "./SubuserIcon";
 
 export default function UserListItem(props) {
     const {user} = props;
@@ -24,7 +26,7 @@ export default function UserListItem(props) {
 
     return (
         <ListItem disablePadding divider>
-            <ListItemButton onClick={handleItemClick}>
+            <ListItemButton onClick={handleItemClick} sx={{gap: '10px'}}>
                 <Avatar
                     sx={{bgcolor: stringToColor(user?.username)}}
                     alt={user?.username}
@@ -35,6 +37,7 @@ export default function UserListItem(props) {
                     {user?.username}
                     {user?.id === myUser.id && <span> (You)</span>}
                 </UsernameEl>
+                {user.isUser && <SubuserIcon/>}
             </ListItemButton>
         </ListItem>
     )

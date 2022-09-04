@@ -60,7 +60,7 @@ function DashboardDrawer() {
     const links = [
         {title: 'Dashboard', icon: <HomeIcon/>, url: '/'},
         {title: 'Add Item', icon: <AddIcon/>, action: handleOpenAddItemModal},
-        {title: 'Your List', url: `/wishlist/${user?.id}`, icon: <FormatListBulletedIcon/>},
+        {title: 'Primary List', url: `/wishlist/${user?.id}`, icon: <FormatListBulletedIcon/>},
         {title: 'Lists', url: '/lists', icon: <FormatListNumberedIcon/>},
         {title: 'Money', icon: <AttachMoneyIcon/>, url: '/money'},
         {title: 'Import Amazon List', icon: <PlaylistAddIcon/>, url: '/add-amazon-wishlist'},
@@ -70,7 +70,7 @@ function DashboardDrawer() {
     const accountLinks = [
         {title: 'Account', url: '/account', icon: <AccountCircleIcon/>},
         {title: 'Your Groups', url: '/account/groups', icon: <GroupsIcon/>},
-        {title: 'Subusers', url: '/account/subusers', icon: <SupervisorAccountIcon/>},
+        {title: 'Sub-lists', url: '/account/subusers', icon: <SupervisorAccountIcon/>},
     ]
 
     function renderList(links) {

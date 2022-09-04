@@ -13,7 +13,6 @@ export default function GroupPicker(props) {
     const [groups, setGroups] = useState([])
 
     useEffect(() => {
-        console.log('running')
         if(groupsOverride) {
             setGroups(groupsOverride);
         } else {
@@ -45,7 +44,7 @@ export default function GroupPicker(props) {
 
 
     return (
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" sx={{flexWrap: 'wrap', gap: '10px'}}>
             {groups && groups.map(group => {
                 return <Chip key={group.id} variant={isGroupSelected(group) ? "filled" : "outlined"}  color={"secondary"} label={group.groupName} onClick={() => handleClick(group)} />
             })}

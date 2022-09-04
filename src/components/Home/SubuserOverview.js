@@ -22,10 +22,10 @@ export default function SubuserOverview() {
 
     return (
         <div>
-            <h3>Your Subusers</h3>
+            <h3>Your Sub-lists</h3>
             <Divider/>
             <List>
-                {subusers && subusers.length === 0 && <p>You don't have any subusers</p>}
+                {subusers && subusers.length === 0 && <p>You don't have any sub-lists</p>}
                 {subusers && subusers.map(user => {
                     return <ListItem key={user?.id} divider disablePadding sx={{padding: '2px'}}>
                         <ListItemAvatar>
@@ -42,7 +42,7 @@ export default function SubuserOverview() {
                     </ListItem>
                 })}
             </List>
-            <Link to={"/account/subusers"}>Subusers Page</Link>
+            <Link to={"/account/subusers"}>Sub-lists Page</Link>
         </div>
     );
 }

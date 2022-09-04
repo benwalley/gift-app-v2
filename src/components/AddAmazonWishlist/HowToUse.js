@@ -20,7 +20,7 @@ export default function HowToUse() {
     }
 
     return (
-        <Accordion sx={{borderRadius: '20px !important'}} expanded={expanded} onChange={() => setExpanded(!expanded)}>
+        <Accordion sx={{borderRadius: '20px !important', overflow: 'auto'}} expanded={expanded} onChange={() => setExpanded(!expanded)}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"

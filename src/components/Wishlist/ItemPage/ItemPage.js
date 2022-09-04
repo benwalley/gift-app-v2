@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import {useParams} from "react-router-dom";
 import {wishlistItemById} from "../../../state/selectors/wishlistItemById";
 import useRecoilHook from "../../../hooks/useRecoilHook";
-import {Chip, IconButton, Stack, Tooltip} from "@mui/material";
+import {Chip, IconButton, Rating, Stack, Tooltip} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Tile from "../../Home/Tile";
 import useCurrency from "../../../hooks/useCurrency";
@@ -18,6 +18,9 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import toggleAmplifyArrayItem from "../../../helpers/toggleAmplifyArrayItem";
 import {currentUser} from "../../../state/selectors/currentUser";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import * as PropTypes from "prop-types";
 
 const ItemPageContainerEl = styled.div`
   background: var(--background-color);
@@ -32,12 +35,16 @@ const ItemPageContainerEl = styled.div`
 
 const ItemPageEl = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
   padding: 0;
+  gap: 10px;
   
   @media only screen and (min-width: 700px) {
      padding: 0 20px 20px;
+     grid-template-columns: 1fr 1fr;
+     grid-template-rows: auto 1fr;
+     gap: 0;
   }
 `
 
@@ -51,6 +58,12 @@ const ImagePlaceholderEl = styled.div`
 const H1El = styled.h1`
     grid-column: 1/-1;
     margin: 10px 0 20px;
+`
+
+const PriorityEl = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
 `
 
 const ImageEl = styled.img`
@@ -71,6 +84,24 @@ const AEl = styled.a`
     color: var(--primary-color)
 `
 
+const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+        color: 'var(--heart-icon-hover)',
+    },
+    '& .MuiRating-iconHover': {
+        color: 'var(--heart-icon-hover)',
+    },
+});
+StyledRating.propTypes = {
+    emptyIcon: PropTypes.element,
+    size: PropTypes.string,
+    precision: PropTypes.number,
+    name: PropTypes.string,
+    icon: PropTypes.element,
+    readOnly: PropTypes.bool,
+    label: PropTypes.string,
+    getLabelText: PropTypes.func
+};
 export default function ItemPage(props) {
     let {itemId} = useParams();
     const user = useRecoilHook(currentUser)
@@ -81,26 +112,22 @@ export default function ItemPage(props) {
     const [gottenBy, setGottenBy] = useState([]);
     const [wantsToGet, setWantsToGet] = useState([]);
     const [canGet, setCanGet] = useState(false)
-    const [parentId, setParentId] = useState()
+    const [itemOwner, setItemOwner] = useState()
     const [canEdit, setCanEdit] = useState(false)
 
     useEffect(() => {
-        if(user?.id === itemData.ownerId || user?.id === parentId) {
+        if(user?.id === itemData.ownerId || user?.id === itemOwner?.parentId) {
             setCanEdit(true)
         } else {
             setCanEdit(false)
         }
-    }, [parentId, itemData.ownerId, user?.id]);
+    }, [itemOwner?.parentId, itemData.ownerId, user?.id]);
 
     useEffect(() => {
         if(!itemData || !user) return
         const getOwner = async () => {
-            const itemOwner = await DataStore.query(Users, itemData.ownerId)
-            if(!itemOwner.parentId) {
-                setParentId(false);
-                return;
-            }
-            setParentId(itemOwner.parentId)
+            const owner = await DataStore.query(Users, itemData.ownerId)
+            setItemOwner(owner)
         }
         getOwner()
 
@@ -143,20 +170,25 @@ export default function ItemPage(props) {
 
     useEffect(() => {
         function updateCanGet() {
+            if(!itemOwner) {
+                setCanGet(false);
+                return;
+            }
+
             if(itemData.ownerId === user.id) {
                 setCanGet(false);
                 return;
             }
-            if(parentId && parentId !== user?.id) {
+            if(itemOwner?.parentId && itemOwner.parentId !== user?.id) {
                 // The list is not your subuser, so we can show badges
                 setCanGet(true)
                 return;
             }
-            if(parentId === false) {
+            if(itemOwner && !itemOwner.parentId) {
                 setCanGet(true);
                 return;
             }
-            if(parentId === user?.id && !user?.subuserModeOn) {
+            if(itemOwner?.parentId === user?.id && !user?.subuserModeOn && itemOwner?.isUser) {
                 // list is subuser, but subuser mode is not on.
                 setCanGet(true)
                 return;
@@ -166,7 +198,7 @@ export default function ItemPage(props) {
         if(user && itemData) {
             updateCanGet()
         }
-    }, [itemData, parentId, user]);
+    }, [itemData, itemOwner?.parentId, user]);
 
     function ImageElement() {
         if (!itemData || !itemData?.images || itemData.images.length === 0 || itemData.images[0] === '') return <ImagePlaceholderEl/>
@@ -210,6 +242,19 @@ export default function ItemPage(props) {
         updateItem(1)
     }
 
+    const renderPriority = () => {
+        return <StyledRating
+            name="priority"
+            readOnly
+            label={"Priority"}
+            getLabelText={(priority) => `${priority} Heart${priority !== 1 ? 's' : ''}`}
+            precision={0.5}
+            icon={<FavoriteIcon fontSize="inherit" />}
+            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+            value={itemData.priority}
+        />
+    }
+
     return (
         <ItemPageContainerEl>
             <ActionsBar/>
@@ -226,7 +271,7 @@ export default function ItemPage(props) {
                     <ImageElement/>
                     <DetailsEl>
                         {itemData?.note && <div><b>Note: </b><div>{itemData.note}</div></div>}
-                        {itemData?.priority && <div><b>Priority: </b>{itemData.priority}/10</div>}
+                        {itemData?.priority && <PriorityEl><b>Priority: </b>{renderPriority()}</PriorityEl>}
                         {itemData?.link && renderLinkName() && <AEl href={itemData.link}>{renderLinkName()}</AEl>}
                         {itemData?.price && <div><b>Price: </b><span>~ {price}</span></div>}
                         {canGet && gottenBy.length > 0 && <div><b>Gotten By: </b><Stack direction="row" spacing={1}>{gottenBy}</Stack></div>}

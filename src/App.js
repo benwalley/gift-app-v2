@@ -33,7 +33,7 @@ const MainBody = styled.div`
   position: relative;
   display: grid;
 `
-
+//TODO: allow other users to have access to your list
 export default function App() {
     return (
         <RecoilRoot>

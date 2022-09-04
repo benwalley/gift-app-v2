@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from '@emotion/styled'
 import Card from "@mui/material/Card";
-import {CardMedia, CardContent, CardActions, CardActionArea, IconButton, Tooltip} from "@mui/material";
+import {CardMedia, CardContent, CardActions, CardActionArea, IconButton, Tooltip, Rating} from "@mui/material";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import EditIcon from '@mui/icons-material/Edit';
@@ -18,7 +18,9 @@ import CustomModal from "../../CustomModal";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {wishlistByUserId} from "../../../state/selectors/wishlistByUserId";
 import {useNavigate} from "react-router-dom";
-
+import * as PropTypes from "prop-types";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 const PriorityPriceEl = styled.div`
@@ -26,13 +28,33 @@ const PriorityPriceEl = styled.div`
     justify-content: space-between;
 `
 
+const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+        color: 'var(--heart-icon-hover)',
+    },
+    '& .MuiRating-iconHover': {
+        color: 'var(--heart-icon-hover)',
+    },
+});
 
+StyledRating.propTypes = {
+    emptyIcon: PropTypes.element,
+    size: PropTypes.string,
+    onChange: PropTypes.func,
+    defaultValue: PropTypes.number,
+    precision: PropTypes.number,
+    name: PropTypes.string,
+    icon: PropTypes.element,
+    label: PropTypes.string,
+    value: PropTypes.any,
+    getLabelText: PropTypes.func
+};
 export default function Tile(props) {
     const {tile} = props;
     const user = useRecoilHook(currentUser);
     const updateWishlist = useSetRecoilState(wishlistByUserId(user?.id))
     const [editModalOpen, setEditModalOpen] = useState(false)
-    const [parentId, setParentId] = useState()
+    const [itemOwner, setItemOwner] = useState()
     const [canEdit, setCanEdit] = useState(false)
     const [canSeeBadges, setCanSeeBadges] = useState(false)
     const navigate = useNavigate()
@@ -41,46 +63,47 @@ export default function Tile(props) {
         if(!tile || !user) return
         const getOwner = async () => {
             const tileOwner = await DataStore.query(Users, tile.ownerId)
-            if(!tileOwner.parentId) {
-                setParentId(false);
-                return;
-            }
-            setParentId(tileOwner.parentId)
+            setItemOwner(tileOwner)
         }
         getOwner()
 
     }, [tile, user]);
 
     useEffect(() => {
-        if(user?.id === tile.ownerId || user?.id === parentId) {
+        if(user?.id === tile.ownerId || user?.id === itemOwner?.parentId) {
             setCanEdit(true)
         } else {
             setCanEdit(false)
         }
-    }, [parentId, tile.ownerId, user?.id]);
+    }, [itemOwner?.parentId, tile.ownerId, user?.id]);
 
     useEffect(() => {
+        if(!itemOwner) {
+            setCanSeeBadges(false);
+            return;
+        }
+
         if(user?.id === tile.ownerId) {
             // this is your list, so you can never see badges
             setCanSeeBadges(false)
             return;
         }
-        if(parentId && parentId !== user?.id) {
+        if(itemOwner?.parentId && itemOwner?.parentId !== user?.id) {
             // The list is not your subuser, so we can show badges
             setCanSeeBadges(true)
             return;
         }
-        if(parentId === false) {
+        if(!itemOwner?.parentId) {
             setCanSeeBadges(true);
             return;
         }
-        if(parentId === user?.id && !user?.subuserModeOn) {
-            // list is subuser, but subuser mode is not on.
+        if(itemOwner?.parentId === user?.id && !user?.subuserModeOn && itemOwner?.isUser) {
+            // list is subuser, but subuser mode is not on and subuser is user.
             setCanSeeBadges(true)
             return;
         }
         setCanSeeBadges(false)
-    }, [parentId, tile.ownerId, user]);
+    }, [itemOwner?.parentId, tile.ownerId, user]);
 
 
     async function handleToggleGetting(e) {
@@ -100,7 +123,17 @@ export default function Tile(props) {
     function Priority() {
         if (!tile.priority) return;
         return <Tooltip title="Priority">
-            <span>{`${tile.priority}/10`}</span>
+            <StyledRating
+                name="priority"
+                readOnly
+                label={"Priority"}
+                getLabelText={(priority) => `${priority} Heart${priority !== 1 ? 's' : ''}`}
+                precision={0.5}
+                size={'small'}
+                icon={<FavoriteIcon fontSize="inherit" />}
+                emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                value={tile.priority}
+            />
         </Tooltip>
     }
 
@@ -129,7 +162,7 @@ export default function Tile(props) {
     }
 
     return (
-        <Card sx={{display: 'grid', gridTemplateRows: '1fr 56px', position: 'relative', minWidth: '275px'}}>
+        <Card sx={{display: 'grid', gridTemplateRows: '1fr 56px', position: 'relative', minWidth: '275px', borderRadius: '10px'}}>
             {canSeeBadges && <TopBadges getting={tile.gottenBy} wantsToGet={tile.wantsToGet}/>}
             <CardActionArea onClick={handleClick}>
                 {tile?.images?.length > 0 &&

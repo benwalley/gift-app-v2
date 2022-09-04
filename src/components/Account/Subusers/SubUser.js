@@ -5,7 +5,6 @@ import {getFirstLetters} from "../../../helpers/nameFirstLetters";
 import ListItemText from "@mui/material/ListItemText";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import Button from "@mui/material/Button";
 import styled from '@emotion/styled'
 import CustomModal from "../../CustomModal";
 import {DataStore} from "aws-amplify";
@@ -17,6 +16,7 @@ import useRecoilHook from "../../../hooks/useRecoilHook";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import EditSubuserForm from "./EditSubuserForm";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import SubuserIcon from "../../SubuserIcon";
 
 const SubuserNameEl = styled.div`
     font-size: 20px;
@@ -24,6 +24,9 @@ const SubuserNameEl = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 `
 
 export default function SubUser(props) {
@@ -58,7 +61,7 @@ export default function SubUser(props) {
             </ListItemAvatar>
             <ListItemText
                 sx={{}}
-                primary={<SubuserNameEl>{user?.username}</SubuserNameEl>}
+                primary={<SubuserNameEl>{user?.username}{user?.isUser && <SubuserIcon/>}</SubuserNameEl>}
                 secondary={<Stack direction="row" spacing={1}>
                     {groups.map(group =>
                         <Chip key={group.id} color={"secondary"} size={"small"} key={group.id} label={group.groupName} />
