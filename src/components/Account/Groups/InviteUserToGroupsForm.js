@@ -49,7 +49,7 @@ export default function InviteUserToGroupsForm(props) {
         await Promise.all(selectedGroups.map(async group => {
             const original = await DataStore.query(Groups, group);
             const invitedEmailCopy = [...original.invitedEmail]
-            invitedEmailCopy.push(email)
+            invitedEmailCopy.push(email.toLowerCase())
             await DataStore.save(Groups.copyOf(original, updated => {
                 updated.invitedEmail = [...new Set(invitedEmailCopy)];
             }))

@@ -13,7 +13,7 @@ export const invitedByEmail = selectorFamily({
         try {
             if(!email) return;
             get(invitedByEmailVersion)
-            const groups = await DataStore.query(Groups, c => c.invitedEmail("contains", email));
+            const groups = await DataStore.query(Groups, c => c.invitedEmail("contains", email.toLowerCase()));
             return groups
         } catch(e) {
             console.log(e)
