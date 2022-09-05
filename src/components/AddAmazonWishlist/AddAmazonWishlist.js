@@ -62,8 +62,10 @@ export default function AddAmazonWishlist(props) {
     const [source, setSource] = useState('')
     const [wishlist, setWishlist] = useState([])
     const [selectedItems, setSelectedItems] = useState([])
+    const [loadingItems, setLoadingItems] = useState(false)
     const [addToId, setAddToId] = useState()
     const [selectedGroups, setSelectedGroups] = useState([])
+    const [isCreating, setIsCreating] = useState(false)
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const updateWishlist = useSetRecoilState(wishlistByUserId(addToId))
     const navigate = useNavigate()
@@ -86,6 +88,7 @@ export default function AddAmazonWishlist(props) {
     async function afterSubmit() {
         const wishlistItems = stringToHtml(source)
         const wishlistData = [];
+        setLoadingItems(true)
 
         for(const item of wishlistItems) {
             const itemId = item.dataset.itemid;
@@ -107,7 +110,7 @@ export default function AddAmazonWishlist(props) {
                 price: !price || price === "-Infinity" ? '' : price,
             })
         }
-
+        setLoadingItems(false)
         setWishlist(wishlistData)
     };
 
@@ -120,6 +123,7 @@ export default function AddAmazonWishlist(props) {
     }
 
     async function handleCreateItems(e) {
+        setIsCreating(true)
         e.preventDefault()
         try {
             for(const item of selectedItems) {
@@ -148,6 +152,7 @@ export default function AddAmazonWishlist(props) {
                     console.log(e)
                 }
             }
+            setIsCreating(false)
             updateWishlist(0)
             setSnackbarOpen(true);
             navigate(`/wishlist/${addToId}`)
@@ -162,7 +167,7 @@ export default function AddAmazonWishlist(props) {
             <DisclaimerEl>You'll have to use a desktop computer to import an amazon wishlist</DisclaimerEl>
             <HowToUse/>
             <Tile>
-                <AddWishlistForm source={source} setSource={setSource} afterSubmit={afterSubmit}/>
+                <AddWishlistForm source={source} setSource={setSource} afterSubmit={afterSubmit} loadingItems={loadingItems}/>
             </Tile>
             {wishlist && wishlist.length > 0 && <h2>Select the items you want to add to your wishlist</h2>}
             {wishlist && wishlist.length > 0 && <ActionButtonsEl>
@@ -192,7 +197,7 @@ export default function AddAmazonWishlist(props) {
                     disabled={selectedItems.length === 0 ? true : false }
                     onClick={handleCreateItems}
                 >
-                    Create Wishlist Items
+                    {isCreating ? 'Creating Items' : 'Create Wishlist Items'}
                 </Button>
 
 

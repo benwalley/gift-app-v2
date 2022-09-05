@@ -14,9 +14,9 @@ const ContainerEl = styled.form`
     gap: 10px;
   
 `
-
+// TODO: make pwa and replace create react app loading text
 export default function AddWishlistForm(props) {
-    const {source, setSource, afterSubmit} = props
+    const {source, setSource, afterSubmit, loadingItems} = props
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
     const user = useRecoilHook(currentUser)
     const groups = useRecoilHook(groupsByUserId(user?.id))
@@ -26,7 +26,6 @@ export default function AddWishlistForm(props) {
         e.preventDefault();
         if( groups && groups.length > 0) {
             afterSubmit()
-
         } else {
             setAreYouSureOpen(true)
         }
@@ -35,7 +34,7 @@ export default function AddWishlistForm(props) {
     return (
         <ContainerEl onSubmit={handleSubmit}>
             <TextField multiline rows={10} value={source} onChange={(e) => setSource(e.target.value)} id="source" label="Amazon wishlist page source" variant="outlined"/>
-            <Button type={"submit"} variant={"contained"}>Get Wishlist Items</Button>
+            <Button type={"submit"} variant={"contained"}>{loadingItems ? 'Getting Items' : 'Get Wishlist Items'}</Button>
             <AreYouSureDialog
                 text={`You must create or join a group in order to add items to your wishlist.`}
                 open={areYouSureOpen}

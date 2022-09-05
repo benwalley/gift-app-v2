@@ -5,10 +5,13 @@ import SignOut from "./SignOut";
 import {Link} from "react-router-dom";
 import useRecoilHook from "../hooks/useRecoilHook";
 import {currentUser} from "../state/selectors/currentUser";
-import {IconButton} from "@mui/material";
-import {useRecoilState, useSetRecoilState} from "recoil";
+import {IconButton, Tooltip} from "@mui/material";
+import {useRecoilState} from "recoil";
 import leftNavOpen from "../state/atoms/leftNavOpen";
 import MenuIcon from '@mui/icons-material/Menu';
+import {useEffect, useState} from "react";
+import WifiOffIcon from '@mui/icons-material/WifiOff';
+import WifiIcon from '@mui/icons-material/Wifi';
 
 const HeaderEl = styled.div`
   padding: 5px var(--mobile-page-margin);
@@ -19,9 +22,9 @@ const HeaderEl = styled.div`
   box-sizing: border-box;
   background-color: var(--dark-color);
   display: grid;
-  grid-template-columns: auto 50px calc(100% - 220px) auto auto;
+  grid-template-columns: auto 50px calc(100% - 264px) auto auto auto;
   @media only screen and (min-width: 1000px) {
-    grid-template-columns: 50px 1fr auto auto;
+    grid-template-columns: 50px 1fr auto auto auto;
   }
   grid-gap: 10px;
   align-items: center;
@@ -36,6 +39,13 @@ const Logo = styled.img`
     @media only screen and (min-width: 1000px) {
        height: 40px;
     }
+`
+
+const OfflineEl = styled.div`
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
 `
 
 const H2El = styled.h2`
@@ -56,15 +66,20 @@ const StyledLink = styled(Link)`
 const Header = () => {
     const user = useRecoilHook(currentUser)
     const [mobileMenuOpen, setMobileMenuOpen] = useRecoilState(leftNavOpen)
+    const [isOnline, setIsOnline] = useState(navigator.onLine)
+
+    useEffect(() => {
+        window.addEventListener('online',  handleOnlineChanged);
+        window.addEventListener('offline', handleOnlineChanged);
+    }, []);
+
+    const handleOnlineChanged = () => {
+        setIsOnline(navigator.onLine);
+    }
 
     const handleToggleMenu = () => {
         setMobileMenuOpen(!mobileMenuOpen)
     }
-
-    // const trimmedUsername = () => {
-    //     const name = user?.username;
-    //     const maxLength = 4
-    // }
 
     return (
        <HeaderEl>
@@ -87,6 +102,12 @@ const Header = () => {
            {isLoggedIn() ? <StyledLink to={`/wishlist/${user?.id}`}>
                <H2El>{user?.username}</H2El>
            </StyledLink> :  <div></div> }
+           <Tooltip title={isOnline ? "you're online" : "You're offline. The app will have limited functionality until you connect to the internet, but changes you make will get synced once you connect to the internet"}>
+               <span>
+                   {!isOnline && <WifiOffIcon color={"deleteRed"}/>}
+                   {isOnline && <WifiIcon color={"darkGreen"}/>}
+               </span>
+           </Tooltip>
            {isLoggedIn() ? <div>{user?.subuserModeOn ? "Subuser Mode" : ''}</div> :  <div></div> }
            <SignOut/>
        </HeaderEl>
