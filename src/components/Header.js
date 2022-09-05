@@ -41,13 +41,6 @@ const Logo = styled.img`
     }
 `
 
-const OfflineEl = styled.div`
-    position: absolute;
-    top: 0;
-    width: 100%;
-    text-align: center;
-`
-
 const H2El = styled.h2`
     margin: 0 auto;
     text-align: center;
@@ -102,7 +95,7 @@ const Header = () => {
            {isLoggedIn() ? <StyledLink to={`/wishlist/${user?.id}`}>
                <H2El>{user?.username}</H2El>
            </StyledLink> :  <div></div> }
-           <Tooltip title={isOnline ? "you're online" : "You're offline. The app will have limited functionality until you connect to the internet, but changes you make will get synced once you connect to the internet"}>
+           <Tooltip enterTouchDelay={0} title={isOnline ? "you're online" : "You're offline. The app will have limited functionality until you connect to the internet, but changes you make will get synced once you connect to the internet"}>
                <span>
                    {!isOnline && <WifiOffIcon color={"deleteRed"}/>}
                    {isOnline && <WifiIcon color={"darkGreen"}/>}
