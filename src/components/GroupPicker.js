@@ -6,7 +6,7 @@ import {Chip, Stack} from "@mui/material";
 import {toggleValueInArray} from "../helpers/toggleValueInArray";
 import {useEffect, useState} from "react";
 
-
+//TODO: for the custom item modal, only show groups that the user and the list user are both a part of.
 export default function GroupPicker(props) {
     const {userId, selectedGroups, setSelectedGroups, groupsOverride} = props;
     const allGroups = useRecoilHook(groupsByUserId(userId))

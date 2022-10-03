@@ -77,6 +77,7 @@ export declare class WishlistItem {
   readonly link?: string | null;
   readonly gottenBy?: (string | null)[] | null;
   readonly wantsToGet?: (string | null)[] | null;
+  readonly custom?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<WishlistItem, WishlistItemMetaData>);

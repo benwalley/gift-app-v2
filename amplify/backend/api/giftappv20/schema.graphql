@@ -35,6 +35,7 @@ type WishlistItem @model @auth(rules: [{allow: public}]) {
   link: String
   gottenBy: [String]
   wantsToGet: [String]
+  custom: Boolean
 }
 
 type Groups @model @auth(rules: [{allow: public}]) {

@@ -11,6 +11,10 @@ import ActionsBar from "./ActionsBar";
 import {Typography} from "@mui/material";
 import SubuserIcon from "../SubuserIcon";
 import {currentUser} from "../../state/selectors/currentUser";
+import Button from "@mui/material/Button";
+import AddItemForm from "../AddItemForm";
+import CustomModal from "../CustomModal";
+import AddCustomItemModal from "./AddCustomItemModal";
 
 
 const H1El = styled.h1`
@@ -67,6 +71,7 @@ export default function WishlistById() {
     const [filters, setFilters] = useState({})
     const wishlistById = useRecoilHook(wishlistByUserId({wishlistId: wishlistId || false, filters: filters}));
     const updateWishlist = useSetRecoilState(wishlistByUserId(user?.id || false))
+    const [customItemModalOpen, setCustomItemModalOpen] = useState(false)
 
     useEffect(() => {
         updateWishlist(0)
@@ -75,9 +80,19 @@ export default function WishlistById() {
     const renderWishlistItems = () => {
         const wishlist = wishlistById;
         if(!wishlist) return;
-        return wishlist.map(item => {
+        const filteredWishlist = wishlist.filter(item => {
+            if(!item.custom) return true;
+            if(mainUser.id === wishlistId) return false;
+            if(mainUser.subuserModeOn && user.parentId === mainUser.id && user.isUser) return false;
+            return true
+        })
+        return filteredWishlist.map(item => {
             return <Tile tile={item} key={item.id}></Tile>
         })
+    }
+
+    const handleAddCustomItem = () => {
+        setCustomItemModalOpen(true)
     }
 
     return (
@@ -90,6 +105,12 @@ export default function WishlistById() {
                 {wishlistById && wishlistById.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist for the selected group(s)</Typography>}
                 {renderWishlistItems()}
             </WishlistTileContainerEl>
+            {mainUser.id !== wishlistId && <>
+                <Button onClick={handleAddCustomItem} color={'secondary'} sx={{marginTop: '30px'}} variant={'contained'}>Add Something To This User's Wishlist</Button>
+                <CustomModal open={customItemModalOpen} setOpen={setCustomItemModalOpen} size="large">
+                    <AddCustomItemModal addToId={wishlistId} afterSubmit={() => setCustomItemModalOpen(false)}/>
+                </CustomModal>
+            </>}
         </WishlistContainerEl>
     );
 }
