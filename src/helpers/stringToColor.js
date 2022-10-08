@@ -1,4 +1,5 @@
 export default function stringToColor(string) {
+    if(!string || string === '') return '#4287f5'
     let hash = 0;
     let i;
 

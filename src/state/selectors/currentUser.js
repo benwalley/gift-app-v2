@@ -1,5 +1,5 @@
 import {atom, selector} from "recoil";
-import {Auth, DataStore} from "aws-amplify";
+import {Auth, DataStore, SortDirection} from "aws-amplify";
 import {Users} from "../../models";
 
 export const currentUserVersion = atom({
@@ -12,7 +12,7 @@ export const currentUser = selector({
     get: async ({get}) => {
         get(currentUserVersion)
         const username = Auth.user?.username;
-        let users = await DataStore.query(Users, c => c.authUsername("eq", username));
+        let users = await DataStore.query(Users, c => c.authUsername("eq", username), {sort: s => s.createdAt(SortDirection.ASCENDING)});
         if(users.length > 0) {
             const returnValue = users[0]
             return returnValue

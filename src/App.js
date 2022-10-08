@@ -32,7 +32,7 @@ const MainBody = styled.div`
   position: relative;
   display: grid;
 `
-
+// TODO: make default "public" group, and those items can be seen by non-logged in users
 //TODO: allow other users to have access to your list
 export default function App() {
     return (
