@@ -92,21 +92,12 @@ const StyledRating = styled(Rating)({
         color: 'var(--heart-icon-hover)',
     },
 });
-StyledRating.propTypes = {
-    emptyIcon: PropTypes.element,
-    size: PropTypes.string,
-    precision: PropTypes.number,
-    name: PropTypes.string,
-    icon: PropTypes.element,
-    readOnly: PropTypes.bool,
-    label: PropTypes.string,
-    getLabelText: PropTypes.func
-};
+
 export default function ItemPage(props) {
     let {itemId} = useParams();
     const user = useRecoilHook(currentUser)
     const itemData = useRecoilHook(wishlistItemById(itemId))
-    const price = useCurrency(itemData.price)
+    const price = useCurrency(itemData?.price)
     const [editModalOpen, setEditModalOpen] = useState(false)
     const updateItem = useSetRecoilState(wishlistItemById(itemId))
     const [gottenBy, setGottenBy] = useState([]);
@@ -251,7 +242,7 @@ export default function ItemPage(props) {
             precision={0.5}
             icon={<FavoriteIcon fontSize="inherit" />}
             emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-            value={itemData.priority}
+            value={parseFloat(itemData?.priority)}
         />
     }
 

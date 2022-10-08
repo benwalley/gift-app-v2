@@ -158,7 +158,7 @@ export default function AddItemForm(props) {
                 size={"large"}
                 icon={<FavoriteIcon fontSize="inherit" />}
                 emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                value={priority}
+                value={parseFloat(priority)}
                 onChange={(e) => setPriority(e.target.value)}
             />
             <TextField value={link} onChange={(e) => setLink(e.target.value)} sx={styles} id="link" label="Link"

@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/stringToColor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/stringToColor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/selectors/currentUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/currentUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/schema.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +85,7 @@
       <workItem from="1662319772006" duration="22504000" />
       <workItem from="1664770194669" duration="3176000" />
       <workItem from="1664983751266" duration="114000" />
-      <workItem from="1665190629256" duration="1383000" />
+      <workItem from="1665190629256" duration="4032000" />
     </task>
     <servers />
   </component>

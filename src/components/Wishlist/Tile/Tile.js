@@ -37,18 +37,6 @@ const StyledRating = styled(Rating)({
     },
 });
 
-StyledRating.propTypes = {
-    emptyIcon: PropTypes.element,
-    size: PropTypes.string,
-    onChange: PropTypes.func,
-    defaultValue: PropTypes.number,
-    precision: PropTypes.number,
-    name: PropTypes.string,
-    icon: PropTypes.element,
-    label: PropTypes.string,
-    value: PropTypes.any,
-    getLabelText: PropTypes.func
-};
 export default function Tile(props) {
     const {tile} = props;
     const user = useRecoilHook(currentUser);
@@ -132,7 +120,7 @@ export default function Tile(props) {
                 size={'small'}
                 icon={<FavoriteIcon fontSize="inherit" />}
                 emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                value={tile.priority}
+                value={parseFloat(tile?.priority)}
             />
         </Tooltip>
     }
@@ -174,6 +162,7 @@ export default function Tile(props) {
                         sx={{
                             width: 'auto',
                             margin: "10px auto 0",
+                            maxWidth: '90%',
                         }}
                     />}
                 <CardContent sx={{display: 'grid', gridTemplateRows: '1fr 24px'}}>
