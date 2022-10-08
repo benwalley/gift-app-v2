@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TextField, Button, Rating, Typography} from "@mui/material";
+import {TextField, Button, Rating, Typography, Switch} from "@mui/material";
 import {DataStore} from 'aws-amplify'
 import {WishlistItem} from "../models";
 import {useSetRecoilState} from "recoil";
@@ -29,6 +29,16 @@ const StyledRating = styled(Rating)({
     },
 });
 
+const H2El = styled.h2`
+    margin-right: auto;
+`
+
+const TitleAndSwitchEl = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+`
+
 //TODO: have the ability to add 'tags' to items to filter with. (like wedding, or baby)
 export default function AddItemForm(props) {
     const {afterSubmit, initialData} = props
@@ -40,6 +50,7 @@ export default function AddItemForm(props) {
     const [note, setNote] = useState('')
     const [image, setImage] = useState('')
     const [addToId, setAddToId] = useState('')
+    const [isPublic, setIsPublic] = useState(true)
     const [selectedGroups, setSelectedGroups] = useState([])
     const updateAddToWishlist = useSetRecoilState(wishlistByUserId(addToId))
     const user = useRecoilHook(currentUser)
@@ -69,6 +80,7 @@ export default function AddItemForm(props) {
                 updated.link = fixLink(link);
                 updated.note = note;
                 updated.images = [image]
+                updated.isPublic = isPublic
             } catch (e) {
                 console.log(e)
             }
@@ -109,7 +121,8 @@ export default function AddItemForm(props) {
                 "ownerId": addToId,
                 "wishlistItemComments": [],
                 "priority": priority,
-                'groups': selectedGroups
+                'groups': selectedGroups,
+                'isPublic': isPublic,
             }
             const response = await DataStore.save(
                 new WishlistItem(itemData)
@@ -134,12 +147,22 @@ export default function AddItemForm(props) {
             setNote(initialData.note || '')
             setImage(initialData?.images[0] || '')
             setSelectedGroups(initialData?.groups)
+            setIsPublic(initialData?.isPublic)
         }
     }, [initialData]);
 
     return (
         <form onSubmit={initialData ? handleSubmitEdit : handleSubmit}>
-            <h2>{isEdit() ? "Edit Wishlist Item" : "Add Item To Your Wishlist"}</h2>
+            <TitleAndSwitchEl>
+                <H2El>{isEdit() ? "Edit Wishlist Item" : "Add Item To Your Wishlist"}</H2El>
+                <Switch
+                    checked={isPublic}
+                    color={"secondary"}
+                    onChange={() => setIsPublic(!isPublic)}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                />
+                <div>{isPublic ? "Publicly Visible" : "Not Publicly Visible"}</div>
+            </TitleAndSwitchEl>
             {!isEdit() && <h4>Users</h4>}
             {!isEdit() && <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>}
             <h4>Groups</h4>

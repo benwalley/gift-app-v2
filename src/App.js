@@ -35,30 +35,33 @@ const MainBody = styled.div`
 // TODO: make default "public" group, and those items can be seen by non-logged in users
 // TODO: allow other users to have access to your list
 export default function App() {
+
     return (
         <RecoilRoot>
             <ThemeProvider theme={theme}>
-                <Authenticator formFields={formFields} components={components}>
-                    <Router>
+                <Router>
+                    <Authenticator formFields={formFields} components={components}>
                         <Header/>
                         <MainBody>
                             <Routes>
                                 <Route path='/' element={<Dashboard/>}>
-                                    <Route index element={<DashboardBody />} />
+                                    <Route index element={<DashboardBody/>}/>
                                     <Route path="account" element={<DashboardBody/>}/>
                                     <Route path="wishlist/:wishlistId" element={<WishlistById/>}/>
+                                    <Route path="public/wishlist/:wishlistId" element={<WishlistById/>}/>
                                     <Route path="wishlist/item/:itemId" element={<ItemPage/>}/>
+                                    <Route path="public/wishlist/item/:itemId" element={<ItemPage/>}/>
                                     <Route path="account/subusers" element={<SubUsersPage/>}/>
                                     <Route path="account/groups" element={<GroupsPage/>}/>
                                     <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>
                                     <Route path="lists" element={<ListList/>}/>
                                     <Route path="money" element={<Money/>}/>
-                                    <Route path="*" element={<DashboardBody />} />
+                                    <Route path="*" element={<DashboardBody/>}/>
                                 </Route>
                             </Routes>
                         </MainBody>
-                    </Router>
-                </Authenticator>
+                    </Authenticator>
+                </Router>
             </ThemeProvider>
         </RecoilRoot>
     );

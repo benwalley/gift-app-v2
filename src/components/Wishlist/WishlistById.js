@@ -83,7 +83,7 @@ export default function WishlistById() {
         const filteredWishlist = wishlist.filter(item => {
             if(!item.custom) return true;
             if(mainUser.id === wishlistId) return false;
-            if(mainUser.subuserModeOn && user.parentId === mainUser.id && user.isUser) return false;
+            if(mainUser.subuserModeOn && user?.parentId === mainUser.id && user?.isUser) return false;
             return true
         })
         return filteredWishlist.map(item => {
@@ -99,7 +99,7 @@ export default function WishlistById() {
         <WishlistContainerEl>
             <ActionsBar/>
             <Filters filters={filters} setFilters={setFilters}/>
-            <H1El>{user?.username}{user.isUser && <SubuserIcon/>}</H1El>
+            <H1El>{user?.username}{user?.isUser && <SubuserIcon/>}</H1El>
             {user?.isUser && <NoticeEl>{`This user is a sub-user, so ${mainUser.username} can see what is marked as gotten.`}</NoticeEl>}
             <WishlistTileContainerEl>
                 {wishlistById && wishlistById.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist for the selected group(s)</Typography>}

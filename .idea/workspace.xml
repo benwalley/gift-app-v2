@@ -9,8 +9,11 @@
       <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authenticator/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authenticator/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ActionsBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ActionsBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ActionsBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ActionsBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/schema.js" afterDir="false" />
     </list>
@@ -85,7 +88,7 @@
       <workItem from="1662319772006" duration="22504000" />
       <workItem from="1664770194669" duration="3176000" />
       <workItem from="1664983751266" duration="114000" />
-      <workItem from="1665190629256" duration="4032000" />
+      <workItem from="1665190629256" duration="13232000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,9 @@
 import {useAuthenticator} from "@aws-amplify/ui-react";
 import Button from "@mui/material/Button";
+import PublicMain from "../Public/PublicMain";
 
 const components = {
+    Header: PublicMain,
     SignIn: {
         Footer() {
             const {toResetPassword} = useAuthenticator();
@@ -22,6 +24,7 @@ const components = {
     },
 
     SignUp: {
+        Header: PublicMain,
         Footer() {
             const {toSignIn} = useAuthenticator();
 

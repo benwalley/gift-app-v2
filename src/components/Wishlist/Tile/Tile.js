@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from '@emotion/styled'
 import Card from "@mui/material/Card";
-import {CardMedia, CardContent, CardActions, CardActionArea, IconButton, Tooltip, Rating} from "@mui/material";
+import {CardMedia, CardContent, CardActions, CardActionArea, IconButton, Tooltip, Rating, Switch} from "@mui/material";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import EditIcon from '@mui/icons-material/Edit';
@@ -21,6 +21,9 @@ import {useNavigate} from "react-router-dom";
 import * as PropTypes from "prop-types";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PublicIcon from '@mui/icons-material/Public';
+import PublicOffIcon from '@mui/icons-material/PublicOff';
+import Box from "@mui/material/Box";
 
 
 const PriorityPriceEl = styled.div`
@@ -105,6 +108,15 @@ export default function Tile(props) {
         e.preventDefault()
         if (!user) return;
         await toggleAmplifyArrayItem(WishlistItem, tile.id, 'wantsToGet', user?.id)
+        updateWishlist(1)
+    }
+
+    async function handleToggleIsPublic(e) {
+        e.preventDefault();
+        const original = await DataStore.query(WishlistItem, tile.id);
+        await DataStore.save(Users.copyOf(original, updated => {
+            updated.isPublic = !original.isPublic;
+        }))
         updateWishlist(1)
     }
 
@@ -193,6 +205,17 @@ export default function Tile(props) {
                     <IconButton aria-label="Delete" onClick={handleDelete}>
                         <DeleteIcon color="deleteRed"/>
                     </IconButton>
+                </Tooltip>}
+                {canEdit && <Tooltip title={tile.isPublic ? "Item is visible publicly" : "Item is not visible publicly"}>
+                        <Box sx={{display: 'flex', alignItems: 'center', marginLeft: 'auto'}}>
+                            {tile.isPublic ? <PublicIcon/> : <PublicOffIcon/>}
+                            <Switch
+                                checked={tile.isPublic}
+                                color={"secondary"}
+                                onChange={handleToggleIsPublic}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </Box>
                 </Tooltip>}
             </CardActions>
             <CustomModal open={editModalOpen} setOpen={setEditModalOpen} size="large">
