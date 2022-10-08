@@ -64,15 +64,16 @@ export default function PublicWishlistById() {
 
 
 
-    return (<PublicWishlistContainerEl>
+    return (
+        <>{wishlist.length > 0 && <PublicWishlistContainerEl>
             <h1>{user?.username}</h1>
-            <PublicLoginSuggestion/>
-            {wishlist.length > 0 && <WishlistTileContainerEl>
+            <WishlistTileContainerEl>
                 {wishlist.map(item => {
                     return <PublicWishlistTile tile={item} key={item.id}/>
                 })}
             </WishlistTileContainerEl>}
-        </PublicWishlistContainerEl>
+        </PublicWishlistContainerEl>}
+        </>
     );
 }
 
