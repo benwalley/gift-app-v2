@@ -44,7 +44,7 @@ export default function PublicWishlistById() {
         const updateWishlist = async () => {
             const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", wishlistId));
             // make sure it's in a public group.
-            setWishlist(wishlist.filter(wishlistItem => wishlistItem.isPublic))
+            setWishlist(wishlist.filter(wishlistItem => wishlistItem.isPublic && !wishlistItem.custom))
         }
 
         updateWishlist()
@@ -67,11 +67,12 @@ export default function PublicWishlistById() {
     return (
         <>{wishlist.length > 0 && <PublicWishlistContainerEl>
             <h1>{user?.username}</h1>
+            <PublicLoginSuggestion/>
             <WishlistTileContainerEl>
                 {wishlist.map(item => {
                     return <PublicWishlistTile tile={item} key={item.id}/>
                 })}
-            </WishlistTileContainerEl>}
+            </WishlistTileContainerEl>
         </PublicWishlistContainerEl>}
         </>
     );
