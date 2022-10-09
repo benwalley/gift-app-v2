@@ -17,6 +17,7 @@ import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import EditSubuserForm from "./EditSubuserForm";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import SubuserIcon from "../../SubuserIcon";
+import Box from "@mui/material/Box";
 
 const SubuserNameEl = styled.div`
     font-size: 20px;
@@ -73,9 +74,9 @@ export default function SubUser(props) {
             <ListItemText
                 sx={{}}
                 primary={<SubuserNameEl>{user?.username}{user?.isUser && <SubuserIcon/>}</SubuserNameEl>}
-                secondary={<Stack direction="row" spacing={1}>
+                secondary={<Stack direction="row" spacing={2}>
                     {groups.map(group =>
-                        <Chip key={group.id} color={"secondary"} size={"small"} key={group.id} label={group.groupName} />
+                        <Box key={group.id} color={"secondary"} size={"small"} label={group.groupName} >{group.groupName}</Box>
                     )}
                 </Stack>}
             />

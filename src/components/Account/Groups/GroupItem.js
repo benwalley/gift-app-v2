@@ -18,6 +18,7 @@ import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import GroupInvited from "./GroupInvited";
 import useRecoilHook from "../../../hooks/useRecoilHook";
 import {currentUser} from "../../../state/selectors/currentUser";
+import Box from "@mui/material/Box";
 
 const UsersEl = styled.div`
     grid-column: 1/-1;
@@ -97,7 +98,7 @@ export default function GroupItem(props) {
 
 
     return (
-        <ListItem sx={listItemStyle}>
+        <Box sx={listItemStyle}>
             <ListItemAvatar>
                 <Avatar
                     sx={{bgcolor: stringToColor(group.groupName)}}
@@ -144,7 +145,7 @@ export default function GroupItem(props) {
                 confirmHandler={handleDeleteGroup}
                 confirmText={"Delete"}
             />
-        </ListItem>
+        </Box>
     );
 }
 

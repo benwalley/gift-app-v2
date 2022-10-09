@@ -99,7 +99,7 @@ export default function ImageUpload(props) {
 
             <Box sx={{display: 'flex', alignItems: 'center'}}>
                 {type === 'url' &&
-                    <TextField value={image}
+                    <TextField value={image || ''}
                                onChange={(e) => setImage(e.target.value)}
                                sx={styles}
                                id="image"
