@@ -82,6 +82,7 @@ export default function AddItemForm(props) {
                 updated.note = note;
                 updated.images = [image]
                 updated.isPublic = isPublic
+                updated.groups = selectedGroups
             } catch (e) {
                 console.log(e)
             }
