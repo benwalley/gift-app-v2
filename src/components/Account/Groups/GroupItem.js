@@ -81,12 +81,14 @@ export default function GroupItem(props) {
             // get list of members
             if (group.memberId) {
                 const memberIds = group.memberId
-                const members = Promise.all(memberIds.map(async id => {
-                        const user = await DataStore.query(Users, id);
-                        return user;
+                const members = await Promise.all(memberIds.map(async id => {
+                        if (id) {
+                            return await DataStore.query(Users, id);
+                        }
                     })
                 )
-                setMembersData(await members)
+                const filteredMembers = members.filter(Boolean)
+                setMembersData(filteredMembers)
             }
         }
 
@@ -119,7 +121,8 @@ export default function GroupItem(props) {
                     </Tooltip>}
                 </div>
                 <Button onClick={handleToggleUsers}>{usersExpanded ? "Hide Users" : "Show Users"}</Button>
-                <IconButton edge="end" aria-label="delete" size={"medium"} color={"deleteRed"} onClick={() => setAreYouSureOpen(true)}>
+                <IconButton edge="end" aria-label="delete" size={"medium"} color={"deleteRed"}
+                            onClick={() => setAreYouSureOpen(true)}>
                     <DeleteIcon/>
                 </IconButton>
             </ActionsEl>

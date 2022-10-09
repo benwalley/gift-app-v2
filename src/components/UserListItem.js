@@ -8,6 +8,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import {getFirstLetters} from "../helpers/nameFirstLetters";
 import useRecoilHook from "../hooks/useRecoilHook";
 import SubuserIcon from "./SubuserIcon";
+import UserAvatar from "./UserAvatar";
 
 export default function UserListItem(props) {
     const {user} = props;
@@ -26,12 +27,8 @@ export default function UserListItem(props) {
     return (
         <ListItem disablePadding divider>
             <ListItemButton onClick={handleItemClick} sx={{gap: '10px'}}>
-                <Avatar
-                    sx={{bgcolor: stringToColor(user?.username)}}
-                    alt={user?.username}
-                >
-                    {getFirstLetters(user?.username)}
-                </Avatar>
+
+                <UserAvatar user={user} name={user?.username}/>
                 <UsernameEl>
                     {user?.username}
                     {user?.id === myUser.id && <span> (You)</span>}

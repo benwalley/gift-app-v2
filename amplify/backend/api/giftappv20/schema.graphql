@@ -58,5 +58,6 @@ type Users @model @auth(rules: [{allow: public}]) {
   notes: String
   isUser: Boolean
   editingUsers: [String]
+  image: String
 }
  

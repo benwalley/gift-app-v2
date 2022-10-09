@@ -24,6 +24,7 @@ export const allUsersByGroup = selector({
             return await DataStore.query(Users, memberId);
         }))
 
+        console.log({users})
         return users.filter(Boolean).flat()
     },
 

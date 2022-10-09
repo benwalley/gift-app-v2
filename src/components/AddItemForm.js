@@ -13,6 +13,7 @@ import {wishlistItemById} from "../state/selectors/wishlistItemById";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styled from '@emotion/styled'
+import ImageUpload from "./ImageUpload/ImageUpload";
 
 
 const styles = {
@@ -190,8 +191,7 @@ export default function AddItemForm(props) {
                        multiline
                        variant="outlined"/>
 
-            <TextField value={image} onChange={(e) => setImage(e.target.value)} sx={styles} id="image" label="Image Url"
-                       variant="outlined"/>
+            <ImageUpload image={image} setImage={setImage}/>
             <Button type="submit" sx={{marginTop: '30px', marginLeft: 'auto', display: 'block'}} variant="contained"
                     size="large">Add Item</Button>
         </form>

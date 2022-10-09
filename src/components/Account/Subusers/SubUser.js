@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import styled from '@emotion/styled'
 import CustomModal from "../../CustomModal";
 import {DataStore} from "aws-amplify";
-import {Users} from "../../../models";
+import {Groups, Users} from "../../../models";
 import {updateSubUsers} from "../../../state/selectors/subUsers";
 import {useSetRecoilState} from "recoil";
 import {useNavigate} from "react-router-dom";
@@ -44,6 +44,17 @@ export default function SubUser(props) {
     async function handleDelete() {
         const todelete = await DataStore.query(Users, user?.id);
         DataStore.delete(todelete);
+        // find all groups it's a part of, and delete from the list
+        const groups = await DataStore.query(Groups, c => c.memberId("eq", todelete.id));
+        await Promise.all(groups.map(async group => {
+            const original = await DataStore.query(Groups, group.id);
+            const membersCopy = [...original.memberId]
+            membersCopy.splice(membersCopy.indexOf(todelete.id), 1)
+            await DataStore.save(Groups.copyOf(original, updated => {
+                updated.memberId = [...new Set(membersCopy)];
+            }))
+        }))
+
         update(0)
     }
 

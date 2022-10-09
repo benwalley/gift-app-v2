@@ -108,6 +108,7 @@ export declare class Users {
   readonly notes?: string | null;
   readonly isUser?: boolean | null;
   readonly editingUsers?: (string | null)[] | null;
+  readonly image?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Users, UsersMetaData>);

@@ -15,6 +15,7 @@ import {Groups} from "../../../models";
 import {useSetRecoilState} from "recoil";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import UserAvatar from "../../UserAvatar";
 
 const listItemStyle = {
     display: "grid",
@@ -88,18 +89,14 @@ export default function GroupMember(props) {
 
     return (
         <ListItem sx={listItemStyle}>
-            <Avatar
-                sx={{
-                    bgcolor: stringToColor(user?.username),
-                    width: 24,
-                    height: 24,
-                    fontSize: 12,
-                    display: {xs: 'none', sm: 'flex'}
-                }}
-                alt={user?.username}
-            >
-                {getFirstLetters(user?.username)}
-            </Avatar>
+            <UserAvatar user={user}
+                        name={user?.username}
+                        sx={{
+                            width: 24,
+                            height: 24,
+                            fontSize: 12
+                        }}
+            />
             <UserEl>
                 {user?.username}
                 {user?.id === myUser?.id && <span> (You)</span>}
