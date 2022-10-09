@@ -4,10 +4,12 @@ import styled from "@emotion/styled";
 import {CardContent, CardMedia} from "@mui/material";
 
 import useCurrency from "../../hooks/useCurrency";
+import useImageSrc from "../../hooks/useImageSrc";
 
 
 export default function WishlistItemTile(props) {
     const {data, selectedItems, setSelectedItems} = props;
+    const imageUrl = useImageSrc(data?.imageSrc)
 
     const isSelected = () => {
         return selectedItems.some(item => {
@@ -77,7 +79,7 @@ export default function WishlistItemTile(props) {
                 <CardMedia
                     component="img"
                     height="140"
-                    image={data?.imageSrc}
+                    image={imageUrl}
                     alt={data.imageAlt}
                     sx={{
                         width: 'auto',

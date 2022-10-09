@@ -24,6 +24,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PublicIcon from '@mui/icons-material/Public';
 import PublicOffIcon from '@mui/icons-material/PublicOff';
 import Box from "@mui/material/Box";
+import useImageSrc from "../../../hooks/useImageSrc";
 
 
 const PriorityPriceEl = styled.div`
@@ -49,6 +50,7 @@ export default function Tile(props) {
     const [canEdit, setCanEdit] = useState(false)
     const [canSeeBadges, setCanSeeBadges] = useState(false)
     const navigate = useNavigate()
+    const imageUrl = useImageSrc(tile?.images[0])
 
     useEffect(() => {
         if(!tile || !user) return
@@ -169,7 +171,7 @@ export default function Tile(props) {
                     <CardMedia
                         component="img"
                         height="140"
-                        image={tile?.images[0]}
+                        image={imageUrl}
                         alt={tile.name}
                         sx={{
                             width: 'auto',

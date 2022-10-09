@@ -18,6 +18,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import useCurrency from "../../hooks/useCurrency";
 import PublicActionsBar from "./PublicActionsBar";
 import PublicLoginSuggestion from "./publicLoginSuggestion";
+import ImageRender from "../ImageRender";
+import useImageSrc from "../../hooks/useImageSrc";
 
 const ItemPageContainerEl = styled.div`
   background: var(--background-color);
@@ -94,10 +96,12 @@ export default function PublicItemPage() {
     let {itemId} = useParams();
     const [itemData, setItem] = useState(undefined);
     const price = useCurrency(itemData?.price);
+    const imageUrl = useImageSrc(itemData?.images[0])
 
     function ImageElement() {
         if (!itemData || !itemData?.images || itemData.images.length === 0 || itemData.images[0] === '') return <ImagePlaceholderEl/>
-        return <ImageEl  src={itemData.images[0]} alt={itemData.name}/>
+        // return <ImageRender src={itemData.images[0]} alt={itemData.name}/>
+        return <ImageEl  src={imageUrl} alt={itemData.name}/>
     }
 
     const renderLinkName = () => {

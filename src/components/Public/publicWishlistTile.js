@@ -7,6 +7,7 @@ import useCurrency from "../../hooks/useCurrency";
 import * as PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import {useNavigate} from "react-router-dom";
+import useImageSrc from "../../hooks/useImageSrc";
 
 
 const StyledRating = styled(Rating)({
@@ -26,6 +27,7 @@ const PriorityPriceEl = styled.div`
 export default function PublicWishlistTile(props) {
     const {tile} = props;
     const navigate = useNavigate()
+    const imageUrl = useImageSrc(tile?.images[0])
 
     function Priority() {
         if (!tile.priority) return;
@@ -63,7 +65,7 @@ export default function PublicWishlistTile(props) {
                     <CardMedia
                         component="img"
                         height="140"
-                        image={tile?.images[0]}
+                        image={imageUrl}
                         alt={tile.name}
                         sx={{
                             width: 'auto',

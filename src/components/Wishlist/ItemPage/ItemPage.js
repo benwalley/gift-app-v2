@@ -21,6 +21,7 @@ import {currentUser} from "../../../state/selectors/currentUser";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import * as PropTypes from "prop-types";
+import useImageSrc from "../../../hooks/useImageSrc";
 
 const ItemPageContainerEl = styled.div`
   background: var(--background-color);
@@ -104,6 +105,7 @@ export default function ItemPage(props) {
     const [canGet, setCanGet] = useState(false)
     const [itemOwner, setItemOwner] = useState()
     const [canEdit, setCanEdit] = useState(false)
+    const imageUrl = useImageSrc(itemData?.images?.[0])
 
     useEffect(() => {
         if(user?.id === itemData.ownerId || user?.id === itemOwner?.parentId) {
@@ -192,7 +194,7 @@ export default function ItemPage(props) {
 
     function ImageElement() {
         if (!itemData || !itemData?.images || itemData.images.length === 0 || itemData.images[0] === '') return <ImagePlaceholderEl/>
-        return <ImageEl  src={itemData.images[0]} alt={itemData.name}/>
+        return <ImageEl  src={imageUrl} alt={itemData.name}/>
     }
 
     const handleEdit = () => {

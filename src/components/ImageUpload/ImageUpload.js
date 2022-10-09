@@ -8,6 +8,9 @@ import { FileUploader } from "react-drag-drop-files";
 import ImageUploadButton from "./ImageUploadButton";
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import Box from "@mui/material/Box";
+import useRecoilHook from "../../hooks/useRecoilHook";
+import {currentUser} from "../../state/selectors/currentUser";
+import ImageRender from "../ImageRender";
 
 //TODO: Style input and where image goes and ideally make add item always there.
 //TODO: et right file extension instead of always png
@@ -48,18 +51,20 @@ const fileTypes = ["JPG", "PNG", "GIF"];
 export default function ImageUpload(props) {
     const {image, setImage} = props;
     const [type, setType] = useState('url')
+    const user = useRecoilHook(currentUser)
+
+    const createCustomKey = (key) => {
+        return `${user?.id?.toString()}${Math.random().toString()}${encodeURI(key)}`
+    }
 
     async function handleChange(file) {
         try {
-            const {key} = await Storage.put(file.name, file, {
+            const {key} = await Storage.put(createCustomKey(file.name), file, {
                 contentType: 'image/png'
             });
 
-            const value = await Storage.get(key, {
-                level: 'public',
-                download: false
-            });
-            setImage(value)
+            const encodedValue = JSON.stringify({customKey: key})
+            setImage(encodedValue)
         } catch (error) {
             console.log("Error uploading file: ", error);
         }
@@ -86,8 +91,7 @@ export default function ImageUpload(props) {
         </ToggleButtonGroup>
         <InputContainerEl>
             <div>
-                {image ? <ImgEl
-                        width={'80px'}
+                {image ? <ImageRender
                         src={image}
                         alt="uploaded image"
                     /> :
