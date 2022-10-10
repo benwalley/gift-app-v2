@@ -10,7 +10,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import Box from "@mui/material/Box";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser} from "../../state/selectors/currentUser";
-import ImageRender from "../ImageRender";
+import useImageSrc from "../../hooks/useImageSrc";
 
 //TODO: Style input and where image goes and ideally make add item always there.
 //TODO: et right file extension instead of always png
@@ -32,8 +32,10 @@ const ImageUploadEl = styled.div`
 `
 
 const ImgEl = styled.img`
-    maxWidth: 80px;
-    maxHeight: 80px;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
 `
 
 const InputContainerEl = styled.div`
@@ -52,6 +54,7 @@ export default function ImageUpload(props) {
     const {image, setImage} = props;
     const [type, setType] = useState('url')
     const user = useRecoilHook(currentUser)
+    const imageUrl = useImageSrc(image)
 
     const createCustomKey = (key) => {
         return `${user?.id?.toString()}${Math.random().toString()}${encodeURI(key)}`
@@ -91,8 +94,8 @@ export default function ImageUpload(props) {
         </ToggleButtonGroup>
         <InputContainerEl>
             <div>
-                {image ? <ImageRender
-                        src={image}
+                {image ? <ImgEl
+                        src={imageUrl}
                         alt="uploaded image"
                     /> :
                 <AddPhotoAlternateOutlinedIcon
