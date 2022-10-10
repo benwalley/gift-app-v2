@@ -81,7 +81,6 @@ export default function WishlistById() {
     const renderWishlistItems = () => {
         const wishlist = wishlistById;
         if(!wishlist) return;
-        console.log(wishlist)
         const filteredWishlist = wishlist.filter(item => {
             if(!item.custom) return true; // if it's not custom we can show it.
             if(mainUser.id === wishlistId) return false; // if it's custom and the user's main wishlist, don't show it.
