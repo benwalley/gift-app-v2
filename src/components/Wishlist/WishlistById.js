@@ -81,10 +81,15 @@ export default function WishlistById() {
     const renderWishlistItems = () => {
         const wishlist = wishlistById;
         if(!wishlist) return;
+        console.log(wishlist)
         const filteredWishlist = wishlist.filter(item => {
-            if(!item.custom) return true;
-            if(mainUser.id === wishlistId) return false;
-            if(mainUser.subuserModeOn && user?.parentId === mainUser.id && user?.isUser) return false;
+            if(!item.custom) return true; // if it's not custom we can show it.
+            if(mainUser.id === wishlistId) return false; // if it's custom and the user's main wishlist, don't show it.
+            if(user?.parentId === mainUser.id) {
+                // if it's this user's subuser, the only time you show it is if subuser mode is off and it's a user
+                return !!(!mainUser.subuserModeOn && user?.isUser);
+
+            }
             return true
         })
         return filteredWishlist.map(item => {
@@ -107,7 +112,12 @@ export default function WishlistById() {
                 {renderWishlistItems()}
             </WishlistTileContainerEl>
             {mainUser.id !== wishlistId && <>
-                <Button onClick={handleAddCustomItem} color={'secondary'} sx={{marginTop: '30px'}} variant={'contained'}>Add Something To This User's Wishlist</Button>
+                {/* only show if it's not a subuser or it's a subuser which is a user*/}
+                {(user?.parentId !== mainUser.id || user?.isUser) &&
+                    <Button onClick={handleAddCustomItem} color={'secondary'} sx={{marginTop: '30px'}} variant={'contained'}>
+                        Add Something To This User's Wishlist
+                    </Button>
+                }
                 <CustomModal open={customItemModalOpen} setOpen={setCustomItemModalOpen} size="large">
                     <AddCustomItemModal addToId={wishlistId} afterSubmit={() => setCustomItemModalOpen(false)}/>
                 </CustomModal>
