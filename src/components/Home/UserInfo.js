@@ -107,7 +107,7 @@ export default function UserInfo(props) {
 
             <ProfileEl>
                 <b>Profile Picture</b>
-                <ImageUpload image={image} setImage={setImage}/>
+                <ImageUpload image={image} setImage={setImage} maxSize={80}/>
                 <Stack direction={'column'} spacing={3}>
                     <Button
                         type="button"
