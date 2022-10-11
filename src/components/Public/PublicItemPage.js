@@ -149,7 +149,7 @@ export default function PublicItemPage() {
                         <DetailsEl>
                             {itemData?.note && <div><b>Note: </b><div>{itemData.note}</div></div>}
                             {itemData?.priority && <PriorityEl><b>Priority: </b>{renderPriority()}</PriorityEl>}
-                            {itemData?.link && renderLinkName() && <AEl href={itemData.link}>{renderLinkName()}</AEl>}
+                            {itemData?.link && renderLinkName() && <AEl href={itemData.link} target={'_blank'}>{renderLinkName()}</AEl>}
                             {itemData?.price && <div><b>Price: </b><span>~ {price}</span></div>}
                         </DetailsEl>
                     </ItemPageEl>

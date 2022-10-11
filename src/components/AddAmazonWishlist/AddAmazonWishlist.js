@@ -100,13 +100,24 @@ export default function AddAmazonWishlist(props) {
             const nameEl = item.querySelector(`#itemName_${itemId}`);
             const name = nameEl.title;
             const price = item.dataset.price;
+            const comment = item.querySelector('.g-item-comment .a-row .a-text-quote')
+            let urlString;
+            // fix url
+            try {
+                const urlData = new URL(url)
+                urlString = `https://amazon.com/${urlData.pathname}` || ''
+            } catch(e) {
+
+            }
+
 
             wishlistData.push({
                 id: itemId || '',
                 imageSrc: imageSrc || '',
                 imageAlt: imageAlt || '',
-                url: url || '',
+                url: urlString || '',
                 name: name || '',
+                note: comment?.textContent || '',
                 price: !price || price === "-Infinity" ? '' : price,
             })
         }
@@ -135,7 +146,7 @@ export default function AddAmazonWishlist(props) {
                         "images": [item.imageSrc || ''],
                         "name": item.name || item.imageAlt || '',
                         "link": item.url || '',
-                        "note": '',
+                        "note": item.note || '',
                         "gottenBy": [],
                         "wantsToGet": [],
                         "price": item.price.toString(),

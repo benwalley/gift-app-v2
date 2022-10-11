@@ -264,7 +264,7 @@ export default function ItemPage(props) {
                     <DetailsEl>
                         {itemData?.note && <div><b>Note: </b><div>{itemData.note}</div></div>}
                         {itemData?.priority && <PriorityEl><b>Priority: </b>{renderPriority()}</PriorityEl>}
-                        {itemData?.link && renderLinkName() && <AEl href={itemData.link}>{renderLinkName()}</AEl>}
+                        {itemData?.link && renderLinkName() && <AEl href={itemData.link} target={'_blank'}>{renderLinkName()}</AEl>}
                         {itemData?.price && <div><b>Price: </b><span>~ {price}</span></div>}
                         {canGet && gottenBy.length > 0 && <div><b>Gotten By: </b><Stack direction="row" spacing={1}>{gottenBy}</Stack></div>}
                         {canGet && wantsToGet.length > 0 && <div><b>Want to go in with someone: </b><Stack direction="row" spacing={1}>{wantsToGet}</Stack></div>}
