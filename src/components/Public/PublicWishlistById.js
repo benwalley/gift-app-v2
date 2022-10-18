@@ -40,28 +40,24 @@ export default function PublicWishlistById() {
     const [wishlist, setWishlist] = useState([])
     const [user, setUser] = useState()
 
-    useEffect( () => {
-        const updateWishlist = async () => {
-            const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", wishlistId));
-            // make sure it's in a public group.
-            setWishlist(wishlist.filter(wishlistItem => wishlistItem.isPublic && !wishlistItem.custom))
+    const updateData = async () => {
+        const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", wishlistId));
+        // make sure it's in a public group.
+        setWishlist(wishlist.filter(wishlistItem => wishlistItem.isPublic && !wishlistItem.custom))
+
+        const user = await DataStore.query(Users, wishlistId);
+        // make sure it's in a public group.
+        setUser(user)
+
+        if(!wishlist || !user) {
+            console.log({wishlist, user})
+            window.setTimeout(updateData, 500)
         }
-
-        updateWishlist()
-
-    }, [wishlistId]);
+    }
 
     useEffect( () => {
-        const updateUser = async () => {
-            const user = await DataStore.query(Users, wishlistId);
-            // make sure it's in a public group.
-            setUser(user)
-        }
-
-        updateUser()
-
-    }, [wishlistId]);
-
+        updateData()
+    }, []);
 
 
     return (

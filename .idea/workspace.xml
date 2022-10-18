@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Public/PublicItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Public/PublicItemPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Public/PublicWishlistById.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Public/PublicWishlistById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Public/publicLoginSuggestion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Public/publicLoginSuggestion.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,8 @@
       <workItem from="1664983751266" duration="114000" />
       <workItem from="1665190629256" duration="39927000" />
       <workItem from="1665436005746" duration="5598000" />
-      <workItem from="1665458473525" duration="1178000" />
+      <workItem from="1665458473525" duration="2395000" />
+      <workItem from="1666055504744" duration="560000" />
     </task>
     <servers />
   </component>

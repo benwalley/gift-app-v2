@@ -8,7 +8,7 @@ const TextEl = styled.div`
 export default function PublicLoginSuggestion() {
     return (
         <TextEl>
-            Log in in order to see who's getting gifts and say that you're getting gifts, in addition to many other features.
+            Log in to see who's getting gifts and say that you're getting gifts, in addition to many other features.
         </TextEl>
     );
 }
