@@ -32,8 +32,8 @@ const MainBody = styled.div`
   position: relative;
   display: grid;
 `
-// TODO: make default "public" group, and those items can be seen by non-logged in users
 // TODO: allow other users to have access to your list
+// TODO: Have toggle that hides who's getting things.
 export default function App() {
 
     return (
@@ -45,7 +45,7 @@ export default function App() {
                         <MainBody>
                             <Routes>
                                 <Route path='/' element={<Dashboard/>}>
-                                    <Route index element={<DashboardBody/>}/>
+                                    <Route index element={<ListList/>}/>
                                     <Route path="account" element={<DashboardBody/>}/>
                                     <Route path="wishlist/:wishlistId" element={<WishlistById/>}/>
                                     <Route path="public/wishlist/:wishlistId" element={<WishlistById/>}/>

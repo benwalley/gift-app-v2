@@ -58,7 +58,7 @@ function DashboardDrawer() {
     }
 
     const links = [
-        {title: 'Dashboard', icon: <HomeIcon/>, url: '/'},
+        {title: 'Dashboard', icon: <HomeIcon/>, url: '/account'},
         {title: 'Add Item', icon: <AddIcon/>, action: handleOpenAddItemModal},
         {title: 'Primary List', url: `/wishlist/${user?.id}`, icon: <FormatListBulletedIcon/>},
         {title: 'Lists', url: '/lists', icon: <FormatListNumberedIcon/>},
