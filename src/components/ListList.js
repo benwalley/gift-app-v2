@@ -16,7 +16,7 @@ const ListContainerEl = styled.div`
   padding: var(--mobile-page-margin);
   display: grid;
   gap: 20px;
-  grid-template-rows: auto auto auto 1fr;
+  grid-template-rows: auto auto auto auto 1fr;
   max-width: var(--max-content-width);
   margin: 0 auto;
   

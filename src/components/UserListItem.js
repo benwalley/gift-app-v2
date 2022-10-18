@@ -9,11 +9,19 @@ import {getFirstLetters} from "../helpers/nameFirstLetters";
 import useRecoilHook from "../hooks/useRecoilHook";
 import SubuserIcon from "./SubuserIcon";
 import UserAvatar from "./UserAvatar";
+import {useEffect, useState} from "react";
+import selectedGroupsState from "../state/atoms/selectedGroupsState";
+import {DataStore} from "aws-amplify";
+import {Users, WishlistItem} from "../models";
+import {useRecoilValue} from "recoil";
 
 export default function UserListItem(props) {
     const {user} = props;
     const myUser = useRecoilHook(currentUser)
     let navigate = useNavigate();
+    const [count, setCount] = useState()
+    const selectedGroups = useRecoilValue(selectedGroupsState)
+
 
     const handleItemClick = (e) => {
         e.preventDefault();
@@ -23,6 +31,24 @@ export default function UserListItem(props) {
     const UsernameEl = styled.div`
         padding-left: 10px;
     `
+
+    async function updateItemsCount() {
+        if (!user || !selectedGroups) return;
+        const items = await DataStore.query(WishlistItem, c => c.ownerId("eq", user?.id));
+        const filteredItems = items.filter(item => {
+            for(const group of selectedGroups) {
+                if(item.groups.includes(group) && !item.custom) {
+                    return true;
+                }
+            }
+            return false
+        })
+        console.log({filteredItems})
+        setCount(filteredItems.length)
+    }
+    useEffect(() => {
+        updateItemsCount()
+    }, [user, updateItemsCount]);
 
     return (
         <ListItem disablePadding divider>
@@ -34,6 +60,7 @@ export default function UserListItem(props) {
                     {user?.id === myUser.id && <span> (You)</span>}
                 </UsernameEl>
                 {user.isUser && <SubuserIcon/>}
+                {count && `(${count})`}
             </ListItemButton>
         </ListItem>
     )
