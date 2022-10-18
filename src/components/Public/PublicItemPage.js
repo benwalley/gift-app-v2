@@ -126,15 +126,22 @@ export default function PublicItemPage() {
         />
     }
 
-    useEffect( () => {
-        if(!itemId) return
-        const updateItemData = async () => {
-            const item = await DataStore.query(WishlistItem, itemId);
-            setItem(item?.isPublic ? item : undefined)
+    const updateData = async () => {
+        if(!itemId) {
+            window.setTimeout(updateData, 500)
         }
 
-        updateItemData()
-    }, [itemId]);
+        const item = await DataStore.query(WishlistItem, itemId);
+        setItem(item?.isPublic ? item : undefined)
+
+        if(!item) {
+            window.setTimeout(updateData, 500)
+        }
+    }
+
+    useEffect( () => {
+        updateData()
+    }, []);
 
     return (<>
             {itemData && <ItemPageContainerEl>
