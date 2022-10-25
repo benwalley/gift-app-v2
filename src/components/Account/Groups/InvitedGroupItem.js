@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, {useState} from 'react';
 import ListItem from "@mui/material/ListItem";
 import {Avatar, IconButton, ListItemAvatar, Tooltip} from "@mui/material";
 import stringToColor from "../../../helpers/stringToColor";
@@ -12,6 +12,9 @@ import {Groups} from "../../../models";
 import {useSetRecoilState} from "recoil";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import {invitedByEmail} from "../../../state/selectors/invitedByEmail";
+import CustomModal from "../../CustomModal";
+import ProductPicker from "./ProductPicker";
+import {wishlistByUserId} from "../../../state/selectors/wishlistByUserId";
 
 const listItemStyle = {
     display: "grid",
@@ -21,11 +24,14 @@ const listItemStyle = {
 
 export default function InvitedGroupItem(props) {
     const {group} = props;
+    const [addProductModalOpen, setAddProductModalOpen] = useState(false)
     const myUser = useRecoilHook(currentUser)
     const updateGroups = useSetRecoilState(groupsByUserId(myUser?.id))
     const updateInvites = useSetRecoilState(invitedByEmail(myUser?.email))
+    const updateLists = useSetRecoilState(wishlistByUserId(myUser?.id))
 
     async function handleJoin() {
+        setAddProductModalOpen(true)
         const original = await DataStore.query(Groups, group.id);
         const invitedCopy = [...original.invitedEmail];
         invitedCopy.splice(invitedCopy.indexOf(myUser.email), 1)
@@ -33,12 +39,16 @@ export default function InvitedGroupItem(props) {
         memberCopy.push(myUser.id);
         await DataStore.save(Groups.copyOf(original, updated => {
             updated.invitedEmail = invitedCopy;
-            updated.memberId = memberCopy
+            updated.memberId = [...new Set(memberCopy)]
         }))
-        updateGroups(0);
-        updateInvites(0)
-    }
+            }
 
+    async function handleModalSubmit() {
+        updateLists(0);
+        updateGroups(0);
+        updateInvites(0);
+        setAddProductModalOpen(false);
+    }
 
     return (
         <ListItem sx={listItemStyle}>
@@ -65,7 +75,9 @@ export default function InvitedGroupItem(props) {
                     <PersonAddIcon/>
                 </IconButton>
             </Tooltip>
-
+            <CustomModal size={"large"} open={addProductModalOpen} setOpen={setAddProductModalOpen}>
+                <ProductPicker afterSubmit={handleModalSubmit} groupId={group.id}/>
+            </CustomModal>
         </ListItem>
     );
 }

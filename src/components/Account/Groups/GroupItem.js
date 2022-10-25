@@ -60,8 +60,18 @@ export default function GroupItem(props) {
     const myUser = useRecoilHook(currentUser)
 
     async function handleDeleteGroup() {
-        const todelete = await DataStore.query(Groups, group.id);
-        DataStore.delete(todelete);
+        if(isCreator()) {
+            const todelete = await DataStore.query(Groups, group.id);
+            DataStore.delete(todelete);
+        } else {
+            // just leave the group
+            const original = await DataStore.query(Groups, group.id);
+            const membersCopy = [...original.memberId];
+            membersCopy.splice(membersCopy.indexOf(myUser.id), 1)
+            await DataStore.save(Users.copyOf(original, updated => {
+                updated.memberId = membersCopy;
+            }))
+        }
         updateGroups(0)
     }
 
@@ -143,7 +153,7 @@ export default function GroupItem(props) {
                 open={areYouSureOpen}
                 setOpen={setAreYouSureOpen}
                 confirmHandler={handleDeleteGroup}
-                confirmText={"Delete"}
+                confirmText={isCreator() ? "Delete" : "leave"}
             />
         </Box>
     );

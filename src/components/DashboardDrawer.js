@@ -30,7 +30,8 @@ import {groupsByUserId} from "../state/selectors/groupsByUserId";
 import CloseIcon from '@mui/icons-material/Close';
 import leftNavOpen from "../state/atoms/leftNavOpen";
 import {IconButton} from "@mui/material";
-
+// TODO: allow admins to uninvite people
+// TODO: move items to group when you join not just when creating
 
 const DrawerEl = styled.div`
   border-right: 1px solid var(--border-color-light);

@@ -46,6 +46,14 @@ export default function ProductPicker(props) {
         setSelectedProducts({...selectedCopy})
     }
 
+    const selectedLength = () => {
+        let totalCount = 0;
+        for(const user in selectedProducts) {
+            totalCount += selectedProducts[user].length;
+        }
+        return totalCount
+    }
+
     return (
         <ContainerEl onSubmit={(e) => handleSubmit(e, selectedProducts)}>
             <h2>Select products to add to this group</h2>
@@ -54,7 +62,7 @@ export default function ProductPicker(props) {
                 return <UserAccordion key={subuser?.id} user={subuser} checked={selectedProducts[subuser?.id] || []} setChecked={setChecked}/>
             })}
 
-            <Button variant={"contained"} type={"submit"}>Add Items</Button>
+            <Button variant={"contained"} type={"submit"}>{`Add ${selectedLength()} items`}</Button>
         </ContainerEl>
     );
 }

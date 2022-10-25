@@ -8,7 +8,9 @@ import {IconButton} from "@mui/material";
 export default function CustomModal(props) {
     const {open, setOpen, size, children, padding = "20px"} = props
 
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     const getSize = () => {
         if(size === "large") return 900;
