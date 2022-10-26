@@ -35,6 +35,7 @@ export default function Dashboard() {
     const groups = useRecoilHook(groupsByUserId(user?.id))
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
     const [mobileOpen, setMobileOpen] = useRecoilState(leftNavOpen)
+    const updateUser = useSetRecoilState(updateCurrentUser)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen)
@@ -45,12 +46,6 @@ export default function Dashboard() {
         try {
             const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
             console.log({currentUser})
-            return;
-        } catch(e) {
-            console.error({error: e});
-            setTimeout(createUserIfNeeded, 1000)
-        }
-        try {
             if (!currentUser || currentUser.length === 0) {
                 const userData = {
                     "username": Auth.user.attributes.name,
@@ -63,16 +58,16 @@ export default function Dashboard() {
                 );
                 console.log({newUser})
             }
+            updateUser(0);
         } catch(e) {
-            setTimeout(createUserIfNeeded, 1000)
-            console.log("second error", e)
+            console.log(e)
         }
 
     }
 
     useEffect(() => {
         createUserIfNeeded()
-    }, [createUserIfNeeded]);
+    }, []);
 
     function handleAddButtonClick(e) {
         e.preventDefault();
