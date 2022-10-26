@@ -43,7 +43,6 @@ export default function UserListItem(props) {
             }
             return false
         })
-        console.log({filteredItems})
         setCount(filteredItems.length)
     }
     useEffect(() => {

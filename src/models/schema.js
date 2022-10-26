@@ -346,6 +346,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "createdById": {
+                    "name": "createdById",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -597,5 +604,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "9f78edf3926c3d30af136ab99a14c62d"
+    "version": "af879da5ab74da5b7dbcd75992c26787"
 };

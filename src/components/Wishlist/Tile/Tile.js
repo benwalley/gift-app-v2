@@ -52,6 +52,11 @@ export default function Tile(props) {
     const navigate = useNavigate()
     const imageUrl = useImageSrc(tile?.images[0])
 
+    const isCustomItemCreator = () => {
+        if(!user) return false;
+        return tile?.custom && tile?.createdById === user.id
+    }
+
     useEffect(() => {
         if(!tile || !user) return
         const getOwner = async () => {
@@ -203,7 +208,7 @@ export default function Tile(props) {
                         <EditIcon color="primary"/>
                     </IconButton>
                 </Tooltip>}
-                {canEdit && <Tooltip title="Delete">
+                {(canEdit || isCustomItemCreator()) && <Tooltip title="Delete">
                     <IconButton aria-label="Delete" onClick={handleDelete}>
                         <DeleteIcon color="deleteRed"/>
                     </IconButton>

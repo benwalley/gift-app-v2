@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TextField, Button, Rating, Typography, Switch} from "@mui/material";
+import {TextField, Button, Rating, Typography, Switch, Tooltip} from "@mui/material";
 import {DataStore} from 'aws-amplify'
 import {WishlistItem} from "../models";
 import {useSetRecoilState} from "recoil";
@@ -38,6 +38,7 @@ const TitleAndSwitchEl = styled.div`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    border-bottom: 2px solid #cecece;
 `
 
 //TODO: have the ability to add 'tags' to items to filter with. (like wedding, or baby)
@@ -156,18 +157,20 @@ export default function AddItemForm(props) {
     return (
         <form onSubmit={initialData ? handleSubmitEdit : handleSubmit}>
             <TitleAndSwitchEl>
-                <H2El>{isEdit() ? "Edit Wishlist Item" : "Add Item To Your Wishlist"}</H2El>
-                <Switch
-                    checked={isPublic}
-                    color={"secondary"}
-                    onChange={() => setIsPublic(!isPublic)}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                />
+                <H2El>{isEdit() ? "Edit Wishlist Item" : "Add Item To A Wishlist"}</H2El>
+                <Tooltip title={"Set whether non-logged in users can see this item"}>
+                    <Switch
+                        checked={isPublic}
+                        color={"secondary"}
+                        onChange={() => setIsPublic(!isPublic)}
+                        inputProps={{ 'aria-label': 'controlled' }}
+                    />
+                </Tooltip>
                 <div>{isPublic ? "Publicly Visible" : "Not Publicly Visible"}</div>
             </TitleAndSwitchEl>
-            {!isEdit() && <h4>Users</h4>}
+            {!isEdit() && <h4>Select the user who's wishlist you want to add to</h4>}
             {!isEdit() && <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>}
-            <h4>Groups</h4>
+            <h4>Select the group(s) you want to add the item to</h4>
             <GroupPicker userId={addToId} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
             <TextField value={name} onChange={(e) => setName(e.target.value)} sx={styles} id="name" label="Item Name"
                        variant="outlined"/>

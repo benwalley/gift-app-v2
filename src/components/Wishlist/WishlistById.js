@@ -16,6 +16,8 @@ import AddItemForm from "../AddItemForm";
 import CustomModal from "../CustomModal";
 import AddCustomItemModal from "./AddCustomItemModal";
 import UserAvatar from "../UserAvatar";
+import {DataStore} from "aws-amplify";
+import {Users} from "../../models";
 
 
 const H1El = styled.h1`
@@ -73,10 +75,25 @@ export default function WishlistById() {
     const wishlistById = useRecoilHook(wishlistByUserId({wishlistId: wishlistId || false, filters: filters}));
     const updateWishlist = useSetRecoilState(wishlistByUserId(user?.id || false))
     const [customItemModalOpen, setCustomItemModalOpen] = useState(false)
+    const [parentUser, setParentUser] = useState()
 
     useEffect(() => {
         updateWishlist(0)
     }, [updateWishlist]);
+
+    useEffect(() => {
+        const updateParent = async () => {
+            if(user?.parentId) {
+                const parentUserData = await DataStore.query(Users, user.parentId);
+                if(parentUserData) {
+                    setParentUser(parentUserData)
+                }
+            }
+        }
+
+        updateParent()
+
+    }, [user]);
 
     const renderWishlistItems = () => {
         const wishlist = wishlistById;
@@ -105,7 +122,7 @@ export default function WishlistById() {
             <ActionsBar/>
             <Filters filters={filters} setFilters={setFilters}/>
             <H1El><span>{user?.username}</span><span>{user?.isUser && <SubuserIcon/>}</span> <UserAvatar user={user} name={user?.username}/></H1El>
-            {user?.isUser && <NoticeEl>{`This user is a sub-user, so ${mainUser.username} can see what is marked as gotten.`}</NoticeEl>}
+            {user?.isUser && <NoticeEl>{`This user is a sub-user, so ${parentUser?.username || 'the parent user'} can see what is marked as gotten.`}</NoticeEl>}
             <WishlistTileContainerEl>
                 {wishlistById && wishlistById.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist for the selected group(s)</Typography>}
                 {renderWishlistItems()}

@@ -14,7 +14,6 @@ const ContainerEl = styled.form`
     gap: 10px;
   
 `
-// TODO: make pwa and replace create react app loading text
 export default function AddWishlistForm(props) {
     const {source, setSource, afterSubmit, loadingItems} = props
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)

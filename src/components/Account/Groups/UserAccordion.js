@@ -27,7 +27,7 @@ export default function UserAccordion(props) {
 
     useEffect(() => {
         const updateItems = async () => {
-            const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", user?.id));
+            const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", user?.id).custom('ne', true));
             setItems(wishlist)
         }
         updateItems()
