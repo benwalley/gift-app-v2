@@ -42,9 +42,11 @@ export default function Dashboard() {
 
     useEffect(() => {
         const createUserIfNeeded = async () => {
+            console.log('got here 1')
             try {
                 const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
-                if (currentUser.length === 0) {
+                console.log({currentUser})
+                if (!currentUser || currentUser.length === 0) {
                     const userData = {
                         "username": Auth.user.attributes.name,
                         "authUsername": Auth.user.username,
@@ -54,6 +56,7 @@ export default function Dashboard() {
                     const newUser = await DataStore.save(
                         new Users(userData)
                     );
+                    console.log({newUser})
                 }
             } catch(e) {
                 console.log(e)
