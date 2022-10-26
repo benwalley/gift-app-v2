@@ -1,9 +1,9 @@
-import {Amplify} from 'aws-amplify';
+import {Amplify, DataStore, Hub} from 'aws-amplify';
 import {RecoilRoot} from 'recoil';
 import {Authenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Routes,
     Route,
@@ -35,6 +35,8 @@ const MainBody = styled.div`
 // TODO: allow other users to have access to your list
 // TODO: Have toggle that hides who's getting things.
 export default function App() {
+
+
 
     return (
         <RecoilRoot>

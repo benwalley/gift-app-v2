@@ -10,7 +10,7 @@ import {currentUser, updateCurrentUser} from "../state/selectors/currentUser";
 import useRecoilHook from "../hooks/useRecoilHook";
 import AreYouSureDialog from "./AreYouSureDialog";
 import {groupsByUserId} from "../state/selectors/groupsByUserId";
-import {Auth, DataStore} from "aws-amplify";
+import {Auth, DataStore, Hub} from "aws-amplify";
 import {Users} from "../models";
 import leftNavOpen from "../state/atoms/leftNavOpen";
 
@@ -41,33 +41,45 @@ export default function Dashboard() {
         setMobileOpen(!mobileOpen)
     }
 
-    const createUserIfNeeded = async () => {
-        console.log('got here 1')
-        try {
-            const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
-            console.log({currentUser})
-            if (!currentUser || currentUser.length === 0) {
-                const userData = {
-                    "username": Auth.user.attributes.name,
-                    "authUsername": Auth.user.username,
-                    "email": Auth.user.attributes.email,
-                    "subuserModeOn": false
-                }
-                const newUser = await DataStore.save(
-                    new Users(userData)
-                );
-                console.log({newUser})
-            }
-            updateUser(0);
-        } catch(e) {
-            console.log(e)
-        }
+    useEffect(() => {
 
-    }
+    })
 
     useEffect(() => {
-        createUserIfNeeded()
-    }, []);
+        const listenForAuth = async () => {
+            Hub.listen('auth', async (data) => {
+                if (data.payload.event === 'signIn') {
+                    console.log('signed in')
+                    await DataStore.clear();
+                    await DataStore.start();
+                    createUserIfNeeded()
+                }
+            });
+        }
+        const createUserIfNeeded = async () => {
+            try {
+                const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
+                console.log({currentUser})
+                if (!currentUser || currentUser.length === 0) {
+                    const userData = {
+                        "username": Auth.user.attributes.name,
+                        "authUsername": Auth.user.username,
+                        "email": Auth.user.attributes.email,
+                        "subuserModeOn": false
+                    }
+                    const newUser = await DataStore.save(
+                        new Users(userData)
+                    );
+                    console.log({newUser})
+                }
+                updateUser(0);
+            } catch(e) {
+                console.log(e)
+            }
+        }
+
+        listenForAuth()
+    }, [updateUser]);
 
     function handleAddButtonClick(e) {
         e.preventDefault();
