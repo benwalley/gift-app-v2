@@ -40,32 +40,39 @@ export default function Dashboard() {
         setMobileOpen(!mobileOpen)
     }
 
-    useEffect(() => {
-        const createUserIfNeeded = async () => {
-            console.log('got here 1')
-            try {
-                const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
-                console.log({currentUser})
-                if (!currentUser || currentUser.length === 0) {
-                    const userData = {
-                        "username": Auth.user.attributes.name,
-                        "authUsername": Auth.user.username,
-                        "email": Auth.user.attributes.email,
-                        "subuserModeOn": false
-                    }
-                    const newUser = await DataStore.save(
-                        new Users(userData)
-                    );
-                    console.log({newUser})
+    const createUserIfNeeded = async () => {
+        console.log('got here 1')
+        try {
+            const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
+            console.log({currentUser})
+            return;
+        } catch(e) {
+            console.error({error: e});
+            setTimeout(createUserIfNeeded, 1000)
+        }
+        try {
+            if (!currentUser || currentUser.length === 0) {
+                const userData = {
+                    "username": Auth.user.attributes.name,
+                    "authUsername": Auth.user.username,
+                    "email": Auth.user.attributes.email,
+                    "subuserModeOn": false
                 }
-            } catch(e) {
-                console.log(e)
+                const newUser = await DataStore.save(
+                    new Users(userData)
+                );
+                console.log({newUser})
             }
-
+        } catch(e) {
+            setTimeout(createUserIfNeeded, 1000)
+            console.log("second error", e)
         }
 
+    }
+
+    useEffect(() => {
         createUserIfNeeded()
-    }, []);
+    }, [createUserIfNeeded]);
 
     function handleAddButtonClick(e) {
         e.preventDefault();
