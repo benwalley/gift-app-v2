@@ -34,6 +34,7 @@ const H2El = styled.h2`
     margin-right: auto;
 `
 
+//TODO: allow multiple links
 const TitleAndSwitchEl = styled.div`
     display: flex;
     flex-wrap: wrap;

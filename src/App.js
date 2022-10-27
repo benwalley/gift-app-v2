@@ -1,5 +1,5 @@
-import {Amplify, DataStore, Hub} from 'aws-amplify';
-import {RecoilRoot} from 'recoil';
+import {Amplify, Auth, DataStore, Hub} from 'aws-amplify';
+import {RecoilRoot, useSetRecoilState} from 'recoil';
 import {Authenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
@@ -24,6 +24,7 @@ import GroupsPage from "./components/Account/Groups/GroupsPage";
 import Money from "./components/Money/Money";
 import AddAmazonWishlist from "./components/AddAmazonWishlist/AddAmazonWishlist";
 import ItemPage from "./components/Wishlist/ItemPage/ItemPage";
+import Container from './components/Container'
 
 Amplify.configure(awsExports);
 
@@ -36,33 +37,33 @@ const MainBody = styled.div`
 // TODO: Have toggle that hides who's getting things.
 export default function App() {
 
-
-
     return (
         <RecoilRoot>
             <ThemeProvider theme={theme}>
                 <Router>
-                    <Authenticator formFields={formFields} components={components}>
-                        <Header/>
-                        <MainBody>
-                            <Routes>
-                                <Route path='/' element={<Dashboard/>}>
-                                    <Route index element={<ListList/>}/>
-                                    <Route path="account" element={<DashboardBody/>}/>
-                                    <Route path="wishlist/:wishlistId" element={<WishlistById/>}/>
-                                    <Route path="public/wishlist/:wishlistId" element={<WishlistById/>}/>
-                                    <Route path="wishlist/item/:itemId" element={<ItemPage/>}/>
-                                    <Route path="public/wishlist/item/:itemId" element={<ItemPage/>}/>
-                                    <Route path="account/subusers" element={<SubUsersPage/>}/>
-                                    <Route path="account/groups" element={<GroupsPage/>}/>
-                                    <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>
-                                    <Route path="lists" element={<ListList/>}/>
-                                    <Route path="money" element={<Money/>}/>
-                                    <Route path="*" element={<DashboardBody/>}/>
-                                </Route>
-                            </Routes>
-                        </MainBody>
-                    </Authenticator>
+                    <Container>
+                        <Authenticator formFields={formFields} components={components}>
+                            <Header/>
+                            <MainBody>
+                                <Routes>
+                                    <Route path='/' element={<Dashboard/>}>
+                                        <Route index element={<ListList/>}/>
+                                        <Route path="account" element={<DashboardBody/>}/>
+                                        <Route path="wishlist/:wishlistId" element={<WishlistById/>}/>
+                                        <Route path="public/wishlist/:wishlistId" element={<WishlistById/>}/>
+                                        <Route path="wishlist/item/:itemId" element={<ItemPage/>}/>
+                                        <Route path="public/wishlist/item/:itemId" element={<ItemPage/>}/>
+                                        <Route path="account/subusers" element={<SubUsersPage/>}/>
+                                        <Route path="account/groups" element={<GroupsPage/>}/>
+                                        <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>
+                                        <Route path="lists" element={<ListList/>}/>
+                                        <Route path="money" element={<Money/>}/>
+                                        <Route path="*" element={<DashboardBody/>}/>
+                                    </Route>
+                                </Routes>
+                            </MainBody>
+                        </Authenticator>
+                    </Container>
                 </Router>
             </ThemeProvider>
         </RecoilRoot>

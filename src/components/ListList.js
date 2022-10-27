@@ -40,10 +40,18 @@ export default function ListList() {
     const updateUser = useSetRecoilState(updateCurrentUser)
     const updateUsers = useSetRecoilState(allUsersByGroup)
 
-    useEffect(() => {
+    const refreshUsers = (counter) => {
+        counter = counter || 1;
         updateUser(0)
         updateUsers(0)
-    }, [updateUser, updateUsers]);
+        if((!users || users.length === 0) && counter < 10) {
+            setTimeout(() => refreshUsers(counter + 1), 500)
+        }
+    }
+
+    useEffect(() => {
+        refreshUsers()
+    }, []);
 
     const renderUsers = () => {
         return users.map(user => {

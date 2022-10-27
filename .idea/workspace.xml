@@ -7,8 +7,9 @@
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/GiftGivingOverview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/GiftGivingOverview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ListList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +89,8 @@
       <workItem from="1666122975073" duration="635000" />
       <workItem from="1666134877190" duration="1647000" />
       <workItem from="1666711870945" duration="2919000" />
-      <workItem from="1666797369157" duration="10927000" />
+      <workItem from="1666797369157" duration="14142000" />
+      <workItem from="1666882697875" duration="1271000" />
     </task>
     <servers />
   </component>

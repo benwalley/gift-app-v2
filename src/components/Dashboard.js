@@ -35,51 +35,11 @@ export default function Dashboard() {
     const groups = useRecoilHook(groupsByUserId(user?.id))
     const [areYouSureOpen, setAreYouSureOpen] = useState(false)
     const [mobileOpen, setMobileOpen] = useRecoilState(leftNavOpen)
-    const updateUser = useSetRecoilState(updateCurrentUser)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen)
     }
 
-    useEffect(() => {
-
-    })
-
-    useEffect(() => {
-        const listenForAuth = async () => {
-            Hub.listen('auth', async (data) => {
-                if (data.payload.event === 'signIn') {
-                    console.log('signed in')
-                    await DataStore.clear();
-                    await DataStore.start();
-                    createUserIfNeeded()
-                }
-            });
-        }
-        const createUserIfNeeded = async () => {
-            try {
-                const currentUser = await DataStore.query(Users, c => c.authUsername("eq", Auth.user.username));
-                console.log({currentUser})
-                if (!currentUser || currentUser.length === 0) {
-                    const userData = {
-                        "username": Auth.user.attributes.name,
-                        "authUsername": Auth.user.username,
-                        "email": Auth.user.attributes.email,
-                        "subuserModeOn": false
-                    }
-                    const newUser = await DataStore.save(
-                        new Users(userData)
-                    );
-                    console.log({newUser})
-                }
-                updateUser(0);
-            } catch(e) {
-                console.log(e)
-            }
-        }
-
-        listenForAuth()
-    }, [updateUser]);
 
     function handleAddButtonClick(e) {
         e.preventDefault();
