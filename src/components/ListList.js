@@ -10,6 +10,8 @@ import {allUsersByGroup} from "../state/selectors/allUsersByGroup";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import selectedGroupsState from "../state/atoms/selectedGroupsState";
 import Tile from "./Home/Tile";
+import {Groups, Users} from "../models";
+import {DataStore} from "aws-amplify";
 
 const ListContainerEl = styled.div`
   background: var(--background-color);
@@ -37,21 +39,13 @@ export default function ListList() {
     const user = useRecoilHook(currentUser)
     const [selectedGroups, setSelectedGroups] = useRecoilState(selectedGroupsState)
     const users = useRecoilHook(allUsersByGroup)
-    const updateUser = useSetRecoilState(updateCurrentUser)
     const updateUsers = useSetRecoilState(allUsersByGroup)
 
-    const refreshUsers = (counter) => {
-        counter = counter || 1;
-        updateUser(0)
-        updateUsers(0)
-        if((!users || users.length === 0) && counter < 10) {
-            setTimeout(() => refreshUsers(counter + 1), 500)
-        }
-    }
+
 
     useEffect(() => {
-        refreshUsers()
-    }, []);
+        updateUsers(0)
+    }, [updateUsers]);
 
     const renderUsers = () => {
         return users.map(user => {

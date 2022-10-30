@@ -8,7 +8,7 @@ export default function SignOut() {
         e.preventDefault()
         try {
             await Auth.signOut();
-            window.location.href = "/"
+            window.location.href = "/" //causes a flash of the auth page because it's changing the route, but if you remove it recoil state doesn't get updated properly
         } catch (error) {
             console.log('error signing out: ', error);
         }

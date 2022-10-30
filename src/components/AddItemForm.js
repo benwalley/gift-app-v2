@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {TextField, Button, Rating, Typography, Switch, Tooltip} from "@mui/material";
+import {TextField, Button, Rating, Typography, Switch, Tooltip, CircularProgress} from "@mui/material";
 import {DataStore} from 'aws-amplify'
-import {WishlistItem} from "../models";
+import {Users, WishlistItem} from "../models";
 import {useSetRecoilState} from "recoil";
 import {updateCurrentUserWishlist} from "../state/selectors/currentUserWishlist";
 import {currentUser} from "../state/selectors/currentUser";
@@ -14,7 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styled from '@emotion/styled'
 import ImageUpload from "./ImageUpload/ImageUpload";
-
+import Step from "./Steps/Step";
 
 const styles = {
     width: '100%',
@@ -32,6 +32,11 @@ const StyledRating = styled(Rating)({
 
 const H2El = styled.h2`
     margin-right: auto;
+`
+
+const FormEl = styled.form`
+    min-height: 50vh;
+    transition: all 1s;
 `
 
 //TODO: allow multiple links
@@ -53,8 +58,11 @@ export default function AddItemForm(props) {
     const [note, setNote] = useState('')
     const [image, setImage] = useState('')
     const [addToId, setAddToId] = useState('')
+    const [stepNumber, setStepNumber] = useState(0)
     const [isPublic, setIsPublic] = useState(true)
     const [selectedGroups, setSelectedGroups] = useState([])
+    const [addToName, setAddToName] = useState('')
+    const [multipleAddToUsers, setMultipleAddToUsers] = useState()
     const updateAddToWishlist = useSetRecoilState(wishlistByUserId(addToId))
     const user = useRecoilHook(currentUser)
     const updateItem = useSetRecoilState(wishlistItemById(initialData?.id))
@@ -65,9 +73,35 @@ export default function AddItemForm(props) {
     }
 
     useEffect(() => {
+        const updateAddToName = async () => {
+            if(!addToId) return;
+            const user = await DataStore.query(Users, addToId);
+            // set initial add to did to the current user.
+            setAddToName(user?.username || '')
+        }
+
+        updateAddToName()
+    }, [addToId]);
+
+    useEffect(() => {
         // set initial add to did to the current user.
         setAddToId(user?.id)
     }, [user]);
+
+    useEffect(() => {
+        const updateSubUsers = async () => {
+            const subUsers = await DataStore.query(Users, c => c.parentId("eq", user?.id));
+            setTimeout(() => {
+                setMultipleAddToUsers(!!(subUsers && subUsers.length > 0))
+                if(subUsers?.length === 0) {
+                    setStepNumber(1)
+                }
+            }, 150)
+        }
+        if(user && user.length !== 0 && multipleAddToUsers === undefined) {
+            updateSubUsers()
+        }
+    }, [multipleAddToUsers, user]);
 
     async function handleSubmitEdit(e) {
         e.preventDefault()
@@ -155,10 +189,10 @@ export default function AddItemForm(props) {
         }
     }, [initialData]);
 
-    return (
-        <form onSubmit={initialData ? handleSubmitEdit : handleSubmit}>
+    return (<>
+        <FormEl onSubmit={initialData ? handleSubmitEdit : handleSubmit}>
             <TitleAndSwitchEl>
-                <H2El>{isEdit() ? "Edit Wishlist Item" : "Add Item To A Wishlist"}</H2El>
+                <H2El>{isEdit() ? "Edit Wishlist Item" : `Add Item To List ${addToName}`}</H2El>
                 <Tooltip title={"Set whether non-logged in users can see this item"}>
                     <Switch
                         checked={isPublic}
@@ -169,37 +203,48 @@ export default function AddItemForm(props) {
                 </Tooltip>
                 <div>{isPublic ? "Publicly Visible" : "Not Publicly Visible"}</div>
             </TitleAndSwitchEl>
-            {!isEdit() && <h4>Select the user who's wishlist you want to add to</h4>}
-            {!isEdit() && <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>}
-            <h4>Select the group(s) you want to add the item to</h4>
-            <GroupPicker userId={addToId} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
-            <TextField value={name} onChange={(e) => setName(e.target.value)} sx={styles} id="name" label="Item Name"
-                       variant="outlined"/>
-            <TextField value={price} onChange={(e) => setPrice(e.target.value)} sx={styles} id="price"
-                       label="Approximate Price" variant="outlined"/>
-            <Typography component="legend" sx={{marginTop: '30px'}}>Priority</Typography>
-            <StyledRating
-                name="priority"
-                defaultValue={2.5}
-                label={"Priority"}
-                getLabelText={(priority) => `${priority} Heart${priority !== 1 ? 's' : ''}`}
-                precision={0.5}
-                size={"large"}
-                icon={<FavoriteIcon fontSize="inherit" />}
-                emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                value={parseFloat(priority)}
-                onChange={(e) => setPriority(e.target.value)}
-            />
-            <TextField value={link} onChange={(e) => setLink(e.target.value)} sx={styles} id="link" label="Link"
-                       variant="outlined"/>
-            <TextField value={note} onChange={(e) => setNote(e.target.value)} sx={styles} id="note" label="Note"
-                       multiline
-                       variant="outlined"/>
+            {multipleAddToUsers === undefined && <CircularProgress sx={{
+                display: 'flex',
+                alignItems: 'center',
+                margin: '100px auto',
+            }} size={'100px'}/>}
+            {multipleAddToUsers === true && <Step currentStep={stepNumber} stepNumber={0} nextStep={() => setStepNumber(1)}>
+                {!isEdit() && <h4>Select the list you want to add to</h4>}
+                {!isEdit() && <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>}
+            </Step>}
+            <Step renderStraightContent={multipleAddToUsers === false} currentStep={stepNumber} stepNumber={1} previousStep={() => setStepNumber(0)} previousStepName={"Add to a different user's list"}>
+                <h4>Select the group(s) you want to add the item to</h4>
+                <GroupPicker userId={addToId} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
+                <TextField value={name} onChange={(e) => setName(e.target.value)} sx={styles} id="name" label="Item Name"
+                           variant="outlined"/>
+                <TextField value={price} onChange={(e) => setPrice(e.target.value)} sx={styles} id="price"
+                           label="Approximate Price" variant="outlined"/>
+                <Typography component="legend" sx={{marginTop: '30px'}}>Priority</Typography>
+                <StyledRating
+                    name="priority"
+                    defaultValue={2.5}
+                    label={"Priority"}
+                    getLabelText={(priority) => `${priority} Heart${priority !== 1 ? 's' : ''}`}
+                    precision={0.5}
+                    size={"large"}
+                    icon={<FavoriteIcon fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                    value={parseFloat(priority)}
+                    onChange={(e) => setPriority(e.target.value)}
+                />
+                <TextField value={link} onChange={(e) => setLink(e.target.value)} sx={styles} id="link" label="Link"
+                           variant="outlined"/>
+                <TextField value={note} onChange={(e) => setNote(e.target.value)} sx={styles} id="note" label="Note"
+                           multiline
+                           variant="outlined"/>
 
-            <ImageUpload image={image} setImage={setImage}/>
-            <Button type="submit" sx={{marginTop: '30px', marginLeft: 'auto', display: 'block'}} variant="contained"
-                    size="large">Add Item</Button>
-        </form>
+                <ImageUpload image={image} setImage={setImage}/>
+                <Button type="submit" sx={{marginTop: '30px', marginLeft: 'auto', display: 'block'}} variant="contained"
+                        size="large">Add Item</Button>
+            </Step>
+        </FormEl>
+    </>
+
     );
 }
 

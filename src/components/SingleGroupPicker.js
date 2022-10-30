@@ -5,20 +5,20 @@ import {groupsByUserId} from "../state/selectors/groupsByUserId";
 import {Chip, Stack} from "@mui/material";
 import {toggleValueInArray} from "../helpers/toggleValueInArray";
 import {useEffect, useState} from "react";
+import Button from "@mui/material/Button";
 
-export default function GroupPicker(props) {
-    const {userId, selectedGroups, setSelectedGroups, groupsOverride} = props;
+export default function SingleGroupPicker(props) {
+    const {userId, selectedGroups, setSelectedGroups, groupsOverride, hasContinueButton, afterContinueButton, continueButtonText} = props;
     const allGroups = useRecoilHook(groupsByUserId(userId))
     const [groups, setGroups] = useState([])
 
     useEffect(() => {
-        if(!userId || !allGroups) return;
         if(groupsOverride) {
             setGroups(groupsOverride);
         } else {
             setGroups(allGroups)
         }
-    }, [allGroups, groups, groupsOverride, userId]);
+    }, [allGroups, groups, groupsOverride]);
 
     useEffect(() => {
         if(!groups || groups.length === 0) return;
@@ -42,11 +42,23 @@ export default function GroupPicker(props) {
         setSelectedGroups(toggleValueInArray(selectedGroups, group.id))
     }
 
+    function handleContinueClick(e) {
+        e.preventDefault();
+
+        if(afterContinueButton) {
+            afterContinueButton()
+        }
+    }
+
     return (
-        <Stack direction="row" sx={{flexWrap: 'wrap', gap: '10px'}}>
-            {groups && groups.map(group => {
-                return <Chip key={group.id} variant={isGroupSelected(group) ? "filled" : "outlined"}  color={"secondary"} label={group.groupName} onClick={() => handleClick(group)} />
-            })}
-        </Stack>
+        <>
+            <Stack direction="row" sx={{flexWrap: 'wrap', gap: '10px'}}>
+                {groups && groups.map(group => {
+                    return <Chip key={group.id} variant={isGroupSelected(group) ? "filled" : "outlined"}  color={"secondary"} label={group.groupName} onClick={() => handleClick(group)} />
+                })}
+            </Stack>
+            {hasContinueButton && <Button onClick={handleContinueClick}>{continueButtonText || 'Continue'}</Button>}
+        </>
+
     );
 }

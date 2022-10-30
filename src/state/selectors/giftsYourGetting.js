@@ -1,7 +1,7 @@
 import {atom, selector} from "recoil";
 import {currentUser} from "./currentUser";
 import {DataStore} from "aws-amplify";
-import {WishlistItem} from "../../models";
+import {Groups, WishlistItem} from "../../models";
 
 export const giftsYourGettingVersion = atom({
     key: 'giftsYourGettingVersion',
@@ -13,8 +13,16 @@ export const giftsYourGetting = selector({
     get: async ({get}) => {
         get(giftsYourGettingVersion)
         const user = get(currentUser)
+        const groups = await DataStore.query(Groups, c => c.memberId("contains", user?.id));
         const gifts = await DataStore.query(WishlistItem, c => c.gottenBy("contains", user?.id));
-        return (gifts)
+        return (gifts.filter(gift => {
+            for(const group of groups) {
+                if(gift.groups.includes(group.id)) {
+                    return true
+                }
+            }
+            return false
+        }))
     },
 });
 

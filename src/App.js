@@ -33,8 +33,10 @@ const MainBody = styled.div`
   position: relative;
   display: grid;
 `
-// TODO: allow other users to have access to your list
+// TODO: allow other users to have access to edit your list
 // TODO: Have toggle that hides who's getting things.
+// TODO: have search field on listList
+// TODO: have sorting field on listlist
 export default function App() {
 
     return (
