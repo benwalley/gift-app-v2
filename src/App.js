@@ -38,7 +38,7 @@ const MainBody = styled.div`
 // TODO: Make sub-accounts more fully featured (adding profile picture, saying you're getting things)
 // TODO: Add commenting
 // TODO: add ability to add address to account visible to certain groups.
-// TODO: Say who custom things were added by
+// TODO: multiple links and multiple images.
 export default function App() {
 
     return (

@@ -17,6 +17,10 @@ const styles = {
     marginTop: '30px'
 }
 
+const NoticeEl = styled.div`
+    color: var(--pink-color);
+`
+
 
 //TODO: don't let the user see this.
 export default function AddCustomItemModal(props) {
@@ -93,7 +97,7 @@ export default function AddCustomItemModal(props) {
     return (
         <form onSubmit={handleSubmit}>
             <h2>{`Add Custom Item To ${userData?.username || ''} wishlist`}</h2>
-            <p>{`${userData?.username || 'the user'} will not be able to see this item`}</p>
+            <NoticeEl>{`${userData?.username || 'the user'} will not be able to see this item`}</NoticeEl>
             <h4>Groups</h4>
             <GroupPicker userId={myUser.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups} groupsOverride={sameGroups}/>
             <TextField value={name} onChange={(e) => setName(e.target.value)} sx={styles} id="name" label="Item Name"

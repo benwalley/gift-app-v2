@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 import {userById} from "../../state/selectors/userByWishlistId";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import ActionsBar from "./ActionsBar";
-import {Typography} from "@mui/material";
+import {Tooltip, Typography} from "@mui/material";
 import SubuserIcon from "../SubuserIcon";
 import {currentUser} from "../../state/selectors/currentUser";
 import Button from "@mui/material/Button";
@@ -255,9 +255,12 @@ export default function WishlistById() {
             {mainUser.id !== wishlistId && <>
                 {/* only show if it's not a subuser or it's a subuser which is a user*/}
                 {(user?.parentId !== mainUser.id || user?.isUser) &&
-                    <Button onClick={handleAddCustomItem} color={'secondary'} sx={{marginTop: '30px'}} variant={'contained'}>
-                        Add Something To This User's Wishlist
-                    </Button>
+                    <Tooltip title={`${user?.username || 'This user'} won't be able to see this item.`}>
+                        <Button onClick={handleAddCustomItem} color={'secondary'} sx={{marginTop: '30px'}} variant={'contained'}>
+                            Add Something To This User's Wishlist
+                        </Button>
+                    </Tooltip>
+
                 }
                 <CustomModal open={customItemModalOpen} setOpen={setCustomItemModalOpen} size="large">
                     <AddCustomItemModal addToId={wishlistId} afterSubmit={() => setCustomItemModalOpen(false)}/>
