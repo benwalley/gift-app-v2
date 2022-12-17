@@ -93,6 +93,11 @@ const StyledRating = styled(Rating)({
     },
 });
 
+const CustomAddedByEl = styled.div`
+    color: var(--pink-color);
+    font-size: 0.5em;
+`
+
 export default function ItemPage(props) {
     let {itemId} = useParams();
     const user = useRecoilHook(currentUser)
@@ -106,6 +111,18 @@ export default function ItemPage(props) {
     const [itemOwner, setItemOwner] = useState()
     const [canEdit, setCanEdit] = useState(false)
     const imageUrl = useImageSrc(itemData?.images?.[0])
+    const [customAddedByName, setCustomAddedByName] = useState()
+
+
+    useEffect(() => {
+        if(!itemData || !user || !itemData.custom) return
+        const getCustomCreatedBy = async () => {
+            const creator = await DataStore.query(Users, itemData.createdById)
+            setCustomAddedByName(creator)
+        }
+        getCustomCreatedBy()
+
+    }, [itemData, user]);
 
     useEffect(() => {
         if(user?.id === itemData.ownerId || user?.id === itemOwner?.parentId) {
@@ -247,13 +264,22 @@ export default function ItemPage(props) {
         />
     }
 
+    const customAddedUsername = () => {
+        return customAddedByName?.username ?? 'A user someone besides the list owner'
+    }
+
     return (
         <ItemPageContainerEl>
             <ActionsBar/>
             <Tile>
                 <ItemPageEl>
                     <H1El>
-                        <span>{itemData && itemData.name}</span>
+                        <span>
+                            {itemData && itemData.name}
+                            {customAddedByName && <CustomAddedByEl>
+                                {`Added by ${customAddedUsername()} (${itemOwner?.username || 'The list owner'} can't see this item).`}
+                            </CustomAddedByEl>}
+                        </span>
                         {canEdit && <Tooltip title="Edit Item">
                             <IconButton aria-label="Edit" onClick={handleEdit}>
                                 <EditIcon color="primary"/>

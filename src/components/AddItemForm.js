@@ -93,7 +93,7 @@ export default function AddItemForm(props) {
             const subUsers = await DataStore.query(Users, c => c.parentId("eq", user?.id));
             setTimeout(() => {
                 setMultipleAddToUsers(!!(subUsers && subUsers.length > 0))
-                if(subUsers?.length === 0) {
+                if(subUsers?.length === 0 || isEdit()) {
                     setStepNumber(1)
                 }
             }, 150)
@@ -212,7 +212,11 @@ export default function AddItemForm(props) {
                 {!isEdit() && <h4>Select the list you want to add to</h4>}
                 {!isEdit() && <SubuserChips selectedId={addToId} setSelectedId={setAddToId}/>}
             </Step>}
-            <Step renderStraightContent={multipleAddToUsers === false} currentStep={stepNumber} stepNumber={1} previousStep={() => setStepNumber(0)} previousStepName={"Add to a different user's list"}>
+            <Step renderStraightContent={multipleAddToUsers === false}
+                  currentStep={stepNumber}
+                  stepNumber={1}
+                  previousStep={isEdit() ? false : () => setStepNumber(0)}
+                  previousStepName={"Add to a different user's list"}>
                 <h4>Select the group(s) you want to add the item to</h4>
                 <GroupPicker userId={addToId} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
                 <TextField value={name} onChange={(e) => setName(e.target.value)} sx={styles} id="name" label="Item Name"

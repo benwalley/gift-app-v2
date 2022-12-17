@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "@emotion/styled";
 import Tile from "./Tile";
 import useRecoilHook from "../../hooks/useRecoilHook";
-import {currentUser} from "../../state/selectors/currentUser";
+import {currentUser, currentUserVersion} from "../../state/selectors/currentUser";
 import UserInfo from "./UserInfo";
 import SubuserToggle from "./SubuserToggle";
 import GiftGivingOverview from "./GiftGivingOverview";
 import SubuserOverview from "./SubuserOverview";
 import GroupsOverview from "./GroupsOverview";
 import Notes from "./Notes";
+import {Auth, DataStore, SortDirection} from "aws-amplify";
+import {Users} from "../../models";
 
 const DashboardBodyEl = styled.div`
     background: var(--background-color);

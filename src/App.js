@@ -35,8 +35,10 @@ const MainBody = styled.div`
 `
 // TODO: allow other users to have access to edit your list
 // TODO: Have toggle that hides who's getting things.
-// TODO: have search field on listList
-// TODO: have sorting field on listlist
+// TODO: Make sub-accounts more fully featured (adding profile picture, saying you're getting things)
+// TODO: Add commenting
+// TODO: add ability to add address to account visible to certain groups.
+// TODO: Say who custom things were added by
 export default function App() {
 
     return (

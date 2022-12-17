@@ -32,6 +32,11 @@ const PriorityPriceEl = styled.div`
     justify-content: space-between;
 `
 
+const CustomAddedByEl = styled.div`
+    color: var(--pink-color);
+    font-size: 0.7em;
+`
+
 const StyledRating = styled(Rating)({
     '& .MuiRating-iconFilled': {
         color: 'var(--heart-icon-hover)',
@@ -49,6 +54,7 @@ export default function Tile(props) {
     const [itemOwner, setItemOwner] = useState()
     const [canEdit, setCanEdit] = useState(false)
     const [canSeeBadges, setCanSeeBadges] = useState(false)
+    const [customAddedByName, setCustomAddedByName] = useState()
     const navigate = useNavigate()
     const imageUrl = useImageSrc(tile?.images[0])
 
@@ -64,6 +70,16 @@ export default function Tile(props) {
             setItemOwner(tileOwner)
         }
         getOwner()
+
+    }, [tile, user]);
+
+    useEffect(() => {
+        if(!tile || !user || !tile.custom) return
+        const getCustomCreatedBy = async () => {
+            const creator = await DataStore.query(Users, tile.createdById)
+            setCustomAddedByName(creator)
+        }
+        getCustomCreatedBy()
 
     }, [tile, user]);
 
@@ -168,6 +184,10 @@ export default function Tile(props) {
         navigate(`/wishlist/item/${tile.id}`)
     }
 
+    const customAddedUsername = () => {
+        return customAddedByName?.username ?? 'A user someone besides the list owner'
+    }
+
     return (
         <Card sx={{display: 'grid', gridTemplateRows: '1fr 56px', position: 'relative', minWidth: '275px', borderRadius: '10px'}}>
             {canSeeBadges && <TopBadges getting={tile.gottenBy} wantsToGet={tile.wantsToGet}/>}
@@ -185,7 +205,11 @@ export default function Tile(props) {
                         }}
                     />}
                 <CardContent sx={{display: 'grid', gridTemplateRows: '1fr 24px'}}>
-                    <h3>{tile.name}</h3>
+                    <h3>{tile.name}
+                        {customAddedByName && <CustomAddedByEl>
+                            {`Added by ${customAddedUsername()} (${itemOwner?.username || 'The list owner'} can't see this item).`}
+                        </CustomAddedByEl>}
+                    </h3>
                     <PriorityPriceEl>
                         <Priority/>
                         {tile.price && <Price/>}
@@ -203,7 +227,7 @@ export default function Tile(props) {
                         <GroupAddIcon color="secondary"/>
                     </IconButton>
                 </Tooltip>}
-                {canEdit && <Tooltip title="Edit">
+                {(canEdit || isCustomItemCreator()) && <Tooltip title="Edit">
                     <IconButton aria-label="Edit" onClick={handleEdit}>
                         <EditIcon color="primary"/>
                     </IconButton>

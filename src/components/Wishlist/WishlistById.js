@@ -5,19 +5,26 @@ import useRecoilHook from "../../hooks/useRecoilHook";
 import Tile from "./Tile/Tile";
 import {useParams} from "react-router-dom";
 import {userById} from "../../state/selectors/userByWishlistId";
-import Filters from "./Filters";
-import {useSetRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import ActionsBar from "./ActionsBar";
 import {Typography} from "@mui/material";
 import SubuserIcon from "../SubuserIcon";
 import {currentUser} from "../../state/selectors/currentUser";
 import Button from "@mui/material/Button";
-import AddItemForm from "../AddItemForm";
 import CustomModal from "../CustomModal";
 import AddCustomItemModal from "./AddCustomItemModal";
 import UserAvatar from "../UserAvatar";
 import {DataStore} from "aws-amplify";
 import {Users} from "../../models";
+import Sort from "../Actions/Sort";
+import {
+    sortAZ,
+    sortDateAddedOldestFirst,
+    sortDateAddedRecentFirst, sortGottenFirst,
+    sortMostWantedFirst, sortNotGottenFirst, sortPriceHighFirst, sortPriceLowFirst, sortSomeoneWantsToGoInOnFirst,
+    sortZA
+} from "../../helpers/sort";
+import listSort from "../../state/atoms/listSort";
 
 
 const H1El = styled.h1`
@@ -41,6 +48,7 @@ const WishlistTileContainerEl = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--mobile-page-margin);
+  margin-top: 10px;
   
   @media only screen and (min-width: 600px) {
     gap: var(--desktop-page-margin);
@@ -71,11 +79,120 @@ export default function WishlistById() {
     let {wishlistId} = useParams();
     const user = useRecoilHook(userById(wishlistId))
     const mainUser = useRecoilHook(currentUser)
-    const [filters, setFilters] = useState({})
-    const wishlistById = useRecoilHook(wishlistByUserId({wishlistId: wishlistId || false, filters: filters}));
+    const wishlistById = useRecoilHook(wishlistByUserId({wishlistId: wishlistId || false}));
     const updateWishlist = useSetRecoilState(wishlistByUserId(user?.id || false))
     const [customItemModalOpen, setCustomItemModalOpen] = useState(false)
     const [parentUser, setParentUser] = useState()
+    const [selectedSortBy, setSelectedSortBy] = useRecoilState(listSort)
+    const [searchText, setSearchText] = useState('')
+    const [sortedItems, setSortedItems] = useState([])
+    //TODO: add gotten/not gotten for only proper users
+    const filterArray = [
+        'A-Z',
+        'Z-A',
+        'Newest First',
+        "Oldest First",
+        'Most Wanted',
+        'Price Lowest First',
+        'Price Highest First',
+    ]
+
+    if(canSeeGotten()) {
+        filterArray.push('Gotten')
+        filterArray.push('Not Gotten')
+        filterArray.push('Someone wants to go in on')
+    }
+
+    function canSeeGotten() {
+        if(mainUser.id === wishlistId) return false;
+        if(user?.parentId === mainUser.id) {
+            // if it's a subuser of you
+            if (user?.isUser && !mainUser.subuserModeOn) {
+                return true;
+            }
+            return false
+        }
+        return true
+
+    }
+
+
+    useEffect(() => {
+        if(!selectedSortBy) setSortedItems([])
+        // filter
+        const filteredItems = wishlistById.filter(item => {
+            const name = item.name || ''
+            return name.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+        })
+        if(selectedSortBy === '' || selectedSortBy === undefined) {
+            setSortedItems(filteredItems)
+        }
+        // sort
+        if(selectedSortBy === 'a-z') {
+            filteredItems.sort(sortAZ)
+            setSortedItems(filteredItems)
+        }
+        if(selectedSortBy === 'z-a') {
+            filteredItems.sort(sortZA)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'newest first') {
+            filteredItems.sort(sortDateAddedRecentFirst)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'oldest first') {
+            filteredItems.sort(sortDateAddedOldestFirst)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'most wanted') {
+            filteredItems.sort(sortMostWantedFirst)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'price lowest first') {
+            filteredItems.sort(sortPriceLowFirst)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'price highest first') {
+            filteredItems.sort(sortPriceHighFirst)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'gotten') {
+            if(!canSeeGotten()) {
+                setSortedItems(filteredItems)
+                setSelectedSortBy('newest first')
+                return;
+            };
+            filteredItems.sort(sortGottenFirst)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'not gotten') {
+            if(!canSeeGotten()) {
+                setSortedItems(filteredItems)
+                setSelectedSortBy('newest first')
+                return;
+            };
+            filteredItems.sort(sortNotGottenFirst)
+            setSortedItems(filteredItems)
+        }
+
+        if(selectedSortBy === 'someone wants to go in on') {
+            if(!canSeeGotten()) {
+                setSortedItems(filteredItems)
+                setSelectedSortBy('newest first')
+                return;
+            };
+            filteredItems.sort(sortSomeoneWantsToGoInOnFirst)
+            setSortedItems(filteredItems)
+        }
+
+    }, [searchText, selectedSortBy, wishlistById])
 
     useEffect(() => {
         updateWishlist(0)
@@ -96,7 +213,7 @@ export default function WishlistById() {
     }, [user]);
 
     const renderWishlistItems = () => {
-        const wishlist = wishlistById;
+        const wishlist = sortedItems;
         if(!wishlist) return;
         const filteredWishlist = wishlist.filter(item => {
             if(!item.custom) return true; // if it's not custom we can show it.
@@ -120,11 +237,17 @@ export default function WishlistById() {
     return (
         <WishlistContainerEl>
             <ActionsBar/>
-            <Filters filters={filters} setFilters={setFilters}/>
             <H1El><span>{user?.username}</span><span>{user?.isUser && <SubuserIcon/>}</span> <UserAvatar user={user} name={user?.username}/></H1El>
             {user?.isUser && <NoticeEl>{`This user is a sub-user, so ${parentUser?.username || 'the parent user'} can see what is marked as gotten.`}</NoticeEl>}
+            <Sort sortBy={selectedSortBy}
+                  setSortBy={setSelectedSortBy}
+                  searchText={searchText}
+                  setSearchText={setSearchText}
+                  filterArray={filterArray}
+            />
             <WishlistTileContainerEl>
                 {wishlistById && wishlistById.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist for the selected group(s)</Typography>}
+                {wishlistById && wishlistById.length > 0 && sortedItems.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist that match the selected filters</Typography>}
                 {renderWishlistItems()}
             </WishlistTileContainerEl>
             {mainUser.id !== wishlistId && <>
