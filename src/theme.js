@@ -15,6 +15,9 @@ const theme = createTheme({
         },
     },
     palette: {
+        textBlack: {
+            main: '#000000'
+        },
         white: {
             main: '#ffffff',
             darker: '#cccccc'

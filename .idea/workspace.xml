@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/ListListSearchSortToolbar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Wishlist/SearchSortToolbar/SearchSortToolbar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Wishlist/SearchSortToolbar/ToolbarButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Actions/Sort.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ListList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/TopBadges.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/TopBadges.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/WishlistById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +101,7 @@
       <workItem from="1670963365750" duration="1512000" />
       <workItem from="1670981102941" duration="10448000" />
       <workItem from="1671071916491" duration="10737000" />
-      <workItem from="1671259650941" duration="3591000" />
+      <workItem from="1671259650941" duration="9330000" />
     </task>
     <servers />
   </component>

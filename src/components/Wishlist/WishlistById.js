@@ -16,7 +16,6 @@ import AddCustomItemModal from "./AddCustomItemModal";
 import UserAvatar from "../UserAvatar";
 import {DataStore} from "aws-amplify";
 import {Users} from "../../models";
-import Sort from "../Actions/Sort";
 import {
     sortAZ,
     sortDateAddedOldestFirst,
@@ -25,6 +24,7 @@ import {
     sortZA
 } from "../../helpers/sort";
 import listSort from "../../state/atoms/listSort";
+import SearchSortToolbar from "./SearchSortToolbar/SearchSortToolbar";
 
 
 const H1El = styled.h1`
@@ -239,12 +239,14 @@ export default function WishlistById() {
             <ActionsBar/>
             <H1El><span>{user?.username}</span><span>{user?.isUser && <SubuserIcon/>}</span> <UserAvatar user={user} name={user?.username}/></H1El>
             {user?.isUser && <NoticeEl>{`This user is a sub-user, so ${parentUser?.username || 'the parent user'} can see what is marked as gotten.`}</NoticeEl>}
-            <Sort sortBy={selectedSortBy}
-                  setSortBy={setSelectedSortBy}
-                  searchText={searchText}
-                  setSearchText={setSearchText}
-                  filterArray={filterArray}
+            <SearchSortToolbar
+                sortBy={selectedSortBy}
+                setSortBy={setSelectedSortBy}
+                searchText={searchText}
+                setSearchText={setSearchText}
+                filterArray={filterArray}
             />
+
             <WishlistTileContainerEl>
                 {wishlistById && wishlistById.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist for the selected group(s)</Typography>}
                 {wishlistById && wishlistById.length > 0 && sortedItems.length === 0 && <Typography sx={{gridColumn: '1/-1'}}>There are no items in this wishlist that match the selected filters</Typography>}

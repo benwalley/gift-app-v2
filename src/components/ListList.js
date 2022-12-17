@@ -10,12 +10,9 @@ import {allUsersByGroup} from "../state/selectors/allUsersByGroup";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import selectedGroupsState from "../state/atoms/selectedGroupsState";
 import Tile from "./Home/Tile";
-import {Groups, Users} from "../models";
-import {DataStore} from "aws-amplify";
-import Sort from "./Actions/Sort";
-import CustomAccordion from "./CustomAccordion";
 import {sortAZ, sortZA} from "../helpers/sort";
 import userListSort from "../state/atoms/userListSort";
+import ListListSearchSortToolbar from "./ListListSearchSortToolbar";
 
 const ListContainerEl = styled.div`
   background: var(--background-color);
@@ -86,15 +83,17 @@ export default function ListList() {
     return (
         <ListContainerEl>
             <H1El>Lists</H1El>
-            <Sort sortBy={selectedSortBy}
-                  setSortBy={setSelectedSortBy}
-                  searchText={searchText}
-                  setSearchText={setSearchText}
-                  numberResults={numberResults}
+            <ListListSearchSortToolbar
+                sortBy={selectedSortBy}
+                setSortBy={setSelectedSortBy}
+                searchText={searchText}
+                setSearchText={setSearchText}
+                numberResults={numberResults}
+                user={user}
+                selectedGroups={selectedGroups}
+                setSelectedGroups={setSelectedGroups}
             />
-            <CustomAccordion title={"Groups"}>
-                <GroupPicker userId={user?.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
-            </CustomAccordion>
+
             <Tile>
                 <List>
                     {renderUsers()}
