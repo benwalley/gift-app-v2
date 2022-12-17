@@ -36,7 +36,7 @@ export default function ActionsBar(props) {
             <Button onClick={handleBack} startIcon={<ArrowBackIcon />}>
                 Back To List
             </Button>
-            <Tooltip title={"Copy Public link"}>
+            <Tooltip title={"Copy the public link to share the publicly visible items on this list with others who don't have an account."}>
                 <Button onClick={handleShare} startIcon={<ShareIcon />} sx={{marginLeft: 'auto'}}>
                     Share List
                 </Button>

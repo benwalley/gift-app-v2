@@ -39,6 +39,7 @@ const MainBody = styled.div`
 // TODO: Add commenting
 // TODO: add ability to add address to account visible to certain groups.
 // TODO: multiple links and multiple images.
+// TODO: Add price range
 export default function App() {
 
     return (
