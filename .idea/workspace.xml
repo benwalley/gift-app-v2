@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/GetThisDialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/WantToGetThisDialog.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useBooleanRecoilHook.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useCanUserSeeBadges.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useRecoilHookLoading.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/state/selectors/canUserDelete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/state/selectors/canUserEdit.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/state/selectors/canUserSeeItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ActionsBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ActionsBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ActionsBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ActionsBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/EditSubuserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/EditSubuserForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/SubUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/SubUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +107,7 @@
       <workItem from="1670963365750" duration="1512000" />
       <workItem from="1670981102941" duration="10448000" />
       <workItem from="1671071916491" duration="10737000" />
-      <workItem from="1671259650941" duration="12398000" />
+      <workItem from="1671259650941" duration="33485000" />
     </task>
     <servers />
   </component>

@@ -20,8 +20,13 @@ import toggleAmplifyArrayItem from "../../../helpers/toggleAmplifyArrayItem";
 import {currentUser} from "../../../state/selectors/currentUser";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import * as PropTypes from "prop-types";
 import useImageSrc from "../../../hooks/useImageSrc";
+import useBooleanRecoilHook from "../../../hooks/useBooleanRecoilHook";
+import {canUserEdit} from "../../../state/selectors/canUserEdit";
+import useCanUserSeeBadges from "../../../hooks/useCanUserSeeBadges";
+import GetThisDialog from "../../GetThisDialog";
+import WantToGetThisDialog from "../../WantToGetThisDialog";
+import {text} from "../../../text";
 
 const ItemPageContainerEl = styled.div`
   background: var(--background-color);
@@ -107,12 +112,24 @@ export default function ItemPage(props) {
     const updateItem = useSetRecoilState(wishlistItemById(itemId))
     const [gottenBy, setGottenBy] = useState([]);
     const [wantsToGet, setWantsToGet] = useState([]);
-    const [canGet, setCanGet] = useState(false)
+    const canGet = useCanUserSeeBadges(user?.id, itemId)
     const [itemOwner, setItemOwner] = useState()
-    const [canEdit, setCanEdit] = useState(false)
+    const canEdit = useBooleanRecoilHook(canUserEdit({userId: user?.id, itemId}))
     const imageUrl = useImageSrc(itemData?.images?.[0])
     const [customAddedByName, setCustomAddedByName] = useState()
+    const [getThisDialogOpen, setGetThisDialogOpen] = useState(false)
+    const [wantToGetThisDialogOpen, setWantToGetThisDialogOpen] = useState(false)
+    const [hasSubusers, setHasSubusers] = useState(false);
 
+    useEffect(() => {
+        const getSubusers = async () => {
+            const subusers = await DataStore.query(Users, c => c.parentId("eq", user?.id).isUser('eq', true));
+            if(subusers?.length > 0) {
+                setHasSubusers(true);
+            }
+        }
+        getSubusers()
+    }, [user]);
 
     useEffect(() => {
         if(!itemData || !user || !itemData.custom) return
@@ -123,14 +140,6 @@ export default function ItemPage(props) {
         getCustomCreatedBy()
 
     }, [itemData, user]);
-
-    useEffect(() => {
-        if(user?.id === itemData.ownerId || user?.id === itemOwner?.parentId) {
-            setCanEdit(true)
-        } else {
-            setCanEdit(false)
-        }
-    }, [itemOwner?.parentId, itemData.ownerId, user?.id]);
 
     useEffect(() => {
         if(!itemData || !user) return
@@ -177,38 +186,6 @@ export default function ItemPage(props) {
 
     }, [itemData]);
 
-    useEffect(() => {
-        function updateCanGet() {
-            if(!itemOwner) {
-                setCanGet(false);
-                return;
-            }
-
-            if(itemData.ownerId === user.id) {
-                setCanGet(false);
-                return;
-            }
-            if(itemOwner?.parentId && itemOwner.parentId !== user?.id) {
-                // The list is not your subuser, so we can show badges
-                setCanGet(true)
-                return;
-            }
-            if(itemOwner && !itemOwner.parentId) {
-                setCanGet(true);
-                return;
-            }
-            if(itemOwner?.parentId === user?.id && !user?.subuserModeOn && itemOwner?.isUser) {
-                // list is subuser, but subuser mode is not on.
-                setCanGet(true)
-                return;
-            }
-            setCanGet(false)
-        }
-        if(user && itemData) {
-            updateCanGet()
-        }
-    }, [itemData, itemOwner?.parentId, user]);
-
     function ImageElement() {
         if (!itemData || !itemData?.images || itemData.images.length === 0 || itemData.images[0] === '') return <ImagePlaceholderEl/>
         return <ImageEl  src={imageUrl} alt={itemData.name}/>
@@ -227,28 +204,24 @@ export default function ItemPage(props) {
         }
     }
 
-    const gettingThis = () => {
-        if(!itemData?.gottenBy) return false;
-        return itemData.gottenBy.includes(user.id);
-    }
-
-    const wantsToGetThis = () => {
-        if(!itemData?.wantsToGet) return false;
-        return itemData.wantsToGet.includes(user.id);
-    }
-
     async function handleToggleGetting(e) {
         e.preventDefault()
-        if (!itemData?.ownerId) return;
-        await toggleAmplifyArrayItem(WishlistItem, itemData.id, 'gottenBy', user?.id)
-        updateItem(1)
+        if(hasSubusers) {
+            setGetThisDialogOpen(true);
+        } else {
+            await toggleAmplifyArrayItem(WishlistItem, itemData.id, 'gottenBy', user.id)
+            updateItem(1);
+        }
     }
 
     async function handleToggleWantToGoIn(e) {
         e.preventDefault()
-        if (!user) return;
-        await toggleAmplifyArrayItem(WishlistItem, itemData.id, 'wantsToGet', user?.id)
-        updateItem(1)
+        if(hasSubusers) {
+            setGetThisDialogOpen(true);
+        } else {
+            await toggleAmplifyArrayItem(WishlistItem, itemData.id, 'wantsToGet', user.id)
+            updateItem(1);
+        }
     }
 
     const renderPriority = () => {
@@ -294,19 +267,23 @@ export default function ItemPage(props) {
                         {itemData?.price && <div><b>Price: </b><span>~ {price}</span></div>}
                         {canGet && gottenBy.length > 0 && <div><b>Gotten By: </b><Stack direction="row" spacing={1}>{gottenBy}</Stack></div>}
                         {canGet && wantsToGet.length > 0 && <div><b>Want to go in with someone: </b><Stack direction="row" spacing={1}>{wantsToGet}</Stack></div>}
-                        {canGet && <Stack direction={{xs: "column", md: 'row'}} spacing={1} sx={{marginTop: 'auto'}}>
-                            <Button
-                                variant={"contained"}
-                                color={"green"}
-                                startIcon={<AttachMoneyIcon />}
-                                onClick={handleToggleGetting}
-                            >{gettingThis() ? "Don't get this" : "Get this"}</Button>
-                            <Button
-                                variant={"contained"}
-                                color={"secondary"}
-                                startIcon={<GroupAddIcon />}
-                                onClick={handleToggleWantToGoIn}
-                            >{wantsToGetThis() ? "Say you don't want to go in on this" : "Say you want to go in on this"}</Button>
+                        {canGet && <Stack direction={{xs: "column", md: 'row'}} spacing={2} sx={{marginTop: 'auto'}}>
+                            <Tooltip title={text.getTooltipText}>
+                                <Button
+                                    variant={"contained"}
+                                    color={"green"}
+                                    startIcon={<AttachMoneyIcon />}
+                                    onClick={handleToggleGetting}
+                                >{text.getText}</Button>
+                            </Tooltip>
+                            <Tooltip title={text.wantToGetTooltipText}>
+                                <Button
+                                    variant={"contained"}
+                                    color={"secondary"}
+                                    startIcon={<GroupAddIcon />}
+                                    onClick={handleToggleWantToGoIn}
+                                >{text.wantToGet}</Button>
+                            </Tooltip>
                         </Stack>}
                     </DetailsEl>
                 </ItemPageEl>
@@ -314,6 +291,16 @@ export default function ItemPage(props) {
             <CustomModal open={editModalOpen} setOpen={setEditModalOpen} size="large">
                 <AddItemForm initialData={itemData} afterSubmit={() => setEditModalOpen(false)}/>
             </CustomModal>
+            <GetThisDialog
+                item={itemData}
+                open={getThisDialogOpen}
+                setOpen={setGetThisDialogOpen}
+            />
+            <WantToGetThisDialog
+                item={itemData}
+                open={wantToGetThisDialogOpen}
+                setOpen={setWantToGetThisDialogOpen}
+            />
         </ItemPageContainerEl>
     );
 }

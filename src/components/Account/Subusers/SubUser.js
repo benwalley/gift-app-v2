@@ -18,6 +18,7 @@ import EditSubuserForm from "./EditSubuserForm";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import SubuserIcon from "../../SubuserIcon";
 import Box from "@mui/material/Box";
+import UserAvatar from "../../UserAvatar";
 
 const SubuserNameEl = styled.div`
     font-size: 20px;
@@ -64,12 +65,9 @@ export default function SubUser(props) {
             <ListItemAvatar sx={{
                 display: { xs: 'none', sm: 'flex' },
             }}>
-                <Avatar
-                    sx={{bgcolor: stringToColor(user?.username)}}
-                    alt={user?.username}
-                >
-                    {getFirstLetters(user?.username)}
-                </Avatar>
+                <UserAvatar user={user}
+                            name={user?.username}
+                />
             </ListItemAvatar>
             <ListItemText
                 sx={{}}

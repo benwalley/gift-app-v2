@@ -12,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import GroupPicker from "../../GroupPicker";
 import {Groups} from "../../../models";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
+import ImageUpload from "../../ImageUpload/ImageUpload";
 
 const ContainerEl = styled.div`
     display: grid;
@@ -33,11 +34,18 @@ export default function EditSubuserForm(props) {
     const [snackbarOpen, setSnackbarOpen] = useState(false)
     const parentUser = useRecoilHook(currentUser)
     const [selectedGroups, setSelectedGroups] = useState([])
+    const [image, setImage] = useState('')
     const updateGroups = useSetRecoilState(groupsByUserId(user?.id))
 
     useEffect(() => {
         setName(initialName)
     }, [initialName]);
+
+    useEffect(() => {
+        if(user.image) {
+            setImage(user.image)
+        }
+    }, [user]);
 
     const handleCloseSnackbar = () => setSnackbarOpen(false)
 
@@ -61,6 +69,7 @@ export default function EditSubuserForm(props) {
         const original = await DataStore.query(Users, user?.id);
         await DataStore.save(Users.copyOf(original, updated => {
             updated.username = name;
+            updated.image = image;
         }))
 
         // set groups
@@ -107,6 +116,7 @@ export default function EditSubuserForm(props) {
             <FormEl onSubmit={handleSubmit}>
                 <GroupPicker userId={parentUser.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
                 <TextField value={name} onChange={(e) => setName(e.target.value)} id="name" label="username" variant="outlined"/>
+                <ImageUpload image={image} setImage={setImage} maxSize={80}/>
                 <Button type="submit" color="primary" variant="contained">Save</Button>
             </FormEl>
             <Snackbar

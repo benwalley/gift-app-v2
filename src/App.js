@@ -1,9 +1,9 @@
-import {Amplify, Auth, DataStore, Hub} from 'aws-amplify';
-import {RecoilRoot, useSetRecoilState} from 'recoil';
+import {Amplify} from 'aws-amplify';
+import {RecoilRoot} from 'recoil';
 import {Authenticator} from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     Routes,
     Route,
@@ -40,6 +40,7 @@ const MainBody = styled.div`
 // TODO: add ability to add address to account visible to certain groups.
 // TODO: multiple links and multiple images.
 // TODO: Add price range
+// TODO: Add notification if item you're getting is deleted
 export default function App() {
 
     return (
