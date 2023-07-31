@@ -10,6 +10,7 @@ import useRecoilHook from "../../hooks/useRecoilHook";
 import {Groups, Users, WishlistItem} from "../../models";
 import GroupPicker from "../GroupPicker";
 import ImageUpload from "../ImageUpload/ImageUpload";
+import SingleImageUpload from "../ImageUpload/SingleImageUpload";
 
 
 const styles = {
@@ -109,7 +110,7 @@ export default function AddCustomItemModal(props) {
             <TextField value={note} onChange={(e) => setNote(e.target.value)} sx={styles} id="note" label="Note"
                        multiline
                        variant="outlined"/>
-            <ImageUpload image={image} setImage={setImage}/>
+            <SingleImageUpload image={image} setImage={setImage}/>
             <Button type="submit" sx={{marginTop: '30px', marginLeft: 'auto', display: 'block'}} variant="contained"
                     size="large">Add Item</Button>
         </form>

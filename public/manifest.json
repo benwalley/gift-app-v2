@@ -39,6 +39,15 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#1E88E5",
-  "background_color": "#7e57c2"
+  "background_color": "#7e57c2",
+  "share_target": {
+    "action": "/create-wishlist-item/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }
 

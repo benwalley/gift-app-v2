@@ -82,7 +82,7 @@ export default function AddAmazonWishlist(props) {
     function stringToHtml (string) {
         var parser = new DOMParser();
         var doc = parser.parseFromString(string, 'text/html');
-        return doc.querySelectorAll("#g-items > li.g-item-sortable");
+        return doc.querySelectorAll(".g-print-view-row");
     };
 
     async function afterSubmit() {
@@ -174,6 +174,7 @@ export default function AddAmazonWishlist(props) {
 
     return (
         <ContainerEl>
+
             <h1>Import Amazon Wishlist</h1>
             <DisclaimerEl>You'll have to use a desktop computer to import an amazon wishlist</DisclaimerEl>
             <HowToUse/>

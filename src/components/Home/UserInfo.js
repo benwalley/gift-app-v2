@@ -17,6 +17,7 @@ import UserAvatar from "../UserAvatar";
 import {DataStore} from "aws-amplify";
 import {Users} from "../../models";
 import LoopIcon from '@mui/icons-material/Loop';
+import SingleImageUpload from "../ImageUpload/SingleImageUpload";
 
 
 const RowEl = styled.div`
@@ -107,7 +108,7 @@ export default function UserInfo(props) {
 
             <ProfileEl>
                 <b>Profile Picture</b>
-                <ImageUpload image={image} setImage={setImage} maxSize={80}/>
+                <SingleImageUpload image={image} setImage={setImage} maxSize={80}/>
                 <Stack direction={'column'} spacing={3}>
                     <Button
                         type="button"

@@ -1,4 +1,17 @@
 {
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-giftappv2-main-33154-authRole",
+      "UnauthRoleArn": "arn:aws:iam::085545611160:role/amplify-giftappv2-main-33154-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::085545611160:role/amplify-giftappv2-main-33154-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-giftappv2-main-33154-deployment",
+      "UnauthRoleName": "amplify-giftappv2-main-33154-unauthRole",
+      "StackName": "amplify-giftappv2-main-33154",
+      "StackId": "arn:aws:cloudformation:us-east-1:085545611160:stack/amplify-giftappv2-main-33154/76c8b5a0-2dc0-11ee-93fc-0e7293f7fe4d",
+      "AmplifyAppId": "d6gm8s1le9esb"
+    }
+  },
   "staging": {
     "awscloudformation": {
       "AuthRoleName": "amplify-giftappv20-staging-25018-authRole",
@@ -14,6 +27,9 @@
     "categories": {
       "auth": {
         "giftappv20": {}
+      },
+      "storage": {
+        "s3giftappv2storage60c88bf6": {}
       }
     }
   }

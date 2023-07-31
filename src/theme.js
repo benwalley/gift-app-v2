@@ -46,10 +46,4 @@ const theme = createTheme({
 });
 
 export default theme
-//
-// --primary-color: #1E88E5;
-// --secondary-color: #7e57c2;
-// --dark-color: #24292e;
-// --background-color: #e3f2fd;
-// --green-color: #44FFD2;
-// --pink-color: #FF8484;
+

@@ -17,7 +17,7 @@ const ContainerEl = styled.div`
         background: #80808024;
     }
 `
-export default function ImageUploadButton(props) {
+export default function ImageUploadButton() {
 
     return (
 

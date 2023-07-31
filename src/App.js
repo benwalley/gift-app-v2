@@ -25,6 +25,7 @@ import Money from "./components/Money/Money";
 import AddAmazonWishlist from "./components/AddAmazonWishlist/AddAmazonWishlist";
 import ItemPage from "./components/Wishlist/ItemPage/ItemPage";
 import Container from './components/Container'
+import AddItemFromShare from "./components/AddItemFromShare";
 
 Amplify.configure(awsExports);
 
@@ -64,6 +65,7 @@ export default function App() {
                                         <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>
                                         <Route path="lists" element={<ListList/>}/>
                                         <Route path="money" element={<Money/>}/>
+                                        <Route path="create-wishlist-item" element={<AddItemFromShare/>}/>
                                         <Route path="*" element={<DashboardBody/>}/>
                                     </Route>
                                 </Routes>

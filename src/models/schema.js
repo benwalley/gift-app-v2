@@ -1,166 +1,5 @@
 export const schema = {
     "models": {
-        "Comments": {
-            "name": "Comments",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "isWishlistComment": {
-                    "name": "isWishlistComment",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "posterId": {
-                    "name": "posterId",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "groupIds": {
-                    "name": "groupIds",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "isVisibleToOwner": {
-                    "name": "isVisibleToOwner",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "commentText": {
-                    "name": "commentText",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "parentId": {
-                    "name": "parentId",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Comments",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Theme": {
-            "name": "Theme",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "userId": {
-                    "name": "userId",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "themeName": {
-                    "name": "themeName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Themes",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
         "Money": {
             "name": "Money",
             "fields": {
@@ -225,6 +64,212 @@ export const schema = {
             },
             "syncable": true,
             "pluralName": "Monies",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Users": {
+            "name": "Users",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "username": {
+                    "name": "username",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "authUsername": {
+                    "name": "authUsername",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "subuserModeOn": {
+                    "name": "subuserModeOn",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "parentId": {
+                    "name": "parentId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "notes": {
+                    "name": "notes",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isUser": {
+                    "name": "isUser",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "editingUsers": {
+                    "name": "editingUsers",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "image": {
+                    "name": "image",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Users",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Groups": {
+            "name": "Groups",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "groupName": {
+                    "name": "groupName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "memberId": {
+                    "name": "memberId",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "createdBy": {
+                    "name": "createdBy",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "additionalAdmins": {
+                    "name": "additionalAdmins",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "invitedEmail": {
+                    "name": "invitedEmail",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Groups",
             "attributes": [
                 {
                     "type": "model",
@@ -395,8 +440,8 @@ export const schema = {
                 }
             ]
         },
-        "Groups": {
-            "name": "Groups",
+        "Theme": {
+            "name": "Theme",
             "fields": {
                 "id": {
                     "name": "id",
@@ -405,43 +450,19 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "groupName": {
-                    "name": "groupName",
+                "userId": {
+                    "name": "userId",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "memberId": {
-                    "name": "memberId",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "createdBy": {
-                    "name": "createdBy",
+                "themeName": {
+                    "name": "themeName",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
-                },
-                "additionalAdmins": {
-                    "name": "additionalAdmins",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "invitedEmail": {
-                    "name": "invitedEmail",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -461,7 +482,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Groups",
+            "pluralName": "Themes",
             "attributes": [
                 {
                     "type": "model",
@@ -485,8 +506,8 @@ export const schema = {
                 }
             ]
         },
-        "Users": {
-            "name": "Users",
+        "Comments": {
+            "name": "Comments",
             "fields": {
                 "id": {
                     "name": "id",
@@ -495,65 +516,44 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "username": {
-                    "name": "username",
+                "isWishlistComment": {
+                    "name": "isWishlistComment",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "email": {
-                    "name": "email",
+                "posterId": {
+                    "name": "posterId",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
-                "authUsername": {
-                    "name": "authUsername",
-                    "isArray": false,
+                "groupIds": {
+                    "name": "groupIds",
+                    "isArray": true,
                     "type": "String",
-                    "isRequired": false,
-                    "attributes": []
+                    "isRequired": true,
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
-                "subuserModeOn": {
-                    "name": "subuserModeOn",
+                "isVisibleToOwner": {
+                    "name": "isVisibleToOwner",
                     "isArray": false,
                     "type": "Boolean",
-                    "isRequired": false,
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "commentText": {
+                    "name": "commentText",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "parentId": {
                     "name": "parentId",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "notes": {
-                    "name": "notes",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "isUser": {
-                    "name": "isUser",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "editingUsers": {
-                    "name": "editingUsers",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "image": {
-                    "name": "image",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -577,7 +577,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Users",
+            "pluralName": "Comments",
             "attributes": [
                 {
                     "type": "model",
@@ -604,5 +604,6 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "af879da5ab74da5b7dbcd75992c26787"
+    "codegenVersion": "3.3.5",
+    "version": "9e7ef468f3bbb23b590c32a5ff19887d"
 };

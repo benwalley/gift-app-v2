@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TextField, Button, Rating, Typography, Switch, Tooltip, CircularProgress} from "@mui/material";
+import {Button, CircularProgress, Rating, Switch, TextField, Tooltip, Typography} from "@mui/material";
 import {DataStore} from 'aws-amplify'
 import {Users, WishlistItem} from "../models";
 import {useSetRecoilState} from "recoil";
@@ -15,6 +15,14 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styled from '@emotion/styled'
 import ImageUpload from "./ImageUpload/ImageUpload";
 import Step from "./Steps/Step";
+import Box from "@mui/material/Box";
+import {lambdaUrl, webScrapeUrl} from "../helpers/variables";
+import WebWorker from "../workers/workerSetup";
+import getData from "../workers/getDataFromUrl";
+import getDataFromHtmlString from "../helpers/getDataFromHtmlString";
+import SuccessSnackbar from "./Snackbars/SuccessSnackbar";
+import ErrorSnackbar from "./Snackbars/ErrorSnackbar";
+
 
 const styles = {
     width: '100%',
@@ -56,7 +64,7 @@ export default function AddItemForm(props) {
     const [priority, setPriority] = useState('')
     const [link, setLink] = useState('')
     const [note, setNote] = useState('')
-    const [image, setImage] = useState('')
+    const [imageList, setImageList] = useState([])
     const [addToId, setAddToId] = useState('')
     const [stepNumber, setStepNumber] = useState(0)
     const [isPublic, setIsPublic] = useState(true)
@@ -66,6 +74,13 @@ export default function AddItemForm(props) {
     const updateAddToWishlist = useSetRecoilState(wishlistByUserId(addToId))
     const user = useRecoilHook(currentUser)
     const updateItem = useSetRecoilState(wishlistItemById(initialData?.id))
+    const [getDataLoading, setGetDataLoading] = useState(false);
+    const [workerResponse, setWorkerResponse] = useState();
+    const [getDataWorker, setGetDataWorker] = useState();
+    const [successSnackbarValue, setSuccessValueSnackbar] = useState('')
+    const [errorSnackbarValue, setErrorValueSnackbar] = useState('')
+    const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
+    const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
 
     const isEdit = () => {
         if(initialData) return true;
@@ -103,10 +118,23 @@ export default function AddItemForm(props) {
         }
     }, [multipleAddToUsers, user]);
 
+    function prepareImages(imageList) {
+        if(!imageList || imageList.length === 0) return [];
+        const returnList = [];
+        for(const item of imageList) {
+            if(item.imageSrc) {
+                returnList.push(JSON.stringify(item))
+            }
+        }
+        return returnList;
+    }
+
     async function handleSubmitEdit(e) {
         e.preventDefault()
         if (!name) return;
         if (!user || user?.length === 0) return;
+
+        const images = prepareImages(imageList)
 
         const original = await DataStore.query(WishlistItem, initialData.id);
         await DataStore.save(WishlistItem.copyOf(original, updated => {
@@ -116,7 +144,7 @@ export default function AddItemForm(props) {
                 updated.priority = priority;
                 updated.link = fixLink(link);
                 updated.note = note;
-                updated.images = [image]
+                updated.images = images
                 updated.isPublic = isPublic
                 updated.groups = selectedGroups
             } catch (e) {
@@ -136,8 +164,7 @@ export default function AddItemForm(props) {
         // if the link has https:// anywhere in it, make that the beginning
         const index = link.indexOf("https://")
         if(index > 0) {
-            const sliced = link.slice(index, -1);
-            return sliced;
+            return link.slice(index, -1);
         }
         return `https://${link}`
     }
@@ -147,9 +174,10 @@ export default function AddItemForm(props) {
         try {
             if (!name) return;
             if (!addToId) return;
+            const images = prepareImages(imageList)
 
             const itemData = {
-                "images": [image],
+                "images": images,
                 "name": name,
                 "link": fixLink(link),
                 "note": note,
@@ -175,6 +203,13 @@ export default function AddItemForm(props) {
         afterSubmit()
     }
 
+    function parseImageList(imageList) {
+        if(imageList.length === 0) return []
+        return imageList.map(item => {
+            return JSON.parse(item)
+        })
+    }
+
     useEffect(() => {
         if(initialData) {
             // set values to the editing
@@ -183,11 +218,35 @@ export default function AddItemForm(props) {
             setPriority(initialData.priority || '')
             setLink(initialData.link || '')
             setNote(initialData.note || '')
-            setImage(initialData?.images[0] || '')
+            setImageList(parseImageList(initialData?.images))
             setSelectedGroups(initialData?.groups)
             setIsPublic(initialData?.isPublic)
         }
     }, [initialData]);
+
+
+    useEffect(() => {
+        if(!getDataWorker) return;
+        getDataWorker.addEventListener('message', function(e) {
+            if(e.data?.error || e.data === 'error') {
+                setErrorValueSnackbar('Error when getting data from url.');
+                setErrorSnackbarOpen(true);
+                setLink('')
+            }
+            const dataObject = getDataFromHtmlString(e.data);
+            setWorkerResponse(dataObject);
+            setGetDataLoading(false);
+
+        })
+    }, [getDataWorker]);
+
+    useEffect(() => {
+        if(!workerResponse) return;
+        const {title, price, image} = workerResponse;
+        if(title) setName(title);
+        if(price) setPrice(parseFloat(price) || 0);
+        if(image) setImageList([{id: 0, note: '', link: '', imageSrc: image}])
+    }, [workerResponse]);
 
     return (<>
         <FormEl onSubmit={initialData ? handleSubmitEdit : handleSubmit}>
@@ -236,18 +295,23 @@ export default function AddItemForm(props) {
                     value={parseFloat(priority)}
                     onChange={(e) => setPriority(e.target.value)}
                 />
-                <TextField value={link} onChange={(e) => setLink(e.target.value)} sx={styles} id="link" label="Link"
-                           variant="outlined"/>
+                <Box sx={{display: 'flex', flexWrap: 'wrap', gap: '5px'}}>
+                    <TextField value={link} onChange={(e) => setLink(e.target.value)} sx={styles} id="link" label="Link"
+                               variant="outlined"/>
+                </Box>
+
                 <TextField value={note} onChange={(e) => setNote(e.target.value)} sx={styles} id="note" label="Note"
                            multiline
                            variant="outlined"/>
 
-                <ImageUpload image={image} setImage={setImage}/>
+                <ImageUpload imageList={imageList} setImageList={setImageList}/>
                 <Button type="submit" sx={{marginTop: '30px', marginLeft: 'auto', display: 'block'}} variant="contained"
                         size="large">Add Item</Button>
             </Step>
         </FormEl>
-    </>
+        <SuccessSnackbar message={successSnackbarValue} snackbarOpen={successSnackbarOpen} setSnackbarOpen={setSuccessSnackbarOpen}/>
+        <ErrorSnackbar message={errorSnackbarValue} snackbarOpen={errorSnackbarOpen} setSnackbarOpen={setErrorSnackbarOpen}/>
+        </>
 
     );
 }

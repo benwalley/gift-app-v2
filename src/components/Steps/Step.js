@@ -16,7 +16,7 @@ export default function Step(props) {
     return (
         <>
             {renderStraightContent && <div>{children}</div>}
-            {currentStep === stepNumber && <div>
+            {!renderStraightContent && currentStep === stepNumber && <div>
                 {previousStep && <Button startIcon={<KeyboardBackspaceIcon />} onClick={previousStep} sx={{marginTop: '20px'}}>{previousStepName || "Previous"}</Button>}
                 {children}
                 {nextStep && <Button endIcon={<EastIcon />} onClick={nextStep} sx={{marginTop: '20px'}}>{nextStepName || "Next"}</Button>}

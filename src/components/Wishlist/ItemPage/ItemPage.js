@@ -27,6 +27,7 @@ import useCanUserSeeBadges from "../../../hooks/useCanUserSeeBadges";
 import GetThisDialog from "../../GetThisDialog";
 import WantToGetThisDialog from "../../WantToGetThisDialog";
 import {text} from "../../../text";
+import ImageList from "../../ImageList/ImageList";
 
 const ItemPageContainerEl = styled.div`
   background: var(--background-color);
@@ -48,7 +49,7 @@ const ItemPageEl = styled.div`
   
   @media only screen and (min-width: 700px) {
      padding: 0 20px 20px;
-     grid-template-columns: 1fr 1fr;
+     grid-template-columns: 50% 50%;
      grid-template-rows: auto 1fr;
      gap: 0;
   }
@@ -186,9 +187,10 @@ export default function ItemPage(props) {
 
     }, [itemData]);
 
+
     function ImageElement() {
         if (!itemData || !itemData?.images || itemData.images.length === 0 || itemData.images[0] === '') return <ImagePlaceholderEl/>
-        return <ImageEl  src={imageUrl} alt={itemData.name}/>
+        return <ImageList images={itemData.images}/>
     }
 
     const handleEdit = () => {

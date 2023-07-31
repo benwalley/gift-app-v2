@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 export default function ImageRender(props) {
     const {alt, src, styles} = props
-    const[imageUrl, setImageUrl] = useState()
+    const [imageUrl, setImageUrl] = useState()
 
     const StyledImage = styled.img`
         width: 100%;
@@ -14,7 +14,11 @@ export default function ImageRender(props) {
     useEffect(() => {
         const updateImage = async () => {
             try {
-                const data = JSON.parse(src);
+                let data = JSON.parse(src);
+                if(data.imageSrc) {
+                    // this means the whole object was passed to you.
+                    data = JSON.parse(data.imageSrc);
+                }
                 if (data.customKey) {
                     const url = await Storage.get(data.customKey, {
                         level: 'public',
@@ -23,7 +27,6 @@ export default function ImageRender(props) {
                     setImageUrl(url)
                 }
             } catch(e) {
-                console.log(e)
                 setImageUrl(src)
             }
         }
@@ -34,7 +37,7 @@ export default function ImageRender(props) {
     }, [src]);
 
     return (
-        <StyledImage src={imageUrl} alt={alt}/>
+        <StyledImage draggable="false" src={imageUrl} alt={alt}/>
     );
 }
 

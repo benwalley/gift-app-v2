@@ -13,6 +13,7 @@ import GroupPicker from "../../GroupPicker";
 import {Groups} from "../../../models";
 import {groupsByUserId} from "../../../state/selectors/groupsByUserId";
 import ImageUpload from "../../ImageUpload/ImageUpload";
+import SingleImageUpload from "../../ImageUpload/SingleImageUpload";
 
 const ContainerEl = styled.div`
     display: grid;
@@ -116,7 +117,7 @@ export default function EditSubuserForm(props) {
             <FormEl onSubmit={handleSubmit}>
                 <GroupPicker userId={parentUser.id} selectedGroups={selectedGroups} setSelectedGroups={setSelectedGroups}/>
                 <TextField value={name} onChange={(e) => setName(e.target.value)} id="name" label="username" variant="outlined"/>
-                <ImageUpload image={image} setImage={setImage} maxSize={80}/>
+                <SingleImageUpload image={image} setImage={setImage} maxSize={80}/>
                 <Button type="submit" color="primary" variant="contained">Save</Button>
             </FormEl>
             <Snackbar
