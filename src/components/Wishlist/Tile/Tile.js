@@ -62,11 +62,26 @@ export default function Tile(props) {
     const canDelete = useBooleanRecoilHook(canUserDelete({userId: user?.id, itemId: tile?.id}))
     const canSeeBadges = useCanUserSeeBadges(user?.id, tile?.id)
     const [customAddedByName, setCustomAddedByName] = useState()
+    const [parsedImageUrl, setParsedImageUrl] = useState()
     const navigate = useNavigate()
-    const imageUrl = useImageSrc(tile?.images[0])
+    const imageUrl = useImageSrc(parsedImageUrl)
     const [getThisDialogOpen, setGetThisDialogOpen] = useState(false)
     const [wantToGetThisDialogOpen, setWantToGetThisDialogOpen] = useState(false)
     const [hasSubusers, setHasSubusers] = useState(false);
+
+    function updateImageurl() {
+        if(tile?.images[0] === undefined) return
+        try {
+            const data = JSON.parse(tile?.images[0]);
+            setParsedImageUrl(data?.imageSrc)
+        } catch(e) {
+
+        }
+    }
+
+    useEffect(() => {
+        updateImageurl();
+    }, [tile.images, updateImageurl]);
 
     useEffect(() => {
         const getSubusers = async () => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, memo} from 'react';
 import {IconButton, Tooltip} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from "@emotion/styled";
@@ -21,7 +21,7 @@ const deleteButtonStyles = {
     right: '1px'
 }
 
-export default function UploadedImage(props) {
+const UploadedImage = memo(function UploadedImage(props) {
     const {src, handleEdit, handleDelete, isSelected} = props
     const imageUrl = useImageSrc(src)
 
@@ -56,5 +56,7 @@ export default function UploadedImage(props) {
             </ContainerEl>
         </>
     );
-}
+})
+
+export default UploadedImage;
 

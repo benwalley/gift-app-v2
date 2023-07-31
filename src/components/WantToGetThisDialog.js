@@ -64,9 +64,9 @@ export default function WantToGetThisDialog(props) {
                 {availableUsers.map(user => (
                     <ListItem
                         button
-                        key={user.id}
+                        key={user?.id}
                         secondaryAction={
-                            item?.wantsToGet?.includes(user.id) && <Tooltip title={`${user.username || 'This user'} wants to go in on this.`}>
+                            item?.wantsToGet?.includes(user?.id) && <Tooltip title={`${user?.username || 'This user'} wants to go in on this.`}>
                                 <GroupsIcon color={'secondary'}/>
                             </Tooltip>
                         }

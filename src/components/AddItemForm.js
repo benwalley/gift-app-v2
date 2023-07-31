@@ -16,9 +16,6 @@ import styled from '@emotion/styled'
 import ImageUpload from "./ImageUpload/ImageUpload";
 import Step from "./Steps/Step";
 import Box from "@mui/material/Box";
-import {lambdaUrl, webScrapeUrl} from "../helpers/variables";
-import WebWorker from "../workers/workerSetup";
-import getData from "../workers/getDataFromUrl";
 import getDataFromHtmlString from "../helpers/getDataFromHtmlString";
 import SuccessSnackbar from "./Snackbars/SuccessSnackbar";
 import ErrorSnackbar from "./Snackbars/ErrorSnackbar";
@@ -306,7 +303,7 @@ export default function AddItemForm(props) {
 
                 <ImageUpload imageList={imageList} setImageList={setImageList}/>
                 <Button type="submit" sx={{marginTop: '30px', marginLeft: 'auto', display: 'block'}} variant="contained"
-                        size="large">Add Item</Button>
+                        size="large">{initialData ? "Save Changes" : "Add Item"}</Button>
             </Step>
         </FormEl>
         <SuccessSnackbar message={successSnackbarValue} snackbarOpen={successSnackbarOpen} setSnackbarOpen={setSuccessSnackbarOpen}/>

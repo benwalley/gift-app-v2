@@ -27,7 +27,22 @@ const PriorityPriceEl = styled.div`
 export default function PublicWishlistTile(props) {
     const {tile} = props;
     const navigate = useNavigate()
-    const imageUrl = useImageSrc(tile?.images[0])
+    const [parsedImageUrl, setParsedImageUrl] = useState()
+    const imageUrl = useImageSrc(parsedImageUrl)
+
+    function updateImageurl() {
+        if(tile?.images[0] === undefined) return
+        try {
+            const data = JSON.parse(tile?.images[0]);
+            setParsedImageUrl(data?.imageSrc)
+        } catch(e) {
+
+        }
+    }
+
+    useEffect(() => {
+        updateImageurl();
+    }, [tile.images, updateImageurl]);
 
     function Priority() {
         if (!tile.priority) return;

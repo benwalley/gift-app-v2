@@ -5,41 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/cli-inputs.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/parameters.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/resolvers/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/schema.graphql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/stacks/CustomResources.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/api/giftappv20/transform.conf.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/auth/giftappv20/cli-inputs.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/backend-config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/storage/s3giftappv2storage60c88bf6/cli-inputs.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/tags.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/backend/types/amplify-dependent-resources-ref.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/cli.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/team-provider-info.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/Subusers/EditSubuserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Subusers/EditSubuserForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddWishlistForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddWishlistForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/UserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/UserInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ImageRender.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageRender.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ImageList/ImageList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageList/ImageList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ImageUpload/ImageUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageUpload/ImageUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ImageUpload/ImageUploadButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageUpload/ImageUploadButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Steps/Step.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Steps/Step.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/AddCustomItemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/AddCustomItemModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/ItemPage/ItemPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/schema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ImageUpload/UploadedImage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageUpload/UploadedImage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Public/publicWishlistTile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Public/publicWishlistTile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WantToGetThisDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WantToGetThisDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +117,7 @@
       <workItem from="1673822621935" duration="897000" />
       <workItem from="1674341360003" duration="2169000" />
       <workItem from="1674427500440" duration="2362000" />
-      <workItem from="1690584954601" duration="20181000" />
+      <workItem from="1690584954601" duration="23215000" />
     </task>
     <servers />
   </component>

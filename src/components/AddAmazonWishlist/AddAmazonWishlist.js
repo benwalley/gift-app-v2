@@ -82,7 +82,7 @@ export default function AddAmazonWishlist(props) {
     function stringToHtml (string) {
         var parser = new DOMParser();
         var doc = parser.parseFromString(string, 'text/html');
-        return doc.querySelectorAll(".g-print-view-row");
+        return doc.querySelectorAll(".g-print-view-row, .g-item-sortable");
     };
 
     async function afterSubmit() {
@@ -143,7 +143,7 @@ export default function AddAmazonWishlist(props) {
                     if (!addToId) break;
 
                     const itemData = {
-                        "images": [item.imageSrc || ''],
+                        "images": [JSON.stringify({imageSrc: item.imageSrc}) || ''],
                         "name": item.name || item.imageAlt || '',
                         "link": item.url || '',
                         "note": item.note || '',

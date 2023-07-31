@@ -83,6 +83,7 @@ export default function ImageList(props) {
                     return <ImageTile
                         image={image}
                         index={index}
+                        key={JSON.stringify(image)}
                         setCurrentImageIndex={setCurrentImageIndex}
                         selected={index === currentImageIndex}
                     />

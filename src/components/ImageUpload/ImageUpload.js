@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
 import {IconButton, TextField, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import styled from '@emotion/styled'
 import {Storage} from "@aws-amplify/storage"
@@ -65,6 +65,7 @@ const UploadListEl = styled.div`
     gap: 5px;
     margin-bottom: 10px;
     position: relative;
+    flex-wrap: wrap;
 `
 
 const moveButtonStyles = {
@@ -74,7 +75,7 @@ const moveButtonStyles = {
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
-export default function ImageUpload(props) {
+const ImageUpload = memo(function ImageUpload(props) {
     const {maxSize, imageList, setImageList} = props;
     const [type, setType] = useState('url')
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -273,5 +274,7 @@ export default function ImageUpload(props) {
         </ImageUploadEl>
 
     );
-}
+})
+
+export default ImageUpload;
 
