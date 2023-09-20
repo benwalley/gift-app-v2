@@ -1,6 +1,8 @@
 import {atom, selectorFamily} from "recoil";
 import {DataStore} from "aws-amplify";
 import {WishlistItem} from "../../models";
+import {currentUser} from "./currentUser";
+import {groupsByUserId} from "./groupsByUserId";
 
 const wishlistByUserIdVersion = atom({
     key: 'wishlistByUserIdVersion',
@@ -12,9 +14,19 @@ export const wishlistByUserId = selectorFamily({
     get: ({wishlistId, filters}) => async ({get}) => {
         if(wishlistId === false || !wishlistId) return;
         get(wishlistByUserIdVersion)
+        const user = get(currentUser);
+        if(!user) return [];
+        const userGroups = get(groupsByUserId(user.id))
         const wishlist = await DataStore.query(WishlistItem, c => c.ownerId("eq", wishlistId));
-        if(!filters) return wishlist;
-        return wishlist.filter(wishlistItem => {
+        const filteredItems = wishlist.filter(wishlistItem => {
+            // if any of the wishlist item groups are the same as any of the user groups
+            return wishlistItem.groups.some(itemGroupId => {
+                // return true if item id is in user groups
+                return userGroups.some(group => group.id === itemGroupId);
+            })
+        })
+        if(!filters) return filteredItems;
+        return filteredItems.filter(wishlistItem => {
             if(filters.groups) {
                 return wishlistItem.groups.some(item => filters.groups.includes(item))
             }

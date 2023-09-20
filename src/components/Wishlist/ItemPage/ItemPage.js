@@ -219,7 +219,7 @@ export default function ItemPage(props) {
     async function handleToggleWantToGoIn(e) {
         e.preventDefault()
         if(hasSubusers) {
-            setGetThisDialogOpen(true);
+            setWantToGetThisDialogOpen(true);
         } else {
             await toggleAmplifyArrayItem(WishlistItem, itemData.id, 'wantsToGet', user.id)
             updateItem(1);
