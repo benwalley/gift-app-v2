@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, CircularProgress, Rating, Switch, TextField, Tooltip, Typography} from "@mui/material";
 import {DataStore} from 'aws-amplify'
 import {Users, WishlistItem} from "../models";
-import {useSetRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import {updateCurrentUserWishlist} from "../state/selectors/currentUserWishlist";
 import {currentUser} from "../state/selectors/currentUser";
 import useRecoilHook from "../hooks/useRecoilHook";
@@ -19,6 +19,8 @@ import Box from "@mui/material/Box";
 import getDataFromHtmlString from "../helpers/getDataFromHtmlString";
 import SuccessSnackbar from "./Snackbars/SuccessSnackbar";
 import ErrorSnackbar from "./Snackbars/ErrorSnackbar";
+import {allUsersByGroup} from "../state/selectors/allUsersByGroup";
+import userListItemsCountUpdater from "../state/atoms/userListItemsCountUpdater";
 
 
 const styles = {
@@ -78,6 +80,9 @@ export default function AddItemForm(props) {
     const [errorSnackbarValue, setErrorValueSnackbar] = useState('')
     const [successSnackbarOpen, setSuccessSnackbarOpen] = useState(false)
     const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
+    const updateUsers = useSetRecoilState(allUsersByGroup)
+    const [userListUpdaterVersion, setUserListUpdaterVersion] = useRecoilState(userListItemsCountUpdater)
+
 
     const isEdit = () => {
         if(initialData) return true;
@@ -152,6 +157,7 @@ export default function AddItemForm(props) {
         updateWishlist(0)
         updateAddToWishlist(0)
         updateItem(0)
+        updateUsers(0)
         afterSubmit()
     }
 
@@ -186,12 +192,14 @@ export default function AddItemForm(props) {
                 "priority": priority,
                 'groups': selectedGroups,
                 'isPublic': isPublic,
+                'seenBy': [],
             }
             const response = await DataStore.save(
                 new WishlistItem(itemData)
             );
             updateWishlist(0)
             updateAddToWishlist(0)
+            setUserListUpdaterVersion(userListUpdaterVersion + 1);
         } catch(e) {
             // handle error
             console.log(e)

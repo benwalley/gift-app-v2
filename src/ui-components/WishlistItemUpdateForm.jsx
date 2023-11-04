@@ -196,6 +196,7 @@ export default function WishlistItemUpdateForm(props) {
     custom: false,
     isPublic: false,
     createdById: "",
+    seenBy: [],
   };
   const [name, setName] = React.useState(initialValues.name);
   const [price, setPrice] = React.useState(initialValues.price);
@@ -212,6 +213,7 @@ export default function WishlistItemUpdateForm(props) {
   const [createdById, setCreatedById] = React.useState(
     initialValues.createdById
   );
+  const [seenBy, setSeenBy] = React.useState(initialValues.seenBy);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = wishlistItemRecord
@@ -234,6 +236,8 @@ export default function WishlistItemUpdateForm(props) {
     setCustom(cleanValues.custom);
     setIsPublic(cleanValues.isPublic);
     setCreatedById(cleanValues.createdById);
+    setSeenBy(cleanValues.seenBy ?? []);
+    setCurrentSeenByValue("");
     setErrors({});
   };
   const [wishlistItemRecord, setWishlistItemRecord] =
@@ -257,6 +261,8 @@ export default function WishlistItemUpdateForm(props) {
   const [currentWantsToGetValue, setCurrentWantsToGetValue] =
     React.useState("");
   const wantsToGetRef = React.createRef();
+  const [currentSeenByValue, setCurrentSeenByValue] = React.useState("");
+  const seenByRef = React.createRef();
   const validations = {
     name: [{ type: "Required" }],
     price: [],
@@ -271,6 +277,7 @@ export default function WishlistItemUpdateForm(props) {
     custom: [],
     isPublic: [],
     createdById: [],
+    seenBy: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -310,6 +317,7 @@ export default function WishlistItemUpdateForm(props) {
           custom,
           isPublic,
           createdById,
+          seenBy,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -378,6 +386,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -414,6 +423,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.price ?? value;
@@ -446,6 +456,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             values = result?.images ?? values;
@@ -503,6 +514,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.note ?? value;
@@ -535,6 +547,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             values = result?.groups ?? values;
@@ -592,6 +605,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.ownerId ?? value;
@@ -628,6 +642,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.priority ?? value;
@@ -664,6 +679,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.link ?? value;
@@ -696,6 +712,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             values = result?.gottenBy ?? values;
@@ -749,6 +766,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             values = result?.wantsToGet ?? values;
@@ -808,6 +826,7 @@ export default function WishlistItemUpdateForm(props) {
               custom: value,
               isPublic,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.custom ?? value;
@@ -844,6 +863,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic: value,
               createdById,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.isPublic ?? value;
@@ -880,6 +900,7 @@ export default function WishlistItemUpdateForm(props) {
               custom,
               isPublic,
               createdById: value,
+              seenBy,
             };
             const result = onChange(modelFields);
             value = result?.createdById ?? value;
@@ -894,6 +915,60 @@ export default function WishlistItemUpdateForm(props) {
         hasError={errors.createdById?.hasError}
         {...getOverrideProps(overrides, "createdById")}
       ></TextField>
+      <ArrayField
+        onChange={async (items) => {
+          let values = items;
+          if (onChange) {
+            const modelFields = {
+              name,
+              price,
+              images,
+              note,
+              groups,
+              ownerId,
+              priority,
+              link,
+              gottenBy,
+              wantsToGet,
+              custom,
+              isPublic,
+              createdById,
+              seenBy: values,
+            };
+            const result = onChange(modelFields);
+            values = result?.seenBy ?? values;
+          }
+          setSeenBy(values);
+          setCurrentSeenByValue("");
+        }}
+        currentFieldValue={currentSeenByValue}
+        label={"Seen by"}
+        items={seenBy}
+        hasError={errors.seenBy?.hasError}
+        setFieldValue={setCurrentSeenByValue}
+        inputFieldRef={seenByRef}
+        defaultFieldValue={""}
+      >
+        <TextField
+          label="Seen by"
+          isRequired={false}
+          isReadOnly={false}
+          value={currentSeenByValue}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (errors.seenBy?.hasError) {
+              runValidationTasks("seenBy", value);
+            }
+            setCurrentSeenByValue(value);
+          }}
+          onBlur={() => runValidationTasks("seenBy", currentSeenByValue)}
+          errorMessage={errors.seenBy?.errorMessage}
+          hasError={errors.seenBy?.hasError}
+          ref={seenByRef}
+          labelHidden={true}
+          {...getOverrideProps(overrides, "seenBy")}
+        ></TextField>
+      </ArrayField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

@@ -153,7 +153,8 @@ export default function AddAmazonWishlist(props) {
                         "ownerId": addToId,
                         "wishlistItemComments": [],
                         "priority": '',
-                        'groups': selectedGroups
+                        'groups': selectedGroups,
+                        'seenBy': [],
                     }
                     const response = await DataStore.save(
                         new WishlistItem(itemData)
