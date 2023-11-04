@@ -30,7 +30,7 @@ export default function GetThisDialog(props) {
     const updateItem = useSetRecoilState(wishlistItemById(item?.id))
 
     useEffect(() => {
-        if(!myUser) return;
+        if(!myUser || Array.isArray(myUser)) return;
         const asyncUsers = async () => {
             const subusers = await DataStore.query(Users, c => c.parentId("eq", myUser?.id).isUser('eq', true));
             setAvailableUsers([myUser, ...subusers])
@@ -59,7 +59,7 @@ export default function GetThisDialog(props) {
             <DialogTitle>Who is getting this?</DialogTitle>
             <DialogContent sx={{padding: '0 0 10px 0'}}>
                 <List component="div" role="group">
-                {availableUsers.map(user => (
+                {availableUsers && availableUsers.map(user => (
                     <ListItem
                         button
                         key={user?.id}

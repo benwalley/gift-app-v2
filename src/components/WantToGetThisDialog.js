@@ -32,7 +32,7 @@ export default function WantToGetThisDialog(props) {
 
 
     useEffect(() => {
-        if(!myUser) return;
+        if(!myUser || Array.isArray(myUser)) return;
         const asyncUsers = async () => {
             const subusers = await DataStore.query(Users, c => c.parentId("eq", myUser?.id).isUser('eq', true));
             setAvailableUsers([myUser, ...subusers])
@@ -61,10 +61,10 @@ export default function WantToGetThisDialog(props) {
             <DialogTitle>Who wants to go in on this?</DialogTitle>
             <DialogContent sx={{padding: '0 0 10px 0'}}>
                 <List component="div" role="group">
-                {availableUsers.map(user => (
+                {availableUsers && availableUsers.map(user => (
                     <ListItem
                         button
-                        key={user?.id}
+                        key={user.id}
                         secondaryAction={
                             item?.wantsToGet?.includes(user?.id) && <Tooltip title={`${user?.username || 'This user'} wants to go in on this.`}>
                                 <GroupsIcon color={'secondary'}/>

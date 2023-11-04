@@ -31,6 +31,7 @@ import {canUserDelete} from "../../../state/selectors/canUserDelete";
 import GetThisDialog from "../../GetThisDialog";
 import WantToGetThisDialog from "../../WantToGetThisDialog";
 import {text} from "../../../text";
+import {asyncUpdate} from "../../../helpers/updaters/asyncUpdate";
 
 
 const PriorityPriceEl = styled.div`
@@ -98,7 +99,7 @@ export default function Tile(props) {
                 console.log(e)
             }
         }))
-
+        asyncUpdate(updateWishlist, [0])
     }
 
     useEffect(() => {
