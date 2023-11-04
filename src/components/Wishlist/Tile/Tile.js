@@ -91,7 +91,7 @@ export default function Tile(props) {
         }, 3000)
         const original = await DataStore.query(WishlistItem, tile.id);
         if(!original) return;
-        const updatedSeenBy = [...original.seenBy, user.id];
+        const updatedSeenBy = [...original.seenBy || [], user.id];
         await DataStore.save(WishlistItem.copyOf(original, updated => {
             try {
                 updated.seenBy = updatedSeenBy;
