@@ -141,7 +141,6 @@ type EagerWishlistItem = {
   readonly custom?: boolean | null;
   readonly isPublic?: boolean | null;
   readonly createdById?: string | null;
-  readonly seenBy?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -165,7 +164,6 @@ type LazyWishlistItem = {
   readonly custom?: boolean | null;
   readonly isPublic?: boolean | null;
   readonly createdById?: string | null;
-  readonly seenBy?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

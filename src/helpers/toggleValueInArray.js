@@ -7,9 +7,3 @@ export function toggleValueInArray(array, value) {
     arrayCopy.push(value)
     return arrayCopy
 }
-
-export function addValueToFlatSetArray(array, value) {
-    const arrayCopy = [...array];
-    const setArray = new Set(arrayCopy);
-
-}

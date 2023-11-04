@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {currentUser} from "../state/selectors/currentUser";
-import {Avatar, Chip, ListItem} from "@mui/material";
+import {Avatar, ListItem} from "@mui/material";
 import stringToColor from "../helpers/stringToColor";
 import styled from '@emotion/styled'
 import {useNavigate} from "react-router-dom";
@@ -13,17 +13,14 @@ import {useEffect, useState} from "react";
 import selectedGroupsState from "../state/atoms/selectedGroupsState";
 import {DataStore} from "aws-amplify";
 import {Users, WishlistItem} from "../models";
-import {useRecoilState, useRecoilValue} from "recoil";
-import userListItemsCountUpdater from "../state/atoms/userListItemsCountUpdater";
+import {useRecoilValue} from "recoil";
 
 export default function UserListItem(props) {
     const {user} = props;
     const myUser = useRecoilHook(currentUser)
     let navigate = useNavigate();
     const [count, setCount] = useState()
-    const [countUnseen, setCountUnseen] = useState(0);
     const selectedGroups = useRecoilValue(selectedGroupsState)
-    const userListUpdaterVersion = useRecoilValue(userListItemsCountUpdater)
 
 
     const handleItemClick = (e) => {
@@ -38,24 +35,19 @@ export default function UserListItem(props) {
     async function updateItemsCount() {
         if (!user || !selectedGroups) return;
         const items = await DataStore.query(WishlistItem, c => c.ownerId("eq", user?.id));
-        let unseenCount = 0
         const filteredItems = items.filter(item => {
             for(const group of selectedGroups) {
-                if(item.seenBy && !item.seenBy?.includes(user?.id)) {
-                    unseenCount++
-                }
                 if(item.groups.includes(group) && !item.custom) {
                     return true;
                 }
             }
             return false
         })
-        setCountUnseen(unseenCount);
         setCount(filteredItems.length)
     }
     useEffect(() => {
         updateItemsCount()
-    }, [user, updateItemsCount, userListUpdaterVersion]);
+    }, [user, updateItemsCount]);
 
     return (
         <ListItem disablePadding divider>
@@ -67,10 +59,7 @@ export default function UserListItem(props) {
                     {user?.id === myUser.id && <span> (You)</span>}
                 </UsernameEl>
                 {user.isUser && <SubuserIcon/>}
-                {count && <span>({count})</span>}
-                {countUnseen > 0 && <Chip label={`${countUnseen} `}
-                                          sx={{fontWeight: 'bold', marginLeft: 'auto'}}
-                                          color="secondary"/>}
+                {count && `(${count})`}
             </ListItemButton>
         </ListItem>
     )

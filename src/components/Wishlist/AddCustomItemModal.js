@@ -81,8 +81,7 @@ export default function AddCustomItemModal(props) {
                 "wishlistItemComments": [],
                 "priority": '',
                 'groups': selectedGroups,
-                'createdById': myUser.id,
-                'seenBy': [],
+                'createdById': myUser.id
             }
             const response = await DataStore.save(
                 new WishlistItem(itemData)

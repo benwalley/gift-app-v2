@@ -79,30 +79,6 @@ export default function Tile(props) {
         }
     }
 
-    async function setItemAsViewed() {
-        if(typeof(user.id) !== 'string') return;
-        const original = await DataStore.query(WishlistItem, tile.id);
-        if(!original) return;
-        const updatedSeenBy = original.seenBy?.length ? [...original.seenBy] : [];
-        if(!updatedSeenBy.includes(user.id)) {
-            updatedSeenBy.push(user.id);
-        }
-        await DataStore.save(WishlistItem.copyOf(original, updated => {
-            try {
-                updated.seenBy = updatedSeenBy;
-            } catch (e) {
-                console.log(e)
-            }
-        }))
-
-        updateWishlist(0)
-    }
-
-    useEffect(() => {
-        if(!user?.id || !tile) return;
-        setItemAsViewed()
-    }, [user, tile]);
-
     useEffect(() => {
         updateImageurl();
     }, [tile.images, updateImageurl]);
