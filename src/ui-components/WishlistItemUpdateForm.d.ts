@@ -27,6 +27,7 @@ export declare type WishlistItemUpdateFormInputValues = {
     custom?: boolean;
     isPublic?: boolean;
     createdById?: string;
+    seenBy?: string[];
 };
 export declare type WishlistItemUpdateFormValidationValues = {
     name?: ValidationFunction<string>;
@@ -42,6 +43,7 @@ export declare type WishlistItemUpdateFormValidationValues = {
     custom?: ValidationFunction<boolean>;
     isPublic?: ValidationFunction<boolean>;
     createdById?: ValidationFunction<string>;
+    seenBy?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type WishlistItemUpdateFormOverridesProps = {
@@ -59,6 +61,7 @@ export declare type WishlistItemUpdateFormOverridesProps = {
     custom?: PrimitiveOverrideProps<SwitchFieldProps>;
     isPublic?: PrimitiveOverrideProps<SwitchFieldProps>;
     createdById?: PrimitiveOverrideProps<TextFieldProps>;
+    seenBy?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type WishlistItemUpdateFormProps = React.PropsWithChildren<{
     overrides?: WishlistItemUpdateFormOverridesProps | undefined | null;
