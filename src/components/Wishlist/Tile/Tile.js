@@ -68,6 +68,7 @@ export default function Tile(props) {
     const [getThisDialogOpen, setGetThisDialogOpen] = useState(false)
     const [wantToGetThisDialogOpen, setWantToGetThisDialogOpen] = useState(false)
     const [hasSubusers, setHasSubusers] = useState(false);
+    const [showNewStyles, setShowNewStyles] = useState(false)
 
     function updateImageurl() {
         if(tile?.images[0] === undefined) return
@@ -80,13 +81,16 @@ export default function Tile(props) {
     }
 
     async function setItemAsViewed() {
-        if(typeof(user.id) !== 'string') return;
+        if(typeof(user?.id) !== 'string') return;
+        const isSeen = tile.seenBy?.includes(user.id);
+        if(isSeen) return;
+        setShowNewStyles(true);
+        setTimeout(() => {
+            setShowNewStyles(false);
+        }, 3000)
         const original = await DataStore.query(WishlistItem, tile.id);
         if(!original) return;
-        const updatedSeenBy = original.seenBy?.length ? [...original.seenBy] : [];
-        if(!updatedSeenBy.includes(user.id)) {
-            updatedSeenBy.push(user.id);
-        }
+        const updatedSeenBy = [...original.seenBy, user.id];
         await DataStore.save(WishlistItem.copyOf(original, updated => {
             try {
                 updated.seenBy = updatedSeenBy;
@@ -95,7 +99,6 @@ export default function Tile(props) {
             }
         }))
 
-        updateWishlist(0)
     }
 
     useEffect(() => {
@@ -211,8 +214,20 @@ export default function Tile(props) {
         return customAddedByName?.username ?? 'A user someone besides the list owner'
     }
 
+    const cardStyles = () => {
+        return {
+            display: 'grid',
+            gridTemplateRows: '1fr 56px',
+            position: 'relative',
+            minWidth: '275px',
+            borderRadius: '10px',
+            transition: showNewStyles ? 'none' : '800ms outline',
+            outline: showNewStyles ? '1.5px solid var(--delete-red)' : '0px solid transparent',
+        }
+    }
+
     return (
-        <Card sx={{display: 'grid', gridTemplateRows: '1fr 56px', position: 'relative', minWidth: '275px', borderRadius: '10px'}}>
+        <Card sx={cardStyles}>
             {canSeeBadges && <TopBadges getting={tile.gottenBy} wantsToGet={tile.wantsToGet}/>}
             <CardActionArea onClick={handleClick}>
                 {tile?.images?.length > 0 &&
