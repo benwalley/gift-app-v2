@@ -36,7 +36,7 @@ export default function UserListItem(props) {
     `
 
     async function updateItemsCount() {
-        if (!user || !selectedGroups) return;
+        if (!user || !selectedGroups || Array.isArray(myUser)) return;
         const items = await DataStore.query(WishlistItem, c => c.ownerId("eq", user?.id));
         let unseenCount = 0
         const filteredItems = items.filter(item => {
