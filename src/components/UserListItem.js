@@ -41,7 +41,7 @@ export default function UserListItem(props) {
         let unseenCount = 0
         const filteredItems = items.filter(item => {
             for(const group of selectedGroups) {
-                if(item.seenBy && !item.seenBy?.includes(user?.id)) {
+                if(item.seenBy && !item.seenBy?.includes(myUser?.id)) {
                     unseenCount++
                 }
                 if(item.groups.includes(group) && !item.custom) {
