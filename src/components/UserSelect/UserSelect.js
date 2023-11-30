@@ -27,6 +27,9 @@ export default function UserSelect(props) {
     }, [myUsersList]);
 
     function handleChange(e, newValue) {
+        if(newValue === null || newValue === '') {
+            return;
+        }
         setSelectedUser(newValue)
         setSelectedId(newValue.id)
     }
@@ -46,6 +49,7 @@ export default function UserSelect(props) {
         <>
             {showSelect && selectedUser && <Autocomplete
                 disablePortal
+                disableClearable={true}
                 id="combo-box-demo"
                 options={myUsersList}
                 sx={{ width: 300 }}
