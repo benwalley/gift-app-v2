@@ -4,18 +4,18 @@ import {DataStore} from "aws-amplify";
 import {Groups, WishlistItem} from "../../models";
 import {selectedPlanningUser} from "./selectedPlanningUser";
 
-export const giftsYourGettingVersion = atom({
-    key: 'giftsYourGettingVersion',
+export const giftsYouWantToGoInOnVersion = atom({
+    key: 'giftsYouWantToGoInOnVersion',
     default: 0,
 });
 
-export const giftsYourGetting = selector({
-    key: 'giftsYourGetting',
+export const giftsYouWantToGoInOn = selector({
+    key: 'giftsYouWantToGoInOn',
     get: async ({get}) => {
-        get(giftsYourGettingVersion)
+        get(giftsYouWantToGoInOnVersion)
         const user = get(selectedPlanningUser)
         const groups = await DataStore.query(Groups, c => c.memberId("contains", user?.id));
-        const gifts = await DataStore.query(WishlistItem, c => c.gottenBy("contains", user?.id));
+        const gifts = await DataStore.query(WishlistItem, c => c.wantsToGet("contains", user?.id));
         return (gifts.filter(gift => {
             for(const group of groups) {
                 if(gift.groups.includes(group.id)) {
@@ -26,17 +26,17 @@ export const giftsYourGetting = selector({
         }))
     },
     set: ({get, set}) => {
-        const version = get(giftsYourGettingVersion);
-        set(giftsYourGettingVersion, version + 1)
+        const version = get(giftsYouWantToGoInOnVersion);
+        set(giftsYouWantToGoInOnVersion, version + 1)
     }
 });
 
-export const updateGiftsYourGetting = selector({
-    key: 'updateGiftsYourGetting',
+export const updateGiftsYouWantToGoInOn = selector({
+    key: 'updateGiftsYouWantToGoInOn',
     get: ({get}) => {
     },
     set: ({get, set}) => {
-        const version = get(giftsYourGettingVersion);
-        set(giftsYourGettingVersion, version + 1)
+        const version = get(giftsYouWantToGoInOnVersion);
+        set(giftsYouWantToGoInOnVersion, version + 1)
     }
 });

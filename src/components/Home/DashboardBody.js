@@ -47,7 +47,6 @@ export default function DashboardBody() {
             {user && !user?.subuserModeOn && <Tile type="primary">
                 <h3>Gifts You're Giving</h3>
                 <Link to='/giving'>See the gifts you're giving, and plan who you still want to get gifts for.</Link>
-
             </Tile>}
             <Tile type="primary">
                 <SubuserOverview/>

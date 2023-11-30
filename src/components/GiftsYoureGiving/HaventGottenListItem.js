@@ -11,13 +11,14 @@ import {Link} from "react-router-dom";
 import {DataStore} from "aws-amplify";
 import {Planning, Users, WishlistItem} from "../../models";
 import {currentUser} from "../../state/selectors/currentUser";
-import {useSetRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {updateMyPlanningData} from "../../state/selectors/myPlanningData";
 import UserAvatar from "../UserAvatar";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 export default function HaventGottenListItem(props) {
     const {userId} = props
-    const myUser = useRecoilHook(currentUser)
+        const selectedUser = useRecoilHook(selectedPlanningUser)
     const user = useRecoilHook(userById(userId))
     const updatePlanning = useSetRecoilState(updateMyPlanningData)
 
@@ -38,13 +39,13 @@ export default function HaventGottenListItem(props) {
 
     async function handleRemove() {
         const planningData = await DataStore.query(Planning, (c) => c.and(c => [
-            c.giftFromId("eq", myUser?.id),
+            c.giftFromId("eq", selectedUser?.id),
             c.giftForId('eq', user.id)
         ]));
         if(!planningData?.length) {
             const insertData = {
                 giftForId: user.id,
-                giftFromId: myUser.id,
+                giftFromId: selectedUser.id,
                 wantToGetGifts: false,
             }
             const newPlanning = await DataStore.save(

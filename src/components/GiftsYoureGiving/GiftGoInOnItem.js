@@ -7,29 +7,21 @@ import {
     FormControl,
     IconButton, InputAdornment, InputLabel,
     ListItem, OutlinedInput,
-    Stack,
-    StepLabel,
-    Stepper,
-    TextField,
-    ToggleButton,
-    ToggleButtonGroup,
     Tooltip, Typography
 } from "@mui/material";
-import CallMadeIcon from '@mui/icons-material/CallMade';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import StoreIcon from '@mui/icons-material/Store';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import LinkIcon from '@mui/icons-material/Link';
+
 import useCurrency from "../../hooks/useCurrency";
 import ImageRender from "../ImageRender";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser} from "../../state/selectors/currentUser";
+
 import Button from "@mui/material/Button";
 import OtherUsersGettingThisList from "../GiftsYoureGiving/OtherUsersGettingThisList";
-import {useRecoilState, useSetRecoilState} from "recoil";
-import {giftsYourGetting} from "../../state/selectors/giftsYourGetting";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
+import {giftsYouWantToGoInOn, giftsYouWantToGoInOnVersion} from "../../state/selectors/giftsYouWantToGoInOn";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 const imageContainerStyles = {
     width: '75px',
@@ -47,27 +39,18 @@ const imageStyles = {
     objectFit: 'contain'
 }
 
-const bottomRowStyles = {
-    display: 'flex',
-    gap: '10px',
-    flexWrap: 'wrap',
-    marginBottom: '20px',
-    marginTop: '20px',
-    width: '100%',
-    justifyContent: 'space-between',
-}
-
-export default function GiftGivingItem(props) {
+export default function GiftGoInOnItem(props) {
     const {gift} = props
     const [gottenForName, setGottenForName] = useState()
-    const myUser = useRecoilHook(currentUser)
+        const selectedUser = useRecoilHook(selectedPlanningUser)
     const [gettingData, setGettingData] = useState()
     const [actualPrice, setActualPrice] = useState('');
     const [otherUsersExpanded, setOtherUsersExpanded] = useState(false)
     const [priceTimeout, setPriceTimeout] = useState(0)
-    const setGivingData = useSetRecoilState(giftsYourGetting);
+    const setGoInOn = useSetRecoilState(giftsYouWantToGoInOn);
     const price = useCurrency(calculatedPrice());
     const [deleting, setDeleting] = useState(false);
+
 
     function calculatedPrice() {
         if(gettingData?.actualPrice !== undefined && gettingData?.actualPrice !== '') {
@@ -95,17 +78,6 @@ export default function GiftGivingItem(props) {
         updateGettingDataItem('actualPrice', price);
     }
 
-
-    const handleAlignment = (event, newStatus) => {
-        updateGettingDataItem('status', newStatus);
-    };
-
-    function addGiverId(id) {
-        if(!gettingData) return;
-        const newIds = [...new Set(gettingData.giverIds), id]
-        updateGettingDataItem('giverIds', newIds);
-    }
-
     async function updateGettingDataItem(itemName, itemValue) {
         if(!gettingData) {
             await updateGettingData();
@@ -117,12 +89,12 @@ export default function GiftGivingItem(props) {
             updated[itemName]  = itemValue;
         }))
         setGettingData(newData);
-        setGivingData(0);
+        setGoInOn(0)
 
     }
 
     useEffect( () => {
-        if(!gift || !myUser || myUser.length === 0) return;
+        if(!gift || !selectedUser || selectedUser.length === 0) return;
         const updateGottenForName = async () => {
             const giftOwner = await DataStore.query(Users, gift?.ownerId);
             if(giftOwner) {
@@ -131,21 +103,20 @@ export default function GiftGivingItem(props) {
         }
         updateGottenForName()
         updateGettingData()
-    }, [gift, myUser]);
+    }, [gift, selectedUser]);
 
     async function updateGettingData() {
-        if(!gift?.id || !myUser.id) return;
+        if(!gift?.id || !selectedUser.id) return;
         const existingData = await DataStore.query(Giving, (c) => c.and(c => [
             c.giftId("eq", gift?.id),
-            c.giverIds('contains', myUser.id)
+            c.giverIds('contains', selectedUser.id)
         ]));
 
         if(existingData === undefined || existingData.length === 0) {
             // create line item
             const newData = {
-                status: 'goingToGet',
                 giftId: gift.id,
-                giverIds: [myUser.id]
+                giverIds: [selectedUser.id]
             }
             const newItem = await DataStore.save(
                 new Giving(newData)
@@ -155,10 +126,6 @@ export default function GiftGivingItem(props) {
         }
         setGettingData(existingData[0])
         return existingData[0]
-    }
-
-    function itemStatus() {
-        return gettingData?.status
     }
 
     function handlePriceChange(e) {
@@ -172,10 +139,10 @@ export default function GiftGivingItem(props) {
     }
 
     function otherUsersGetting() {
-        if(!gift || !myUser?.id) return false;
+        if(!gift || !selectedUser?.id) return false;
         const combined = [...gift.gottenBy || [], ...gift.wantsToGet || []];
         const filtered = combined.filter(id => {
-            return id !== myUser.id;
+            return id !== selectedUser.id;
         })
         return filtered.length > 0;
     }
@@ -183,18 +150,16 @@ export default function GiftGivingItem(props) {
     async function handleRemove() {
         setDeleting(true);
         const giftCopy = structuredClone(gift);
-        const gottenByCopy = new Set(giftCopy.gottenBy || []);
-        gottenByCopy.delete(myUser.id);
+        const wantToGetCopy = new Set(giftCopy.wantsToGet || []);
+        wantToGetCopy.delete(selectedUser.id);
 
         // set gift value;
         const original = await DataStore.query(WishlistItem, gift.id);
         await DataStore.save(WishlistItem.copyOf(original, updated => {
-            updated.gottenBy = Array.from(gottenByCopy);
+            updated.wantsToGet = Array.from(wantToGetCopy);
         }))
-
-        setGivingData(0)
+        setGoInOn(0)
     }
-
     const deletingOverlayStyles = {
         position: 'absolute',
         inset: 0,
@@ -217,6 +182,8 @@ export default function GiftGivingItem(props) {
                 width: '100%',
                 alignItems: 'center',
                 flexWrap: 'wrap',
+                marginBottom: '20px',
+                marginTop: '20px',
             }}>
                 {gift?.images?.length > 0 && <div style={imageContainerStyles}>
                     <ImageRender styles={imageStyles} src={gift.images[0]}/>
@@ -225,41 +192,6 @@ export default function GiftGivingItem(props) {
                     <Link style={{marginRight: 'auto', maxWidth: '500px'}} to={`/wishlist/item/${gift.id}`}>{gift.name}</Link>
                 </Tooltip>
                 <span>{price}</span>
-
-                <div>
-                    <p style={{margin: 0, fontSize: '0.8em', color: '#444444'}}>Status</p>
-                    <ToggleButtonGroup
-                        value={itemStatus()}
-                        exclusive
-                        onChange={handleAlignment}
-                        aria-label="Gift Status"
-                        size={'small'}
-                        color={'secondary'}
-                    >
-                        <ToggleButton value="goingToGet" aria-label="Going to get">
-                            <Tooltip title={"Going to get"} disableInteractive={true}>
-                                <CheckBoxIcon/>
-                            </Tooltip>
-                        </ToggleButton>
-                        <ToggleButton value="ordered" aria-label="Ordered">
-                            <Tooltip title={"Ordered"} disableInteractive={true}>
-                                <StoreIcon/>
-                            </Tooltip>
-                        </ToggleButton>
-                        <ToggleButton value="gotten" aria-label="Gotten">
-                            <Tooltip title={"Gotten"} disableInteractive={true}>
-                                <LocalShippingIcon/>
-                            </Tooltip>
-                        </ToggleButton>
-                        <ToggleButton value="wrapped" aria-label="Wrapped">
-                            <Tooltip title={"Wrapped"} disableInteractive={true}>
-                                <CardGiftcardIcon/>
-                            </Tooltip>
-                        </ToggleButton>
-                    </ToggleButtonGroup>
-                </div>
-            </div>
-            <div style={bottomRowStyles}>
                 <FormControl size={'small'}>
                     <InputLabel htmlFor="actual-price">Actual Price</InputLabel>
                     <OutlinedInput
@@ -270,11 +202,7 @@ export default function GiftGivingItem(props) {
                         label="Actual Price"
                     />
                 </FormControl>
-                {otherUsersGetting() && <Button onClick={handleToggleOtherUsers}
-                                                sx={{marginLeft: 'auto'}}>
-                    {otherUsersExpanded ? 'Hide Other users' : 'Show Other Users'}
-                </Button>}
-                <Tooltip title={"I don't want to get this."}>
+                <Tooltip title={"I don't want to go in on this."}>
                     <IconButton color='deleteRed' onClick={handleRemove}>
                         <HighlightOffIcon/>
                     </IconButton>
@@ -283,6 +211,11 @@ export default function GiftGivingItem(props) {
                 {/*    <Checkbox icon={<RemoveShoppingCartIcon />} checkedIcon={<ShoppingCartIcon />} />*/}
                 {/*</Tooltip>*/}
             </div>
+            {otherUsersGetting() &&
+                <Button sx={{marginLeft: 'auto', marginRight: '50px'}}
+                                            onClick={handleToggleOtherUsers}>
+                    {otherUsersExpanded ? 'Hide Other users' : 'Show Other Users'}
+                </Button>}
             <Collapse sx={{width: '100%', borderTop: '1px solid #dfdfdf', background: '#ebf5fd'}} in={otherUsersExpanded} timeout="auto" unmountOnExit>
                 <OtherUsersGettingThisList gift={gift}/>
             </Collapse>

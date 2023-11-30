@@ -40,7 +40,7 @@ export default function OtherUserGettingThisItem(props) {
                     background: 'var(--secondary-color)',
                     opacity: .8,
                 }}/></Tooltip>}
-                {getting && <Tooltip title={`${user?.username || "this user"} is also getting this`}><GroupIcon size="medium" sx={{
+                {getting && <Tooltip title={`${user?.username || "this user"} is getting this`}><GroupIcon size="medium" sx={{
                     borderRadius: '1em',
                     padding: '4px',
                     width: '35px',

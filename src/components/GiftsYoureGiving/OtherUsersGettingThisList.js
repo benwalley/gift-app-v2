@@ -6,22 +6,23 @@ import OtherUserGettingThisItem from "./OtherUserGettingThisItem";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser} from "../../state/selectors/currentUser";
 import {Divider} from "@aws-amplify/ui-react";
+import {useRecoilValue} from "recoil";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 export default function OtherUsersGettingThisList(props) {
     const {gift} = props
-    const myUser = useRecoilHook(currentUser);
-
+        const selectedUser = useRecoilHook(selectedPlanningUser)
     function gottenByList() {
         if(gift.gottenBy?.length === 0) return [];
         return gift.gottenBy.filter(id => {
-            return id !== myUser?.id
+            return id !== selectedUser?.id
         })
     }
 
     function wantsToGetList() {
         if(gift.wantsToGet?.length === 0) return [];
         return gift.wantsToGet.filter(id => {
-            return id !== myUser?.id
+            return id !== selectedUser?.id
         })
     }
 

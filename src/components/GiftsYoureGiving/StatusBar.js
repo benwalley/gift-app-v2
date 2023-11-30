@@ -7,15 +7,16 @@ import {givingStatusOptions} from "../../helpers/config";
 import {useRecoilValue} from "recoil";
 import givingDataVersion from "../../state/atoms/givingDataVersion";
 import {Tooltip} from "@mui/material";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 export default function StatusBar(props) {
     const {giftArray} = props
     const [percentage, setPercentage] = useState(0)
-    const myUser = useRecoilHook(currentUser)
+        const selectedUser = useRecoilHook(selectedPlanningUser)
     const givingVersion = useRecoilValue(givingDataVersion)
 
     useEffect(() => {
-        if(!giftArray || !myUser || myUser.length === 0) return;
+        if(!giftArray || !selectedUser || selectedUser.length === 0) return;
         updatePercentage()
     }, [giftArray, givingVersion]);
 
@@ -25,7 +26,7 @@ export default function StatusBar(props) {
         for (const gift of giftArray) {
             const extraData = await DataStore.query(Giving, (c) => c.and(c => [
                 c.giftId("eq", gift?.id),
-                c.giverIds('contains', myUser.id)
+                c.giverIds('contains', selectedUser.id)
             ]));
             if(!extraData || extraData.length === 0) {
                 perc +=  percentPerGift/10;

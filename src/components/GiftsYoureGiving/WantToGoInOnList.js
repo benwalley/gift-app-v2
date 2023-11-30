@@ -1,28 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import useRecoilHook from "../../hooks/useRecoilHook";
-import {giftsYourGetting, updateGiftsYourGetting} from "../../state/selectors/giftsYourGetting";
 import List from "@mui/material/List";
 import {IconButton, ListItem, Stack, Tooltip} from "@mui/material";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import Divider from "@mui/material/Divider";
-import {Link} from "react-router-dom";
-import GiftGivingPerson from "./GiftGivingPerson";
+import GiftGivingPerson from "../Home/GiftGivingPerson";
 import useCurrency from "../../hooks/useCurrency";
-import Button from "@mui/material/Button";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
-import checkedTotalsIds from "../../state/atoms/checkedTotalsIds";
 import {DataStore} from "aws-amplify";
 import {Giving} from "../../models";
 import {currentUser} from "../../state/selectors/currentUser";
+import {
+    giftsYouWantToGoInOn,
+    giftsYouWantToGoInOnVersion,
+    updateGiftsYouWantToGoInOn
+} from "../../state/selectors/giftsYouWantToGoInOn";
+import checkedWantToGoInOnTotalsIds from "../../state/atoms/checkedWantToGoInOnTotalsIds";
+import GiftGoInOnPerson from "./GiftGoInOnPerson";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
-export default function GiftGivingOverview() {
-    const gifts = useRecoilHook(giftsYourGetting)
-    const updateGifts = useSetRecoilState(updateGiftsYourGetting)
+export default function WantToGoInOnList() {
+    const gifts = useRecoilHook(giftsYouWantToGoInOn)
+    const updateGifts = useSetRecoilState(updateGiftsYouWantToGoInOn)
     const [calculatedPrice, setCalculatedPrice] = useState(0)
     const price = useCurrency(calculatedPrice)
-    const [totalsIds, setTotalsIds] = useRecoilState(checkedTotalsIds);
-    const myUser = useRecoilHook(currentUser)
+    const [totalsIds, setTotalsIds] = useRecoilState(checkedWantToGoInOnTotalsIds);
+    const selectedUser = useRecoilHook(selectedPlanningUser)
+    const wantToGoInOnVersion = useRecoilValue(giftsYouWantToGoInOnVersion);
 
 
     useEffect(() => {
@@ -31,7 +36,7 @@ export default function GiftGivingOverview() {
 
     useEffect(() => {
         updateTotalPrice()
-    }, [gifts,totalsIds]);
+    }, [gifts, totalsIds, wantToGoInOnVersion]);
 
     useEffect(() => {
         handleSelectAll()
@@ -57,7 +62,7 @@ export default function GiftGivingOverview() {
                 const itemPrice = item.price || 0;
                 const customData = await DataStore.query(Giving, (c) => c.and(c => [
                     c.giftId("eq", item?.id),
-                    c.giverIds('contains', myUser.id)
+                    c.giverIds('contains', selectedUser.id)
                 ]));
                 if(customData?.length > 0) {
                     const customPrice = customData[0].actualPrice;
@@ -94,9 +99,8 @@ export default function GiftGivingOverview() {
 
     return (
         <List>
-            <h3>Gifts You're Giving</h3>
             <Divider/>
-            {gifts && gifts.length === 0 && <p>You haven't marked any gifts as gotten</p>}
+            {gifts && gifts.length === 0 && <p>There are no gifts that you want to go in on</p>}
             {gifts && gifts.length > 0 && <div style={priceCheckboxActionStyles}>
                 <p style={{fontSize: '0.8em', margin: 0}}>Include in Total Price</p>
                 <Tooltip title='Select All' disableInteractive={true}>
@@ -111,7 +115,7 @@ export default function GiftGivingOverview() {
                 </Tooltip>
             </div>}
             {gifts && gifts.length > 0 && groupedGifts().map(giftArray => {
-                return <GiftGivingPerson key={giftArray[0].ownerId} giftArray={giftArray}/>
+                return <GiftGoInOnPerson key={giftArray[0].ownerId} giftArray={giftArray}/>
             })}
             {gifts && gifts.length > 0 && <Stack direction={'row'} justifyContent={'space-between'} sx={{padding: '10px 0'}}>
                 <strong>Total approximate price</strong>

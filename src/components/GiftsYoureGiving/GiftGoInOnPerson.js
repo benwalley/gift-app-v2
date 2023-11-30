@@ -2,37 +2,32 @@ import React, {useEffect, useState} from 'react';
 import {Avatar, Checkbox, Chip, Collapse, IconButton, ListItem, ListItemAvatar, Stack, Tooltip} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-import GiftGivingItem from "./GiftGivingItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
+import GiftGivingItem from "../Home/GiftGivingItem";
 import ListItemText from "@mui/material/ListItemText";
-import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import {DataStore} from "aws-amplify";
 import {Giving, Users} from "../../models";
-import stringToColor from "../../helpers/stringToColor";
-import {getFirstLetters} from "../../helpers/nameFirstLetters";
-import {Divider} from "@aws-amplify/ui-react";
 import useCurrency from "../../hooks/useCurrency";
 import {Link} from "react-router-dom";
-import ProductPicker from "../Account/Groups/ProductPicker";
 import CustomModal from "../CustomModal";
 import UserAvatar from "../UserAvatar";
-import CommentIcon from '@mui/icons-material/Comment';
 import checkedTotalsIds from "../../state/atoms/checkedTotalsIds";
-import {useRecoilState} from "recoil";
-import StatusBar from "../GiftsYoureGiving/StatusBar";
+import {useRecoilState, useRecoilValue} from "recoil";
+import GiftGoInOnItem from "./GiftGoInOnItem";
+import checkedWantToGoInOnTotalsIds from "../../state/atoms/checkedWantToGoInOnTotalsIds";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser} from "../../state/selectors/currentUser";
 import Button from "@mui/material/Button";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 
-export default function GiftGivingPerson(props) {
+export default function GiftGoInOnPerson(props) {
     const {giftArray} = props
     const [open, setOpen] = useState(false)
     const [gottenForUser, setGottenForUser] = useState()
     const [calculatedPrice, setCalculatedPrice] = useState(0)
     const price = useCurrency(calculatedPrice)
-    const [checkedIds, setCheckedIds] = useRecoilState(checkedTotalsIds)
-    const myUser = useRecoilHook(currentUser)
+    const [checkedIds, setCheckedIds] = useRecoilState(checkedWantToGoInOnTotalsIds)
+        const selectedUser = useRecoilHook(selectedPlanningUser)
 
 
     useEffect( () => {
@@ -63,7 +58,7 @@ export default function GiftGivingPerson(props) {
                 const itemPrice = item.price || 0;
                 const customData = await DataStore.query(Giving, (c) => c.and(c => [
                     c.giftId("eq", item?.id),
-                    c.giverIds('contains', myUser.id)
+                    c.giverIds('contains', selectedUser.id)
                 ]));
                 if(customData?.length > 0) {
                     const customPrice = customData[0].actualPrice;
@@ -111,16 +106,15 @@ export default function GiftGivingPerson(props) {
                 <span style={{padding: '0 7px'}}>
                     {price}
                 </span>
-                <Tooltip title={`You're getting ${gottenForUser?.username}, ${giftArray?.length} gifts`} disableInteractive={true}>
-                    <Chip label={giftArray ? giftArray.length : '...'} color={'primary'} size={'small'} sx={{fontWeight: 'bold', margin: '0 7px'}}/>
+                <Tooltip title={`You want to go in on ${giftArray?.length} gift${giftArray?.length > 1 ? 's' : ''} for ${gottenForUser?.username}`} disableInteractive={true}>
+                    <Chip label={giftArray ? giftArray.length : '...'} color={'secondary'} size={'small'} sx={{fontWeight: 'bold', margin: '0 7px'}}/>
                 </Tooltip>
-                <StatusBar giftArray={giftArray}/>
             </ListItemButton>
             <CustomModal size={"large"} open={open} setOpen={setOpen} unmountOnExit>
                 <h2>{gottenForUser?.username}</h2>
                 <List component="div" disablePadding>
                     {giftArray.map(gift => {
-                        return <GiftGivingItem key={gift.id} gift={gift}/>
+                        return <GiftGoInOnItem key={gift.id} gift={gift}/>
                     })}
                 </List>
                 <Button sx={{marginTop: '20px', float: 'right'}} onClick={() => setOpen(false)} variant={'contained'}>Done</Button>
