@@ -6,15 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddAmazonWishlist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddWishlistForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAmazonWishlist/AddWishlistForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddItemForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ImageList/ImageList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageList/ImageList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ImageUpload/ImageUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageUpload/ImageUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ImageUpload/UploadedImage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageUpload/UploadedImage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Public/publicWishlistTile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Public/publicWishlistTile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WantToGetThisDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WantToGetThisDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/Tile/Tile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DashboardDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/GiftGivingItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/GiftGivingItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/GiftGivingOverview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/GiftGivingOverview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Tile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ImageRender.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageRender.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserListItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/allUsersByGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/allUsersByGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui-components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui-components/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,34 +44,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/benwalley/Documents/personal/wishlist-app/src/state/selectors",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/benwalley/Library/Application Support/JetBrains/Toolbox/apps/PhpStorm/ch-0/222.4345.15/PhpStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/benwalley/Documents/personal/wishlist-app/src/components/GiftsYoureGiving&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/benwalley/Library/Application Support/JetBrains/Toolbox/apps/PhpStorm/ch-0/222.4345.15/PhpStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "JSON",
-      "TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JSON&quot;,
+      &quot;TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/GiftsYoureGiving" />
       <recent name="$PROJECT_DIR$/src/state/selectors" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/components/Wishlist" />
       <recent name="$PROJECT_DIR$/src/components/Snackbars" />
-      <recent name="$PROJECT_DIR$/src/components/Home" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/ImageList" />
@@ -118,6 +124,9 @@
       <workItem from="1674341360003" duration="2169000" />
       <workItem from="1674427500440" duration="2362000" />
       <workItem from="1690584954601" duration="23215000" />
+      <workItem from="1700587634260" duration="1296000" />
+      <workItem from="1700968245531" duration="21958000" />
+      <workItem from="1701305250072" duration="13644000" />
     </task>
     <servers />
   </component>

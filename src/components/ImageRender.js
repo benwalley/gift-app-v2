@@ -17,7 +17,11 @@ export default function ImageRender(props) {
                 let data = JSON.parse(src);
                 if(data.imageSrc) {
                     // this means the whole object was passed to you.
-                    data = JSON.parse(data.imageSrc);
+                    if(data.imageSrc.slice(0, 4) === 'http') {
+                        setImageUrl(data.imageSrc)
+                    } else {
+                        data = JSON.parse(data.imageSrc);
+                    }
                 }
                 if (data.customKey) {
                     const url = await Storage.get(data.customKey, {

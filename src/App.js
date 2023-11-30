@@ -14,7 +14,7 @@ import Header from './components/Header'
 import formFields from "./components/Authenticator/formFields";
 import components from './components/Authenticator/components'
 import Dashboard from './components/Dashboard'
-import {ThemeProvider} from "@mui/material";
+import {Alert, ThemeProvider} from "@mui/material";
 import theme from './theme'
 import DashboardBody from "./components/Home/DashboardBody";
 import WishlistById from "./components/Wishlist/WishlistById";
@@ -26,6 +26,7 @@ import AddAmazonWishlist from "./components/AddAmazonWishlist/AddAmazonWishlist"
 import ItemPage from "./components/Wishlist/ItemPage/ItemPage";
 import Container from './components/Container'
 import AddItemFromShare from "./components/AddItemFromShare";
+import GiftsYoureGiving from "./components/GiftsYoureGiving/GiftsYoureGiving";
 
 Amplify.configure(awsExports);
 
@@ -63,6 +64,7 @@ export default function App() {
                                         <Route path="account/subusers" element={<SubUsersPage/>}/>
                                         <Route path="account/groups" element={<GroupsPage/>}/>
                                         <Route path="add-amazon-wishlist" element={<AddAmazonWishlist/>}/>
+                                        <Route path="giving" element={<GiftsYoureGiving/>}/>
                                         <Route path="lists" element={<ListList/>}/>
                                         <Route path="money" element={<Money/>}/>
                                         <Route path="create-wishlist-item" element={<AddItemFromShare/>}/>

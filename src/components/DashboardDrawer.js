@@ -30,6 +30,7 @@ import {groupsByUserId} from "../state/selectors/groupsByUserId";
 import CloseIcon from '@mui/icons-material/Close';
 import leftNavOpen from "../state/atoms/leftNavOpen";
 import {IconButton} from "@mui/material";
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 
 // TODO: allow admins to uninvite people and make only admins able to invite
 
@@ -65,7 +66,7 @@ function DashboardDrawer() {
         {title: 'Lists', url: '/lists', icon: <FormatListNumberedIcon/>},
         {title: 'Money', icon: <AttachMoneyIcon/>, url: '/money'},
         {title: 'Import Amazon List', icon: <PlaylistAddIcon/>, url: '/add-amazon-wishlist'},
-
+        {title: "Gifts You're Giving", icon: <VolunteerActivismIcon/>, url: '/giving'},
     ]
 
     const accountLinks = [

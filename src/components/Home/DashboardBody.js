@@ -11,6 +11,7 @@ import GroupsOverview from "./GroupsOverview";
 import Notes from "./Notes";
 import {Auth, DataStore, SortDirection} from "aws-amplify";
 import {Users} from "../../models";
+import {Link} from "react-router-dom";
 
 const DashboardBodyEl = styled.div`
     background: var(--background-color);
@@ -44,7 +45,9 @@ export default function DashboardBody() {
                 <SubuserToggle/>
             </Tile>
             {user && !user?.subuserModeOn && <Tile type="primary">
-                <GiftGivingOverview/>
+                <h3>Gifts You're Giving</h3>
+                <Link to='/giving'>See the gifts you're giving, and plan who you still want to get gifts for.</Link>
+
             </Tile>}
             <Tile type="primary">
                 <SubuserOverview/>
