@@ -6,20 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGoInOnItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGoInOnItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGoInOnPerson.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGoInOnPerson.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftsYoureGiving.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftsYoureGiving.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/HaventGottenListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/HaventGottenListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/NotGettingListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/NotGettingListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/WantToGoInOnList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/WantToGoInOnList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/DashboardBody.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/GiftGivingItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGivingItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/GiftGivingOverview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGivingOverview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/GiftGivingPerson.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGivingPerson.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserAvatar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserAvatar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserSelect/UserSelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserSelect/UserSelect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Wishlist/AddCustomItemModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Wishlist/AddCustomItemModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ImageRender.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageRender.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/selectors/haventGotten.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/haventGotten.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +115,7 @@
       <workItem from="1700968245531" duration="21958000" />
       <workItem from="1701305250072" duration="18660000" />
       <workItem from="1701378211788" duration="5456000" />
-      <workItem from="1701386750081" duration="3085000" />
+      <workItem from="1701386750081" duration="4539000" />
     </task>
     <servers />
   </component>
