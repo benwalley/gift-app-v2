@@ -47,7 +47,7 @@ export default function UserSelect(props) {
 
     return (
         <>
-            {showSelect && selectedUser && <Autocomplete
+            {showSelect() && selectedUser && <Autocomplete
                 disablePortal
                 disableClearable={true}
                 id="combo-box-demo"

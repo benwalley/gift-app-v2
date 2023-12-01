@@ -37,10 +37,8 @@ const MainBody = styled.div`
 `
 // TODO: allow other users to have access to edit your list
 // TODO: Have toggle that hides who's getting things.
-// TODO: Make sub-accounts more fully featured (adding profile picture, saying you're getting things)
 // TODO: Add commenting
 // TODO: add ability to add address to account visible to certain groups.
-// TODO: multiple links and multiple images.
 // TODO: Add price range
 // TODO: Add notification if item you're getting is deleted
 export default function App() {

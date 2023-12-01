@@ -67,9 +67,11 @@ export default function HaventGottenListItem(props) {
             <ListItemAvatar>
                 <UserAvatar user={user} name={user?.username}/>
             </ListItemAvatar>
-            <Tooltip title={`Go to ${username()} list`} disableInteractive={true}>
-                <ListItemText primary={<Link to={`/wishlist/${user.id}`}>{username()}</Link>} />
-            </Tooltip>
+
+                <ListItemText primary={<Tooltip title={`Go to ${username()} list`} disableInteractive={true}>
+                    <Link to={`/wishlist/${user.id}`}>{username()}</Link>
+                </Tooltip>} />
+
             <Tooltip title={`I'm not getting a gift for ${username()}`} disableInteractive={true}>
                 <IconButton color={'deleteRed'} onClick={handleRemove}>
                     <PersonRemoveIcon/>

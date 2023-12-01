@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Avatar, Checkbox, Chip, Collapse, IconButton, ListItem, ListItemAvatar, Stack, Tooltip} from "@mui/material";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
-import GiftGivingItem from "../Home/GiftGivingItem";
+import GiftGivingItem from "./GiftGivingItem";
 import ListItemText from "@mui/material/ListItemText";
 import {DataStore} from "aws-amplify";
 import {Giving, Users} from "../../models";
@@ -63,11 +63,11 @@ export default function GiftGoInOnPerson(props) {
                 if(customData?.length > 0) {
                     const customPrice = customData[0].actualPrice;
                     if(customPrice) {
-                        total += parseFloat(customPrice)
+                        total += parseFloat(customPrice) || 0
                         continue
                     }
                 }
-                total += parseFloat(itemPrice)
+                total += parseFloat(itemPrice) || 0
             }
         }
         setCalculatedPrice(total)
@@ -103,12 +103,13 @@ export default function GiftGoInOnPerson(props) {
                 <ListItemText primary={<Tooltip title={`Go to ${gottenForUser?.username} list`} disableInteractive={true}>
                     <Link to={`/wishlist/${gottenForUser?.id}`}>{gottenForUser?.username || 'Link to list'}</Link>
                 </Tooltip>} />
-                <span style={{padding: '0 7px'}}>
-                    {price}
-                </span>
+
                 <Tooltip title={`You want to go in on ${giftArray?.length} gift${giftArray?.length > 1 ? 's' : ''} for ${gottenForUser?.username}`} disableInteractive={true}>
                     <Chip label={giftArray ? giftArray.length : '...'} color={'secondary'} size={'small'} sx={{fontWeight: 'bold', margin: '0 7px'}}/>
                 </Tooltip>
+                <span style={{padding: '0 7px'}}>
+                    {price}
+                </span>
             </ListItemButton>
             <CustomModal size={"large"} open={open} setOpen={setOpen} unmountOnExit>
                 <h2>{gottenForUser?.username}</h2>

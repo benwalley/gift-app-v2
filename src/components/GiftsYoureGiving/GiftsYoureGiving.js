@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import GiftGivingOverview from "../Home/GiftGivingOverview";
+import GiftGivingOverview from "./GiftGivingOverview";
 import {Autocomplete, Paper, Stack} from "@mui/material";
 import Tile from "../Home/Tile";
 import HaventGottenList from "./HaventGottenList";
@@ -8,7 +8,6 @@ import {useIsMobile} from "../../hooks/useIsMobile";
 import WantToGoInOnList from "./WantToGoInOnList";
 import UserSelect from "../UserSelect/UserSelect";
 
-//TODO: Make this work for subusers
 export default function GiftsYoureGiving(props) {
     const {} = props
     const isMobile = useIsMobile();
@@ -49,7 +48,7 @@ export default function GiftsYoureGiving(props) {
                 <GiftGivingOverview/>
             </Tile>
             <Tile sx={wantToGoInOnListStyles}>
-                <h3>Gifts You Want To Go In On</h3>
+                <h3 style={{color: 'var(--secondary-color)'}}>Gifts You Want To Go In On</h3>
                 <WantToGoInOnList/>
             </Tile>
             <Tile sx={haventGottenListStyles}>

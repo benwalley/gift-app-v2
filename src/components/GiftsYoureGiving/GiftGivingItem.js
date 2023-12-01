@@ -26,10 +26,11 @@ import ImageRender from "../ImageRender";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser} from "../../state/selectors/currentUser";
 import Button from "@mui/material/Button";
-import OtherUsersGettingThisList from "../GiftsYoureGiving/OtherUsersGettingThisList";
+import OtherUsersGettingThisList from "./OtherUsersGettingThisList";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {giftsYourGetting} from "../../state/selectors/giftsYourGetting";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 const imageContainerStyles = {
     width: '75px',
@@ -60,7 +61,7 @@ const bottomRowStyles = {
 export default function GiftGivingItem(props) {
     const {gift} = props
     const [gottenForName, setGottenForName] = useState()
-    const myUser = useRecoilHook(currentUser)
+    const selectedUser = useRecoilHook(selectedPlanningUser)
     const [gettingData, setGettingData] = useState()
     const [actualPrice, setActualPrice] = useState('');
     const [otherUsersExpanded, setOtherUsersExpanded] = useState(false)
@@ -71,9 +72,9 @@ export default function GiftGivingItem(props) {
 
     function calculatedPrice() {
         if(gettingData?.actualPrice !== undefined && gettingData?.actualPrice !== '') {
-            return parseFloat(gettingData.actualPrice);
+            return parseFloat(gettingData.actualPrice) || 0;
         }
-        return gift.price
+        return parseFloat(gift.price) || 0
     }
 
 
@@ -122,7 +123,7 @@ export default function GiftGivingItem(props) {
     }
 
     useEffect( () => {
-        if(!gift || !myUser || myUser.length === 0) return;
+        if(!gift || !selectedUser || selectedUser.length === 0) return;
         const updateGottenForName = async () => {
             const giftOwner = await DataStore.query(Users, gift?.ownerId);
             if(giftOwner) {
@@ -131,13 +132,13 @@ export default function GiftGivingItem(props) {
         }
         updateGottenForName()
         updateGettingData()
-    }, [gift, myUser]);
+    }, [gift, selectedUser]);
 
     async function updateGettingData() {
-        if(!gift?.id || !myUser.id) return;
+        if(!gift?.id || !selectedUser.id) return;
         const existingData = await DataStore.query(Giving, (c) => c.and(c => [
             c.giftId("eq", gift?.id),
-            c.giverIds('contains', myUser.id)
+            c.giverIds('contains', selectedUser.id)
         ]));
 
         if(existingData === undefined || existingData.length === 0) {
@@ -145,7 +146,7 @@ export default function GiftGivingItem(props) {
             const newData = {
                 status: 'goingToGet',
                 giftId: gift.id,
-                giverIds: [myUser.id]
+                giverIds: [selectedUser.id]
             }
             const newItem = await DataStore.save(
                 new Giving(newData)
@@ -172,10 +173,10 @@ export default function GiftGivingItem(props) {
     }
 
     function otherUsersGetting() {
-        if(!gift || !myUser?.id) return false;
+        if(!gift || !selectedUser?.id) return false;
         const combined = [...gift.gottenBy || [], ...gift.wantsToGet || []];
         const filtered = combined.filter(id => {
-            return id !== myUser.id;
+            return id !== selectedUser.id;
         })
         return filtered.length > 0;
     }
@@ -184,7 +185,7 @@ export default function GiftGivingItem(props) {
         setDeleting(true);
         const giftCopy = structuredClone(gift);
         const gottenByCopy = new Set(giftCopy.gottenBy || []);
-        gottenByCopy.delete(myUser.id);
+        gottenByCopy.delete(selectedUser.id);
 
         // set gift value;
         const original = await DataStore.query(WishlistItem, gift.id);

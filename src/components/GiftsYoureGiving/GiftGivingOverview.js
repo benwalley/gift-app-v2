@@ -15,6 +15,7 @@ import checkedTotalsIds from "../../state/atoms/checkedTotalsIds";
 import {DataStore} from "aws-amplify";
 import {Giving} from "../../models";
 import {currentUser} from "../../state/selectors/currentUser";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 export default function GiftGivingOverview() {
     const gifts = useRecoilHook(giftsYourGetting)
@@ -22,7 +23,7 @@ export default function GiftGivingOverview() {
     const [calculatedPrice, setCalculatedPrice] = useState(0)
     const price = useCurrency(calculatedPrice)
     const [totalsIds, setTotalsIds] = useRecoilState(checkedTotalsIds);
-    const myUser = useRecoilHook(currentUser)
+    const selectedUser = useRecoilHook(selectedPlanningUser)
 
 
     useEffect(() => {
@@ -57,16 +58,16 @@ export default function GiftGivingOverview() {
                 const itemPrice = item.price || 0;
                 const customData = await DataStore.query(Giving, (c) => c.and(c => [
                     c.giftId("eq", item?.id),
-                    c.giverIds('contains', myUser.id)
+                    c.giverIds('contains', selectedUser.id)
                 ]));
                 if(customData?.length > 0) {
                     const customPrice = customData[0].actualPrice;
                     if(customPrice) {
-                        total += parseFloat(customPrice)
+                        total += parseFloat(customPrice) || 0
                         continue
                     }
                 }
-                total += parseFloat(itemPrice)
+                total += parseFloat(itemPrice) || 0
             }
         }
         setCalculatedPrice(total)
@@ -94,7 +95,7 @@ export default function GiftGivingOverview() {
 
     return (
         <List>
-            <h3>Gifts You're Giving</h3>
+            <h3 style={{color: 'var(--primary-color)'}}>Gifts You're Giving</h3>
             <Divider/>
             {gifts && gifts.length === 0 && <p>You haven't marked any gifts as gotten</p>}
             {gifts && gifts.length > 0 && <div style={priceCheckboxActionStyles}>

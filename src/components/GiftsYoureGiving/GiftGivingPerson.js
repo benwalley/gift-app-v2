@@ -19,10 +19,11 @@ import UserAvatar from "../UserAvatar";
 import CommentIcon from '@mui/icons-material/Comment';
 import checkedTotalsIds from "../../state/atoms/checkedTotalsIds";
 import {useRecoilState} from "recoil";
-import StatusBar from "../GiftsYoureGiving/StatusBar";
+import StatusBar from "./StatusBar";
 import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser} from "../../state/selectors/currentUser";
 import Button from "@mui/material/Button";
+import {selectedPlanningUser} from "../../state/selectors/selectedPlanningUser";
 
 
 export default function GiftGivingPerson(props) {
@@ -32,7 +33,7 @@ export default function GiftGivingPerson(props) {
     const [calculatedPrice, setCalculatedPrice] = useState(0)
     const price = useCurrency(calculatedPrice)
     const [checkedIds, setCheckedIds] = useRecoilState(checkedTotalsIds)
-    const myUser = useRecoilHook(currentUser)
+    const selectedUser = useRecoilHook(selectedPlanningUser)
 
 
     useEffect( () => {
@@ -63,16 +64,16 @@ export default function GiftGivingPerson(props) {
                 const itemPrice = item.price || 0;
                 const customData = await DataStore.query(Giving, (c) => c.and(c => [
                     c.giftId("eq", item?.id),
-                    c.giverIds('contains', myUser.id)
+                    c.giverIds('contains', selectedUser.id)
                 ]));
                 if(customData?.length > 0) {
                     const customPrice = customData[0].actualPrice;
                     if(customPrice) {
-                        total += parseFloat(customPrice)
+                        total += parseFloat(customPrice) || 0
                         continue
                     }
                 }
-                total += parseFloat(itemPrice)
+                total += parseFloat(itemPrice) || 0
             }
         }
         setCalculatedPrice(total)
@@ -108,12 +109,12 @@ export default function GiftGivingPerson(props) {
                 <ListItemText primary={<Tooltip title={`Go to ${gottenForUser?.username} list`} disableInteractive={true}>
                     <Link to={`/wishlist/${gottenForUser?.id}`}>{gottenForUser?.username || 'Link to list'}</Link>
                 </Tooltip>} />
-                <span style={{padding: '0 7px'}}>
-                    {price}
-                </span>
                 <Tooltip title={`You're getting ${gottenForUser?.username}, ${giftArray?.length} gifts`} disableInteractive={true}>
                     <Chip label={giftArray ? giftArray.length : '...'} color={'primary'} size={'small'} sx={{fontWeight: 'bold', margin: '0 7px'}}/>
                 </Tooltip>
+                <span style={{padding: '0 7px'}}>
+                    {price}
+                </span>
                 <StatusBar giftArray={giftArray}/>
             </ListItemButton>
             <CustomModal size={"large"} open={open} setOpen={setOpen} unmountOnExit>

@@ -4,13 +4,11 @@ import List from "@mui/material/List";
 import {IconButton, ListItem, Stack, Tooltip} from "@mui/material";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import Divider from "@mui/material/Divider";
-import GiftGivingPerson from "../Home/GiftGivingPerson";
 import useCurrency from "../../hooks/useCurrency";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import {DataStore} from "aws-amplify";
 import {Giving} from "../../models";
-import {currentUser} from "../../state/selectors/currentUser";
 import {
     giftsYouWantToGoInOn,
     giftsYouWantToGoInOnVersion,
@@ -67,11 +65,11 @@ export default function WantToGoInOnList() {
                 if(customData?.length > 0) {
                     const customPrice = customData[0].actualPrice;
                     if(customPrice) {
-                        total += parseFloat(customPrice)
+                        total += parseFloat(customPrice) || 0
                         continue
                     }
                 }
-                total += parseFloat(itemPrice)
+                total += parseFloat(itemPrice) || 0
             }
         }
         setCalculatedPrice(total)

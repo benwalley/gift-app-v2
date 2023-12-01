@@ -5,7 +5,6 @@ import useRecoilHook from "../../hooks/useRecoilHook";
 import {currentUser, currentUserVersion} from "../../state/selectors/currentUser";
 import UserInfo from "./UserInfo";
 import SubuserToggle from "./SubuserToggle";
-import GiftGivingOverview from "./GiftGivingOverview";
 import SubuserOverview from "./SubuserOverview";
 import GroupsOverview from "./GroupsOverview";
 import Notes from "./Notes";
