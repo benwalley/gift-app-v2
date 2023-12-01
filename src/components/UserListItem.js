@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {currentUser} from "../state/selectors/currentUser";
-import {Avatar, Chip, ListItem} from "@mui/material";
+import {Avatar, Chip, ListItem, Tooltip} from "@mui/material";
 import stringToColor from "../helpers/stringToColor";
 import styled from '@emotion/styled'
 import {useNavigate} from "react-router-dom";
@@ -69,9 +69,9 @@ export default function UserListItem(props) {
                 </UsernameEl>
                 {user.isUser && <SubuserIcon/>}
                 {count && <span>({count})</span>}
-                {countUnseen > 0 && <Chip label={`${countUnseen} `}
+                {countUnseen > 0 && <Tooltip title={`${countUnseen} items have been added to this list since you last saw it.`}><Chip label={`${countUnseen} `}
                                           sx={{fontWeight: 'bold', marginLeft: 'auto'}}
-                                          color="secondary"/>}
+                                          color="secondary"/></Tooltip>}
             </ListItemButton>
         </ListItem>
     )

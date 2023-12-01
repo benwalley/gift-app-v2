@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from '@emotion/styled'
 import DashboardDrawer from "./DashboardDrawer";
 import {Outlet, useNavigate} from "react-router-dom";
-import {Drawer, Fab} from "@mui/material";
+import {Alert, Drawer, Fab} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import {useRecoilState, useSetRecoilState} from "recoil";
 import addItemModalOpen from "../state/atoms/addItemModalOpen";
@@ -13,6 +13,7 @@ import {groupsByUserId} from "../state/selectors/groupsByUserId";
 import {Auth, DataStore, Hub} from "aws-amplify";
 import {Users} from "../models";
 import leftNavOpen from "../state/atoms/leftNavOpen";
+import CustomUpdateMessage from "./CustomUpdateMessage";
 
 const DashboardEl = styled.div`
     margin-top: var(--header-height);
@@ -74,6 +75,7 @@ export default function Dashboard() {
             >
                 <DashboardDrawer/>
             </Drawer>
+            <CustomUpdateMessage/>
             <Outlet/>
             <Fab color="primary" aria-label="add" onClick={handleAddButtonClick} sx={fabStyle}>
                 <AddIcon />

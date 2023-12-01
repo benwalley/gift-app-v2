@@ -26,6 +26,8 @@ html {
 
   --max-content-width: 1200px;
   --mobile-breakpoint: 1000px;
+
+  --amplify-internal-divider-size: .5px;
 }
 
 body {

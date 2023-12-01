@@ -22,8 +22,6 @@ const NoticeEl = styled.div`
     color: var(--pink-color);
 `
 
-
-//TODO: don't let the user see this.
 export default function AddCustomItemModal(props) {
     const {afterSubmit, addToId} = props
     const [name, setName] = useState('')
