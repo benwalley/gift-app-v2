@@ -71,7 +71,7 @@ export default function GiftGivingItem(props) {
     const [deleting, setDeleting] = useState(false);
 
     function calculatedPrice() {
-        if(gettingData?.actualPrice !== undefined && gettingData?.actualPrice !== '') {
+        if(gettingData?.actualPrice !== undefined && gettingData?.actualPrice !== null && gettingData?.actualPrice !== '') {
             return parseFloat(gettingData.actualPrice) || 0;
         }
         return parseFloat(gift.price) || 0
@@ -79,7 +79,7 @@ export default function GiftGivingItem(props) {
 
 
     useEffect(() => {
-        if(gettingData?.actualPrice) {
+        if(gettingData?.actualPrice && !actualPrice) {
             setActualPrice(gettingData.actualPrice);
         }
     }, [gettingData]);
@@ -100,12 +100,6 @@ export default function GiftGivingItem(props) {
     const handleAlignment = (event, newStatus) => {
         updateGettingDataItem('status', newStatus);
     };
-
-    function addGiverId(id) {
-        if(!gettingData) return;
-        const newIds = [...new Set(gettingData.giverIds), id]
-        updateGettingDataItem('giverIds', newIds);
-    }
 
     async function updateGettingDataItem(itemName, itemValue) {
         if(!gettingData) {

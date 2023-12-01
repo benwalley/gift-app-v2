@@ -53,7 +53,7 @@ export default function GiftGoInOnItem(props) {
 
 
     function calculatedPrice() {
-        if(gettingData?.actualPrice !== undefined && gettingData?.actualPrice !== '') {
+        if(gettingData?.actualPrice !== undefined && gettingData?.actualPrice !== null && gettingData?.actualPrice !== '') {
             return parseFloat(gettingData.actualPrice) || 0;
         }
         return gift.price
@@ -61,7 +61,7 @@ export default function GiftGoInOnItem(props) {
 
 
     useEffect(() => {
-        if(gettingData?.actualPrice) {
+        if(gettingData?.actualPrice && !actualPrice) {
             setActualPrice(gettingData.actualPrice);
         }
     }, [gettingData]);

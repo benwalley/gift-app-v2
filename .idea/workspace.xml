@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="260034d5-2a6b-42c3-87a8-c06d82bf2a12" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ImageRender.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageRender.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/selectors/haventGotten.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/selectors/haventGotten.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGivingItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGivingItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGoInOnItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGoInOnItem.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +115,8 @@
       <workItem from="1700968245531" duration="21958000" />
       <workItem from="1701305250072" duration="18660000" />
       <workItem from="1701378211788" duration="5456000" />
-      <workItem from="1701386750081" duration="4539000" />
+      <workItem from="1701386750081" duration="5156000" />
+      <workItem from="1701434181557" duration="624000" />
     </task>
     <servers />
   </component>
@@ -132,5 +133,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/GiftsYoureGiving/GiftGoInOnItem.js</url>
+          <line>71</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
