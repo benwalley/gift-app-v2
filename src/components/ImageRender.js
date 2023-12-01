@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Storage } from "@aws-amplify/storage"
 import styled from '@emotion/styled'
 
-export default function ImageRender(props) {
+export default React.memo(function ImageRender(props) {
     const {alt, src, styles} = props
     const [imageUrl, setImageUrl] = useState()
 
@@ -40,9 +40,10 @@ export default function ImageRender(props) {
 
     }, [src]);
 
+
     return (
         <StyledImage draggable="false" src={imageUrl} alt={alt}/>
     );
-}
+})
 
 
