@@ -18,7 +18,7 @@ export default function AddItemFromShare() {
     return (
         <div>
             {JSON.stringify(data)};
-            {content};
+            {JSON.stringify(content)};
         </div>
     );
 }
