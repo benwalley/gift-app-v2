@@ -18,12 +18,20 @@ export default function AddItemFromShare() {
         setGetDataWorker(newGetDataWorker);
 
         newGetDataWorker.addEventListener('message', function(e) {
-            setData(e.data);
+            try {
+                setData(e.data);
+                setIsLoading(false)
+            } catch(e) {
+                setIsLoading(false);
+                setData({error: 'true', message: JSON.stringify(e)})
+            }
+
         })
     }, []);
 
     return (
         <div>
+            {isLoading ? <div>Loading...</div> : <div>Finished</div>}
             {JSON.stringify(data)}
         </div>
     );
