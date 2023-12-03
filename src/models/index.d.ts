@@ -6,6 +6,110 @@ import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 
 
+type EagerPlanning = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Planning, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly giftForId?: string | null;
+  readonly giftFromId?: string | null;
+  readonly status?: string | null;
+  readonly wantToGetGifts?: boolean | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyPlanning = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Planning, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly giftForId?: string | null;
+  readonly giftFromId?: string | null;
+  readonly status?: string | null;
+  readonly wantToGetGifts?: boolean | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Planning = LazyLoading extends LazyLoadingDisabled ? EagerPlanning : LazyPlanning
+
+export declare const Planning: (new (init: ModelInit<Planning>) => Planning) & {
+  copyOf(source: Planning, mutator: (draft: MutableModel<Planning>) => MutableModel<Planning> | void): Planning;
+}
+
+type EagerAdminMessages = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<AdminMessages, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly message: string;
+  readonly endDate?: string | null;
+  readonly seenBy?: (string | null)[] | null;
+  readonly startDate?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyAdminMessages = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<AdminMessages, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly message: string;
+  readonly endDate?: string | null;
+  readonly seenBy?: (string | null)[] | null;
+  readonly startDate?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type AdminMessages = LazyLoading extends LazyLoadingDisabled ? EagerAdminMessages : LazyAdminMessages
+
+export declare const AdminMessages: (new (init: ModelInit<AdminMessages>) => AdminMessages) & {
+  copyOf(source: AdminMessages, mutator: (draft: MutableModel<AdminMessages>) => MutableModel<AdminMessages> | void): AdminMessages;
+}
+
+type EagerGiving = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Giving, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly status?: string | null;
+  readonly giftId?: string | null;
+  readonly actualPrice?: string | null;
+  readonly buyerId?: string | null;
+  readonly giverIds?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyGiving = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Giving, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly status?: string | null;
+  readonly giftId?: string | null;
+  readonly actualPrice?: string | null;
+  readonly buyerId?: string | null;
+  readonly giverIds?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Giving = LazyLoading extends LazyLoadingDisabled ? EagerGiving : LazyGiving
+
+export declare const Giving: (new (init: ModelInit<Giving>) => Giving) & {
+  copyOf(source: Giving, mutator: (draft: MutableModel<Giving>) => MutableModel<Giving> | void): Giving;
+}
+
 type EagerMoney = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Money, 'id'>;
