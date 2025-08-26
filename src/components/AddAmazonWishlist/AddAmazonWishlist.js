@@ -82,26 +82,27 @@ export default function AddAmazonWishlist(props) {
     function stringToHtml (string) {
         var parser = new DOMParser();
         var doc = parser.parseFromString(string, 'text/html');
-        return doc.querySelectorAll(".g-print-view-row, .g-item-sortable");
+        return doc.querySelectorAll(".wl-grid-item-content");
     };
 
     async function afterSubmit() {
         const wishlistItems = stringToHtml(source)
         const wishlistData = [];
         setLoadingItems(true)
-
+        let counter = 0;
         for(const item of wishlistItems) {
-            const itemId = item.dataset.itemid;
-            const image = item.querySelector(`#itemImage_${itemId} img`);
+            const itemId = item.dataset.itemid || counter;
+            const image = item.querySelector(`#itemImage_${itemId} img, .a-section img.wl-img-size-adjust`);
             const imageSrc = image.src;
             const imageAlt = image.alt;
             const anchor = image.parentElement
-            const url = anchor.href;
+            const url = anchor.href || item.querySelector('a.a-link-normal').href;
             const nameEl = item.querySelector(`#itemName_${itemId}`);
-            const name = nameEl.title;
-            const price = item.dataset.price;
+            const name = nameEl?.title || item.querySelector('a.a-link-normal').alt || '';
+            const price = item.dataset?.price || item.querySelector('.a-price.a-text-price span')?.textContent.slice(1);
             const comment = item.querySelector('.g-item-comment .a-row .a-text-quote')
             let urlString;
+            counter++;
             // fix url
             try {
                 const urlData = new URL(url)
