@@ -27,6 +27,7 @@ import ItemPage from "./components/Wishlist/ItemPage/ItemPage";
 import Container from './components/Container'
 import AddItemFromShare from "./components/AddItemFromShare";
 import GiftsYoureGiving from "./components/GiftsYoureGiving/GiftsYoureGiving";
+import MigrationBanner from "./components/MigrationBanner";
 
 Amplify.configure(awsExports);
 
@@ -50,7 +51,8 @@ export default function App() {
                     <Container>
                         <Authenticator formFields={formFields} components={components}>
                             <Header/>
-                            <MainBody>
+                            <MainBody className="main-body">
+                                <MigrationBanner/>
                                 <Routes>
                                     <Route path='/' element={<Dashboard/>}>
                                         <Route index element={<ListList/>}/>
